@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "AI Image Generator",
-    "description": "Generate images with AI models, support text-to-image and image-to-image."
+    "description": "Generate images with AI models using text-to-image and image-to-image workflows, with prompt control, reference image support, and high-quality visual output."
   },
   "page": {
     "title": "AI Image Generator",

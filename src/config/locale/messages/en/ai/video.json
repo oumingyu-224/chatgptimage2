@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "AI Video Generator",
-    "description": "Generate videos with AI models, support text-to-video, image-to-video and video-to-video."
+    "description": "Generate videos with AI models using text-to-video, image-to-video, and video-to-video workflows for faster iteration, richer concepts, and creative production."
   },
   "page": {
     "title": "AI Video Generator",
@@ -44,4 +44,3 @@
     "no_videos_generated": "No Videos Generated"
   }
 }
-
