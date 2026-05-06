@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "title": "Nano Banana Pro - 角色一致性AI图像生成",
+    "description": "使用Nano Banana Pro AI模型生成具有出色角色一致性的图像。完美的角色编辑和场景保持能力。"
+  },
+  "page": {
+    "title": "Nano Banana Pro AI图像生成器",
+    "description": "专为需要保持角色特征一致性的项目而设计。在多次生成中保持面部特征和风格基调的稳定性。"
+  },
+  "generator": {
+    "title": "Nano Banana Pro图像生成器"
+  },
+  "faq": {
+    "title": "关于 Nano Banana Pro 的常见问题",
+    "items": [
+      {
+        "question": "Nano Banana Pro 的核心优势是什么？",
+        "answer": "Nano Banana Pro 的先进AI模型专注于提供一致的角色编辑和场景保持能力。在多轮生成或不同场景切换中，能更好地保持人物面部特征与风格基调。"
+      },
+      {
+        "question": "什么情况下最适合使用 Nano Banana Pro？",
+        "answer": "特别适合需要角色一致性的项目，如系列插画、角色设计、故事板创作和品牌形象塑造。当您需要同一角色在不同场景中保持统一外观时是理想选择。"
+      },
+      {
+        "question": "如何确保角色特征的一致性？",
+        "answer": "建议在首次生成时提供详细的角色描述，包括面部特征、发型、服装风格等关键要素。后续生成时可以引用相同的角色设定或使用参考图像。"
+      },
+      {
+        "question": "Nano Banana Pro 在场景保持方面表现如何？",
+        "answer": "该模型能够很好地维持场景的整体氛围和构图逻辑，在进行场景转换时保持合理的透视关系和光照一致性，确保视觉叙事的连贯性。"
+      },
+      {
+        "question": "与其他AI模型相比，Nano Banana Pro 有什么独特之处？",
+        "answer": "相比其他模型，Nano Banana Pro 在长期项目中的表现更加稳定，能够有效减少角色'漂移'现象，为专业的故事叙述和连续性创作提供可靠保障。"
+      },
+      {
+        "question": "使用 Nano Banana Pro 进行专业创作有什么建议？",
+        "answer": "建议建立角色档案文档，记录关键视觉特征参数。在大型项目中，可以先进行小规模测试以确定最佳的提示词组合和参数设置。"
+      }
+    ]
+  }
+}

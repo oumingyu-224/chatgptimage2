@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "title": "Seedream 4.5 - Advanced AI Image Generation",
+    "description": "Generate stunning images with Seedream 4.5 AI model. Create professional quality images with advanced control and customization options."
+  },
+  "page": {
+    "title": "Seedream 4.5 AI Image Generator",
+    "description": "Create amazing images with our most advanced AI model. Perfect for professional designers, artists, and content creators who need high-quality results."
+  },
+  "generator": {
+    "title": "Seedream 4.5 Image Generator"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions about Seedream 4.5",
+    "items": [
+      {
+        "question": "What scenarios is Seedream 4.5 primarily suited for?",
+        "answer": "Seedream 4.5 is optimized for high-quality poster design and image editing, particularly suitable for commercial promotion, social media content creation, and professional design projects. Its relaxed content policy provides greater creative freedom."
+      },
+      {
+        "question": "How to maximize Seedream 4.5's poster design advantages?",
+        "answer": "Specify design styles, color schemes, and layout requirements clearly in prompts. Keywords like 'commercial poster,' 'brochure design,' or 'social media banner' can better activate the model's design capabilities."
+      },
+      {
+        "question": "What are Seedream 4.5's specialties in image editing?",
+        "answer": "This model excels at maintaining the original image's compositional integrity while achieving high-quality style transformation and detail enhancement. Particularly suitable for logo integration, product display optimization, and scene atmosphere creation."
+      },
+      {
+        "question": "What should be noted when using Seedream 4.5 for commercial design?",
+        "answer": "While content policies are relatively relaxed, basic copyright and trademark regulations should still be observed. For commercial use, appropriate post-review and adjustments are recommended to ensure compliance."
+      },
+      {
+        "question": "What advantages does Seedream 4.5 have over other AI models?",
+        "answer": "Compared to general models, Seedream 4.5 demonstrates stronger professionalism in visual design, better understanding and execution of complex design commands, and produces more commercially valuable works."
+      },
+      {
+        "question": "How to achieve the best output with Seedream 4.5?",
+        "answer": "Provide detailed design requirement descriptions, including target audience, usage scenarios, and desired visual styles. Using successful commercial design cases as inspiration can also help achieve better results."
+      }
+    ]
+  }
+}

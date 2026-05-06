@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "title": "AI Image Generator",
+    "description": "Generate images with AI models, support text-to-image and image-to-image."
+  },
+  "page": {
+    "title": "AI Image Generator",
+    "description": "Generate images with AI models, support text-to-image and image-to-image."
+  },
+  "generator": {
+    "title": "Image Generator",
+    "description": "Generate images with AI models, support text-to-image and image-to-image.",
+    "tabs": {
+      "text-to-image": "Text to Image",
+      "image-to-image": "Image to Image"
+    },
+    "form": {
+      "provider": "Provider",
+      "model": "Model",
+      "aspect_ratio": "Aspect Ratio",
+      "resolution": "Resolution",
+      "select_provider": "Select Provider",
+      "select_model": "Select Model",
+      "select_aspect_ratio": "Select aspect ratio",
+      "select_resolution": "Select resolution",
+      "prompt": "Prompt",
+      "prompt_placeholder": "Describe the details of the image, such as color, shape, texture, etc.",
+      "reference_image": "Reference Image",
+      "reference_image_placeholder": "Upload reference images, support multiple images",
+      "some_images_failed_to_upload": "Some images failed to upload, please delete them and re-upload",
+      "prompt_too_long": "Prompt is too long, please delete some content"
+    },
+    "generate": "Generate Images",
+    "checking_account": "Checking Account...",
+    "loading": "Loading...",
+    "generating": "Generating...",
+    "sign_in_to_generate": "Sign In to Generate Image",
+    "credits_cost": "Cost {credits} credits",
+    "credits_remaining": "Remaining {credits} credits",
+    "buy_credits": "Buy Credits",
+    "progress": "Progress",
+    "generated_images": "Image Preview",
+    "ready_to_generate": "Ready to Generate",
+    "no_images_generated": "No Images Generated",
+    "ready_for_generating": "Ready for Generating",
+    "showcase_dialog": {
+      "title": "Allow for Showcase Display?",
+      "description": "Your work can help others learn how to use AI for image generation.",
+      "allow": "Allow Display",
+      "deny": "Don't Display",
+      "dont_ask_again": "Don't Ask Again"
+    },
+    "success": {
+      "generated_successfully": "Image generated successfully",
+      "saved_to_showcase": "Saved to showcase",
+      "downloaded": "Downloaded successfully"
+    },
+    "errors": {
+      "generation_failed": "Failed to generate image",
+      "save_showcase_failed": "Failed to save to showcase",
+      "download_failed": "Failed to download",
+      "task_id_missing": "Task ID missing",
+      "no_prompt": "Please enter a prompt",
+      "no_provider_or_model": "Provider or model is not configured correctly",
+      "no_reference_image": "Please upload reference images",
+      "insufficient_credits": "Insufficient credits. Please top up to keep creating.",
+      "provider_not_available": "Provider is not available",
+      "no_providers_configured": "No AI providers configured, please contact administrator"
+    }
+  }
+}

@@ -1,0 +1,351 @@
+{
+  "metadata": {
+    "title": "Flux Klein Price",
+    "description": "Start with a plan to generate images with Flux Klein model."
+  },
+  "pricing": {
+    "id": "pricing",
+    "sr_only_title": "Flux Klein Pricing",
+    "title": "Flux Klein Plan",
+    "description": "Get started to generate images with Flux Klein model.",
+    "groups": [
+      {
+        "name": "one-time",
+        "title": "Pay as you go"
+      },
+      {
+        "name": "monthly",
+        "title": "Monthly",
+        "is_featured": true
+      },
+      {
+        "name": "yearly",
+        "title": "Annually",
+        "label": "save 50%"
+      }
+    ],
+        "items": [
+          {
+            "title": "Starter Credits Pack",
+            "description": "",
+            "features_title": "What's included",
+            "features": [
+              "500 AI generation credits",
+              "Valid for 1 year",
+              "Unlock all features, but other benefits require subscription"
+            ],
+            "interval": "one-time",
+            "amount": 2999,
+            "currency": "USD",
+            "price": "$29.99",
+            "original_price": "$40",
+            "currencies": [
+              {
+                "currency": "CNY",
+                "amount": 9999,
+                "price": "¥99.99",
+                "original_price": "¥1999",
+                "payment_providers": ["stripe"]
+              }
+            ],
+            "unit": "",
+            "is_featured": false,
+            "tip": "One-time purchase, credits valid for 1 year",
+            "button": {
+              "title": "Buy Now",
+              "url": "/#pricing",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "starter",
+            "product_name": "Flux Klein Starter Credits Pack",
+            "credits": 500,
+            "valid_days": 365,
+            "group": "one-time"
+          },
+          {
+            "title": "Professional Credits Pack",
+            "description": "",
+            "label": "Most Popular",
+            "features_title": "What's included",
+            "features": [
+              "2000 AI generation credits",
+              "Valid for 1 year",
+              "Unlock all features, but other benefits require subscription"
+            ],
+            "interval": "one-time",
+            "amount": 9999,
+            "currency": "USD",
+            "price": "$99.99",
+            "original_price": "$120",
+            "currencies": [
+              {
+                "currency": "CNY",
+                "amount": 34900,
+                "price": "¥349.00",
+                "original_price": "¥699.00",
+                "payment_providers": ["stripe"]
+              }
+            ],
+            "unit": "",
+            "is_featured": true,
+            "tip": "One-time purchase, credits valid for 1 year",
+            "button": {
+              "title": "Buy Now",
+              "url": "/#pricing",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "standard",
+            "product_name": "Flux Klein Professional Credits Pack",
+            "credits": 2000,
+            "valid_days": 365,
+            "group": "one-time"
+          },
+          {
+            "title": "Premium Credits Pack",
+            "description": "",
+            "features_title": "What's included",
+            "features": [
+              "7000 AI generation credits",
+              "Valid for 1 year",
+              "Unlock all features, but other benefits require subscription"
+            ],
+            "interval": "one-time",
+            "amount": 23000,
+            "currency": "USD",
+            "price": "$230",
+            "original_price": "$400",
+            "currencies": [
+              {
+                "currency": "CNY",
+                "amount": 80000,
+                "price": "¥800.00",
+                "original_price": "¥1600.00",
+                "payment_providers": ["stripe", "creem"]
+              }
+            ],
+            "unit": "",
+            "is_featured": false,
+            "tip": "One-time purchase, credits valid for 1 year, suitable for professional designers.",
+            "button": {
+              "title": "Buy Now",
+              "url": "/#pricing",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "premium",
+            "product_name": "Flux Klein Premium Credits Pack",
+            "credits": 7000,
+            "valid_days": 365,
+            "group": "one-time"
+          },
+          {
+            "title": "Starter",
+            "description": "100 credits ≈ $4.28",
+            "features_title": "What's included",
+            "features": [
+              "350 AI generation credits per month",
+              "Flux Klein models",
+              "Standard generation speed",
+              "Standard generation success rate",
+              "Standard customer support",
+              "Unlimited commercial license"
+            ],
+            "interval": "month",
+            "amount": 1499,
+            "currency": "USD",
+            "price": "$14.99",
+            "original_price": "$19.99",
+            "unit": "/ month",
+            "is_featured": false,
+            "tip": "Perfect for trying out AI image generation and small projects.",
+            "button": {
+              "title": "Subscribe Starter",
+              "url": "/#pricing",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "starter-monthly",
+            "product_name": "Flux Klein Starter Plan Monthly",
+            "credits": 350,
+            "valid_days": 30,
+            "group": "monthly",
+            "plan_name": "Starter"
+          },
+          {
+            "title": "Pro",
+            "description": "100 credits ≈ $2.50",
+            "label": "Most Popular",
+            "features_title": "Everything in Starter",
+            "features": [
+              "1600 AI generation credits per month",
+              "Flux Klein models",
+              "Priority processing speed",
+              "High success rate",
+              "High-speed download channel",
+              "Priority customer support",
+              "Unlimited commercial license"
+            ],
+            "interval": "month",
+            "amount": 3999,
+            "currency": "USD",
+            "price": "$39.99",
+            "original_price": "$69.99",
+            "unit": "/ month",
+            "is_featured": true,
+            "tip": "Ideal for creators, designers, and content professionals.",
+            "button": {
+              "title": "Subscribe Pro",
+              "url": "/#pricing",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "standard-monthly",
+            "product_name": "Flux Klein Pro Plan Monthly",
+            "credits": 1600,
+            "valid_days": 30,
+            "group": "monthly",
+            "plan_name": "Pro"
+          },
+          {
+            "title": "Premium",
+            "description": "100 credits ≈ $2.16",
+            "features_title": "Everything in Pro",
+            "features": [
+              "5500 AI generation credits per month",
+              "Fastest generation speed",
+              "Most advanced AI editing capabilities",
+              "Permanent image storage",
+              "Dedicated account manager",
+              "Unlimited commercial license"
+            ],
+            "interval": "month",
+            "amount": 11999,
+            "currency": "USD",
+            "price": "$119.99",
+            "original_price": "$199.99",
+            "unit": "/ month",
+            "is_featured": false,
+            "tip": "For teams, agencies, and high-volume commercial use.",
+            "button": {
+              "title": "Subscribe Premium",
+              "url": "/#pricing",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "premium-monthly",
+            "product_name": "Flux Klein Premium Plan Monthly",
+            "credits": 5500,
+            "valid_days": 30,
+            "group": "monthly",
+            "plan_name": "Premium"
+          },
+          {
+            "title": "Starter",
+            "description": "100 credits ≈ $3.00",
+            "features_title": "What's included",
+            "features": [
+              "4200 AI generation credits per year",
+              "Flux Klein models",
+              "Standard generation speed",
+              "Standard success rate",
+              "Standard customer support",
+              "Unlimited commercial license"
+            ],
+            "interval": "year",
+            "amount": 12600,
+            "currency": "USD",
+            "price": "$14.99",
+            "original_price": "$10.49",
+            "unit": "/ month",
+            "is_featured": false,
+            "tip": "Perfect for trying out AI image generation and small projects.",
+            "button": {
+              "title": "Subscribe Starter",
+              "url": "/#pricing",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "starter-yearly",
+            "product_name": "Flux Klein Starter Plan Yearly",
+            "credits": 4200,
+            "valid_days": 365,
+            "group": "yearly",
+            "plan_name": "Starter"
+          },
+          {
+            "title": "Pro",
+            "description": "100 credits ≈ $1.25",
+            "label": "Most Popular",
+            "features_title": "Everything in Starter",
+            "features": [
+              "19200 AI generation credits per year",
+              "Priority processing speed",
+              "High success rate",
+              "High-speed download channel",
+              "Priority customer support",
+              "Unlimited commercial license"
+            ],
+            "interval": "year",
+            "amount": 23994,
+            "currency": "USD",
+            "price": "$19.99",
+            "original_price": "$39.99",
+            "unit": "/ month",
+            "is_featured": true,
+            "tip": "Ideal for creators, designers, and content professionals.",
+            "button": {
+              "title": "Subscribe Pro",
+              "url": "/#pricing",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "standard-yearly",
+            "product_name": "Flux Klein Pro Plan Yearly",
+            "credits": 19200,
+            "valid_days": 365,
+            "group": "yearly",
+            "plan_name": "Pro"
+          },
+          {
+            "title": "Premium",
+            "description": "100 credits ≈ $1.08",
+            "features_title": "Everything in Pro",
+            "features": [
+              "66000 AI generation credits per year",
+              "Fastest generation speed",
+              "Most advanced AI editing capabilities",
+              "Permanent image storage",
+              "Dedicated account manager",
+              "Unlimited commercial license"
+            ],
+            "interval": "year",
+            "amount": 71400,
+            "currency": "USD",
+            "price": "$59.5",
+            "original_price": "$119",
+            "unit": "/ month",
+            "is_featured": false,
+            "tip": "For teams, agencies, and high-volume commercial use.",
+            "button": {
+              "title": "Subscribe Premium",
+              "url": "/#pricing",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "premium-yearly",
+            "product_name": "Flux Klein Premium Plan Yearly",
+            "credits": 66000,
+            "valid_days": 365,
+            "group": "yearly",
+            "plan_name": "Premium"
+          }
+        ]
+  },
+  "page": {
+    "title": "Flux Klein Pricing",
+    "sections": {
+      "pricing": {
+        "id": "pricing",
+        "title": "Flux Klein Plan",
+        "description": "Get started to generate images with Flux Klein model."
+      }
+    }
+  },
+  "messages": {
+    "current_plan": "Current Plan",
+    "processing": "Processing"
+  }
+}

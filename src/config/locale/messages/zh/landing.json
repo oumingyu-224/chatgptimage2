@@ -1,0 +1,424 @@
+{
+  "header": {
+    "id": "header",
+    "brand": {
+      "title": "Flux Klein",
+      "logo": {
+        "src": "/logo.png",
+        "alt": "Flux Klein"
+      },
+      "url": "/"
+    },
+    "nav": {
+      "items": [
+        {
+          "title": "创建",
+          "url": "/create",
+          "icon": "Zap"
+        },
+        {
+          "title": "价格",
+          "url": "/pricing",
+          "icon": "DollarSign"
+        },
+        {
+          "title": "案例展示",
+          "url": "/showcases",
+          "icon": "Box"
+        },
+        {
+          "title": "AI 图像",
+          "icon": "Sparkles",
+          "children": [
+            {
+              "title": "Seedream 4.5",
+              "url": "/seedream4-5",
+              "icon": "Wind",
+              "description": "高质量的海报设计和图片编辑，宽松的内容政策"
+            },
+            {
+              "title": "Nano Banana Pro",
+              "url": "/nano-banana-pro",
+              "icon": "Wind",
+              "description": "Nano Banana 的先进AI模型提供一致的角色编辑和场景保持"
+            },
+            {
+              "title": "Z-Image",
+              "url": "/z-image",
+              "icon": "Wind",
+              "description": "文本转图片，价格实惠速度快！"
+            }
+          ]
+        }
+      ]
+    },
+    "buttons": [],
+    "user_nav": {
+      "show_name": true,
+      "show_credits": true,
+      "show_sign_out": true,
+      "items": [
+        {
+          "title": "账单",
+          "url": "/settings/billing",
+          "icon": "CreditCard"
+        },
+        {
+          "title": "活动",
+          "url": "/activity",
+          "icon": "Activity"
+        }
+      ]
+    },
+    "show_sign": true,
+    "show_theme": true,
+    "show_locale": true
+  },
+  "hero": {
+    "id": "hero",
+    "title": "Flux Klein",
+    "description": "Flux 架构的旗舰级写实进化版本。专为追求极致皮肤纹理、电影级光影与专业摄影质感的创作者打造。",
+    "buttons": [
+      {
+        "title": "立即体验",
+        "icon": "Zap",
+        "url": "/create",
+        "target": "_self",
+        "variant": "default"
+      },
+      {
+        "title": "查看案例",
+        "icon": "BookOpenText",
+        "url": "/#showcases",
+        "target": "_self",
+        "variant": "outline"
+      }
+    ],
+    "show_avatars": false,
+    "avatars_tip": "999+ 用户正在使用 Flux Klein",
+    "show_award": false,
+    "background_image": {
+      "src": "/imgs/bg/girl.jpeg",
+      "alt": "hero"
+    }
+  },
+  "showcases-flow": {
+    "id": "showcases",
+    "title": "Flux Klein 案例展示",
+    "description": "由 Flux Klein 驱动的代表性超写实影像生成与数字艺术案例。",
+    "items": [
+      {
+        "title": "Flux Klein 案例 1",
+        "description": "Flux Klein 案例",
+        "image": {
+          "src": "/imgs/showcases/1.jpeg",
+          "alt": "Flux Klein 案例 1"
+        }
+      },
+      {
+        "title": "Flux Klein 案例 2",
+        "description": "Flux Klein 案例",
+        "image": {
+          "src": "/imgs/showcases/2.jpeg",
+          "alt": "Flux Klein 案例 2"
+        }
+      },
+      {
+        "title": "Flux Klein 案例 3",
+        "description": "Flux Klein 案例",
+        "image": {
+          "src": "/imgs/showcases/3.jpeg",
+          "alt": "Flux Klein 案例 3"
+        }
+      },
+      {
+        "title": "Flux Klein 案例 4",
+        "description": "Flux Klein 案例",
+        "image": {
+          "src": "/imgs/showcases/4.jpeg",
+          "alt": "Flux Klein 案例 4"
+        }
+      },
+      {
+        "title": "Flux Klein 案例 5",
+        "description": "Flux Klein 案例",
+        "image": {
+          "src": "/imgs/showcases/5.jpeg",
+          "alt": "Flux Klein 案例 5"
+        }
+      },
+      {
+        "title": "Flux Klein 案例 6",
+        "description": "Flux Klein 案例",
+        "image": {
+          "src": "/imgs/showcases/6.jpeg",
+          "alt": "Flux Klein 案例 6"
+        }
+      },
+      {
+        "title": "Flux Klein 案例 7",
+        "description": "Flux Klein 案例",
+        "image": {
+          "src": "/imgs/showcases/7.jpeg",
+          "alt": "Flux Klein 案例 7"
+        }
+      },
+      {
+        "title": "Flux Klein 案例 8",
+        "description": "Flux Klein 案例",
+        "image": {
+          "src": "/imgs/showcases/8.jpeg",
+          "alt": "Flux Klein 案例 8"
+        }
+      },
+      {
+        "title": "Flux Klein 案例 9",
+        "description": "Flux Klein 案例",
+        "image": {
+          "src": "/imgs/showcases/9.jpeg",
+          "alt": "Flux Klein 案例 9"
+        }
+      },
+      {
+        "title": "Flux Klein 案例 10",
+        "description": "Flux Klein 案例",
+        "image": {
+          "src": "/imgs/showcases/10.jpeg",
+          "alt": "Flux Klein 案例 10"
+        }
+      }
+    ]
+  },
+  "logos": {
+    "hidden": true
+  },
+  "introduce": {
+    "hidden": true
+  },
+  "benefits": {
+    "hidden": true
+  },
+  "usage": {
+    "hidden": true
+  },
+  "features": {
+    "id": "features",
+    "title": "Flux Klein 核心特性",
+    "description": "借助基于 Flux 的领先 AI 影像模型 Flux Klein，获取生成与优化视觉作品所需的一切。",
+    "items": [
+      {
+        "title": "超写实纹理生成",
+        "description": "告别 AI 的“平滑感”。Flux Klein 专注于微米级皮肤孔隙、发丝绒毛及织物纹理的细腻还原，生成具有呼吸感的超写实影像。",
+        "icon": "RiMagicLine"
+      },
+      {
+        "title": "顶尖指令遵循",
+        "description": "完美解读复杂的摄影指令。无论是特定的镜头焦段、构图角度还是极其细腻的光位分布，Flux Klein 都能精准还原您的文本意图。",
+        "icon": "RiUserStarLine"
+      },
+      {
+        "title": "电影级光影与光学景深",
+        "description": "模拟真实的光学折射与动态范围。利用 Flux 架构的深度感知能力，自动平衡画面明暗，呈现具有电影质感的光影层次与自然虚化。",
+        "icon": "RiLandscapeLine"
+      },
+      {
+        "title": "视觉特征一致性",
+        "description": "专为连贯性艺术创作优化。在多轮生成或不同场景切换中，Flux Klein 能更好地保持人物面部特征与风格基调，满足专业叙事需求。",
+        "icon": "Layers"
+      },
+      {
+        "title": "专业级构图与画幅控制",
+        "description": "原生支持全画幅比例构图。在 1:1 到 21:9 的超宽比例下，模型能自适应重构人体解剖与透视关系，确保画面边缘无畸变。",
+        "icon": "RiAspectRatioLine"
+      },
+      {
+        "title": "即时高保真变体迭代",
+        "description": "秒级生成多样化采样方案。在不改变核心构图的前提下，让您能够快速探索不同的光效方案、材质表现和色彩饱和度变体。",
+        "icon": "RiFlashlightLine"
+      }
+    ]
+  },
+  "stats": {
+    "hidden": true
+  },
+  "testimonials": {
+    "hidden": true
+  },
+  "faq": {
+    "id": "faq",
+    "title": "关于 Flux Klein 的常见问题",
+    "items": [
+      {
+        "question": "Flux Klein 到底是什么，它是如何工作的？",
+        "answer": "Flux Klein 是基于 Flux.1 架构的顶级微调模型。它利用高保真 RAW 数据集，优先优化超写实的皮肤纹理和电影级光影效果，为创作者提供了一个用于高端图像生成的尖端工具。"
+      },
+      {
+        "question": "如何使用 Flux Klein 生成高保真图像？",
+        "answer": "您可以通过提供自然语言提示词来创建令人惊叹的视觉效果。Flux Klein 经过专门优化，能够深度理解“景深”、“黄金小时”和“胶片颗粒”等专业摄影术语，从而产出画廊级别的作品。"
+      },
+      {
+        "question": "Flux Klein 与其他 Flux 变体有什么不同？",
+        "answer": "虽然标准的 Flux 模型功能广泛，但 Flux Klein 专注于“回归真实”。它解决了 AI 常见的皮肤过度平滑和人体结构畸形问题，使其成为写实数字人摄影的行业标准。"
+      },
+      {
+        "question": "我可以控制输出的尺寸和宽高比吗？",
+        "answer": "是的。Flux Klein 原生支持广泛的宽高比（如 1:1、16:9、9:16、21:9）。其架构确保了即使在超宽或垂直构图中，画面的构图完整性和人体比例依然保持完美。"
+      },
+      {
+        "question": "如何利用 Flux Klein 获得最佳的“写实效果”？",
+        "answer": "为了获得最佳效果，请在提示词中包含材质细节和光影环境的描述。提及特定的摄影设备（如“使用 35mm 胶片拍摄”）将触发模型专门的纹理层。"
+      },
+      {
+        "question": "我可以将 Flux Klein 的生成结果用于专业的品牌营销吗？",
+        "answer": "当然可以。其卓越的图像分辨率和视觉一致性使其成为商业广告、产品原型和时尚手册的理想工具，完全能满足高标准的审美需求。"
+      }
+    ]
+  },
+  "cta": {
+    "id": "cta",
+    "title": "立即体验 Flux Klein",
+    "description": "感受 Flux Klein 带来的巅峰写实性能。通过极致的纹理表现与电影级的光影渲染，将您的想象力转化为高保真视觉杰作。",
+    "buttons": [
+      {
+        "title": "体验 Flux Klein",
+        "url": "/create",
+        "target": "_self",
+        "icon": "Wand"
+      }
+    ],
+    "className": "bg-muted"
+  },
+  "subscribe": {
+    "hidden": true
+  },
+  "footer": {
+    "id": "footer",
+    "brand": {
+      "title": "Flux Klein",
+      "description": "Flux Klein 是基于 Flux 架构的旗舰级 AI 影像生成模型。通过超写实的皮肤纹理与精准的指令遵循，为创作者提供业界领先的视觉创作体验。",
+      "logo": {
+        "src": "/logo.png",
+        "alt": "Flux Klein"
+      },
+      "url": "/"
+    },
+    "nav": {
+      "items": [
+        {
+          "title": "关于",
+          "children": [
+            {
+              "title": "创建",
+              "url": "/create",
+              "target": "_self"
+            },
+            {
+              "title": "功能",
+              "url": "/#features",
+              "target": "_self"
+            },
+            {
+              "title": "展示",
+              "url": "/#showcases",
+              "target": "_self"
+            },
+            {
+              "title": "常见问题",
+              "url": "/#faq",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "AI 图像",
+          "children": [
+            {
+              "title": "Seedream 4.5",
+              "url": "/seedream4-5",
+              "target": "_self"
+            },
+            {
+              "title": "Nano Banana Pro",
+              "url": "/nano-banana-pro",
+              "target": "_self"
+            },
+            {
+              "title": "Z-Image",
+              "url": "/z-image",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "友情链接",
+          "children": [
+            {
+              "title": "SeekAIs - AI Tools Directory",
+              "url": "https://seekais.com/",
+              "target": "_blank"
+            },
+            {
+              "title": "RightAI Tools Diresctory",
+              "url": "https://right-ai.com/",
+              "target": "_blank"
+            },
+            {
+              "title": "navfolders",
+              "url": "https://navfolders.com",
+              "target": "_blank"
+            },
+            {
+              "title": "Ai Tools List",
+              "url": "https://aiai.tools/",
+              "target": "_blank"
+            },
+            {
+              "title": "showmebest",
+              "url": "https://showmebest.ai",
+              "target": "_blank"
+            },
+            {
+              "title": "MossAI Tools",
+              "url": "https://mossai.org",
+              "target": "_blank"
+            },
+            {
+              "title": "Listed on AIBestTop",
+              "url": "https://aibesttop.com",
+              "target": "_blank"
+            },
+            {
+              "title": "shinylaunch",
+              "url": "https://shinylaunch.com",
+              "target": "_blank"
+            }
+          ]
+        }
+      ]
+    },
+    "social": {
+      "items": [
+        {
+          "title": "邮箱",
+          "icon": "Mail",
+          "url": "mailto:ai-image@fluxklein.co",
+          "target": "_self"
+        }
+      ]
+    },
+    "agreement": {
+      "items": [
+        {
+          "title": "隐私政策",
+          "url": "/privacy-policy"
+        },
+        {
+          "title": "服务条款",
+          "url": "/terms-of-service"
+        }
+      ]
+    },
+    "show_theme": true,
+    "show_locale": true
+  }
+}

@@ -1,0 +1,424 @@
+{
+  "header": {
+    "id": "header",
+    "brand": {
+      "title": "Flux Klein",
+      "logo": {
+        "src": "/logo.png",
+        "alt": "Flux Klein"
+      },
+      "url": "/"
+    },
+    "nav": {
+      "items": [
+        {
+          "title": "Create",
+          "url": "/create",
+          "icon": "Zap"
+        },
+        {
+          "title": "Pricing",
+          "url": "/pricing",
+          "icon": "DollarSign"
+        },
+        {
+          "title": "Showcases",
+          "url": "/showcases",
+          "icon": "Box"
+        },
+        {
+          "title": "AI Image",
+          "icon": "Sparkles",
+          "children": [
+            {
+              "title": "Seedream 4.5",
+              "url": "/seedream4-5",
+              "icon": "Wind",
+              "description": "High-quality poster design and image editing with relaxed content policies"
+            },
+            {
+              "title": "Nano Banana Pro",
+              "url": "/nano-banana-pro",
+              "icon": "Wind",
+              "description": "Nano Banana's advanced AI model delivers consistent character editing and scene preservation"
+            },
+            {
+              "title": "Z-Image",
+              "url": "/z-image",
+              "icon": "Wind",
+              "description": "Text-to-image, affordable and fast!"
+            }
+          ]
+        }
+      ]
+    },
+    "buttons": [],
+    "user_nav": {
+      "show_name": true,
+      "show_credits": true,
+      "show_sign_out": true,
+      "items": [
+        {
+          "title": "Billing",
+          "url": "/settings/billing",
+          "icon": "CreditCard"
+        },
+        {
+          "title": "Activity",
+          "url": "/activity",
+          "icon": "Activity"
+        }
+      ]
+    },
+    "show_sign": true,
+    "show_theme": true,
+    "show_locale": true
+  },
+  "hero": {
+    "id": "hero",
+    "title": "Flux Klein",
+    "description": "The flagship evolution of realistic generation based on the Flux architecture. Designed for creators pursuing ultimate skin texture, cinematic lighting, and professional photography quality.",
+    "buttons": [
+      {
+        "title": "Try Now",
+        "icon": "Zap",
+        "url": "/create",
+        "target": "_self",
+        "variant": "default"
+      },
+      {
+        "title": "View Showcases",
+        "icon": "BookOpenText",
+        "url": "/#showcases",
+        "target": "_self",
+        "variant": "outline"
+      }
+    ],
+    "show_avatars": false,
+    "avatars_tip": "999+ users are using Flux Klein",
+    "show_award": false,
+    "background_image": {
+      "src": "/imgs/bg/girl.jpeg",
+      "alt": "hero"
+    }
+  },
+  "showcases-flow": {
+    "id": "showcases",
+    "title": "Flux Klein Showcases",
+    "description": "Representative hyper-realistic image generation and digital art cases powered by Flux Klein.",
+    "items": [
+      {
+        "title": "Flux Klein Showcase 1",
+        "description": "Flux Klein showcase",
+        "image": {
+          "src": "/imgs/showcases/1.jpeg",
+          "alt": "Flux Klein Showcase 1"
+        }
+      },
+      {
+        "title": "Flux Klein Showcase 2",
+        "description": "Flux Klein showcase",
+        "image": {
+          "src": "/imgs/showcases/2.jpeg",
+          "alt": "Flux Klein Showcase 2"
+        }
+      },
+      {
+        "title": "Flux Klein Showcase 3",
+        "description": "Flux Klein showcase",
+        "image": {
+          "src": "/imgs/showcases/3.jpeg",
+          "alt": "Flux Klein Showcase 3"
+        }
+      },
+      {
+        "title": "Flux Klein Showcase 4",
+        "description": "Flux Klein showcase",
+        "image": {
+          "src": "/imgs/showcases/4.jpeg",
+          "alt": "Flux Klein Showcase 4"
+        }
+      },
+      {
+        "title": "Flux Klein Showcase 5",
+        "description": "Flux Klein showcase",
+        "image": {
+          "src": "/imgs/showcases/5.jpeg",
+          "alt": "Flux Klein Showcase 5"
+        }
+      },
+      {
+        "title": "Flux Klein Showcase 6",
+        "description": "Flux Klein showcase",
+        "image": {
+          "src": "/imgs/showcases/6.jpeg",
+          "alt": "Flux Klein Showcase 6"
+        }
+      },
+      {
+        "title": "Flux Klein Showcase 7",
+        "description": "Flux Klein showcase",
+        "image": {
+          "src": "/imgs/showcases/7.jpeg",
+          "alt": "Flux Klein Showcase 7"
+        }
+      },
+      {
+        "title": "Flux Klein Showcase 8",
+        "description": "Flux Klein showcase",
+        "image": {
+          "src": "/imgs/showcases/8.jpeg",
+          "alt": "Flux Klein Showcase 8"
+        }
+      },
+      {
+        "title": "Flux Klein Showcase 9",
+        "description": "Flux Klein showcase",
+        "image": {
+          "src": "/imgs/showcases/9.jpeg",
+          "alt": "Flux Klein Showcase 9"
+        }
+      },
+      {
+        "title": "Flux Klein Showcase 10",
+        "description": "Flux Klein showcase",
+        "image": {
+          "src": "/imgs/showcases/10.jpeg",
+          "alt": "Flux Klein Showcase 10"
+        }
+      }
+    ]
+  },
+  "logos": {
+    "hidden": true
+  },
+  "introduce": {
+    "hidden": true
+  },
+  "benefits": {
+    "hidden": true
+  },
+  "usage": {
+    "hidden": true
+  },
+  "features": {
+    "id": "features",
+    "title": "Key Features of Flux Klein",
+    "description": "Everything you need to generate and refine visuals with Flux Klein, the leading AI image generation model powered by Flux.",
+    "items": [
+      {
+        "title": "Hyper-Realistic Texture Generation",
+        "description": "Say goodbye to the 'AI plastic look.' Flux Klein focuses on micron-level skin pores, hair strands, and fabric textures, generating hyper-realistic images with a true sense of vitality.",
+        "icon": "RiMagicLine"
+      },
+      {
+        "title": "Advanced Prompt Adherence",
+        "description": "Perfectly interpret complex photographic commands. From specific focal lengths to precise lighting setups, Flux Klein accurately renders your textual intentions with extreme fidelity.",
+        "icon": "RiUserStarLine"
+      },
+      {
+        "title": "Cinematic Lighting & Optical Depth",
+        "description": "Simulate real optical refraction and dynamic range. Utilizing Flux's depth perception, it balances highlights and shadows to present cinematic lighting layers and natural bokeh.",
+        "icon": "RiLandscapeLine"
+      },
+      {
+        "title": "Consistency in Visual Identity",
+        "description": "Optimized for sequential artistic creation. Across different scenes and prompts, Flux Klein excels at preserving facial identities and stylistic tones for professional storytelling.",
+        "icon": "Layers"
+      },
+      {
+        "title": "Professional Canvas & Aspect Control",
+        "description": "Native support for full-frame aspect ratios. From 1:1 to 21:9, the model adaptively reconstructs anatomy and perspective to ensure perfect composition without edge distortion.",
+        "icon": "RiAspectRatioLine"
+      },
+      {
+        "title": "Instant High-Fidelity Iterations",
+        "description": "Generate diverse sampling schemes in seconds. Quickly explore variations in lighting, materials, and color saturation without altering the core composition of your scene.",
+        "icon": "RiFlashlightLine"
+      }
+    ]
+  },
+  "stats": {
+    "hidden": true
+  },
+  "testimonials": {
+    "hidden": true
+  },
+  "faq": {
+    "id": "faq",
+    "title": "Frequently asked questions about Flux Klein",
+    "items": [
+      {
+        "question": "What exactly is Flux Klein and how does it work?",
+        "answer": "Flux Klein is a premier fine-tuned model based on the Flux.1 architecture. It leverages high-fidelity RAW datasets to prioritize hyper-realistic skin textures and cinematic lighting, providing creators with a state-of-the-art tool for high-end image generation."
+      },
+      {
+        "question": "How do I generate high-fidelity images with Flux Klein?",
+        "answer": "You can create stunning visuals by providing natural language prompts. Flux Klein is specifically optimized to interpret professional photography terms like 'depth of field,' 'golden hour,' and 'analog grain' to produce gallery-quality outputs."
+      },
+      {
+        "question": "What makes Flux Klein different from other Flux variants?",
+        "answer": "While standard Flux models are versatile, Flux Klein focuses on 'True-to-Life' realism. It solves common AI issues such as over-smoothed skin and anatomical distortions, making it the industry standard for realistic digital human photography."
+      },
+      {
+        "question": "Can I control output dimensions and aspect ratios?",
+        "answer": "Yes. Flux Klein natively supports a wide range of aspect ratios (e.g., 1:1, 16:9, 9:16, 21:9). Its architecture ensures that compositional integrity and human proportions remain perfect even in ultra-wide or vertical frames."
+      },
+      {
+        "question": "How do I achieve the best 'Photorealistic Look' with Flux Klein?",
+        "answer": "To get the best results, use descriptive prompts that include material details and lighting environments. Describing specific camera gear (e.g., 'shot on 35mm film') will unlock the model's specialized texture layers."
+      },
+      {
+        "question": "Can I use Flux Klein outputs for professional brand marketing?",
+        "answer": "Absolutely. Its superior image resolution and visual consistency make it an ideal tool for commercial ad campaigns, product mockups, and fashion lookbooks where high aesthetic standards are required."
+      }
+    ]
+  },
+  "cta": {
+    "id": "cta",
+    "title": "Try Flux Klein now",
+    "description": "Experience the pinnacle of photorealistic performance with Flux Klein. Transform your imagination into high-fidelity visual masterpieces through superior texture rendering and cinematic lighting.",
+    "buttons": [
+      {
+        "title": "Try Flux Klein",
+        "url": "/create",
+        "target": "_self",
+        "icon": "Wand"
+      }
+    ],
+    "className": "bg-muted"
+  },
+  "subscribe": {
+    "hidden": true
+  },
+  "footer": {
+    "id": "footer",
+    "brand": {
+      "title": "Flux Klein",
+      "description": "Flux Klein is the flagship AI image generation model based on the Flux architecture. Through hyper-realistic skin textures and precise command adherence, it provides creators with industry-leading visual creation experience.",
+      "logo": {
+        "src": "/logo.png",
+        "alt": "Flux Klein"
+      },
+      "url": "/"
+    },
+    "nav": {
+      "items": [
+        {
+          "title": "About",
+          "children": [
+            {
+              "title": "Create",
+              "url": "/create",
+              "target": "_self"
+            },
+            {
+              "title": "Features",
+              "url": "/#features",
+              "target": "_self"
+            },
+            {
+              "title": "Showcases",
+              "url": "/#showcases",
+              "target": "_self"
+            },
+            {
+              "title": "FAQ",
+              "url": "/#faq",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "AI Image",
+          "children": [
+            {
+              "title": "Seedream 4.5",
+              "url": "/seedream4-5",
+              "target": "_self"
+            },
+            {
+              "title": "Nano Banana Pro",
+              "url": "/nano-banana-pro",
+              "target": "_self"
+            },
+            {
+              "title": "Z-Image",
+              "url": "/z-image",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "Friends Links",
+          "children": [
+            {
+              "title": "SeekAIs - AI Tools Directory",
+              "url": "https://seekais.com/",
+              "target": "_blank"
+            },
+            {
+              "title": "RightAI Tools Diresctory",
+              "url": "https://right-ai.com/",
+              "target": "_blank"
+            },
+            {
+              "title": "navfolders",
+              "url": "https://navfolders.com",
+              "target": "_blank"
+            },
+            {
+              "title": "Ai Tools List",
+              "url": "https://aiai.tools/",
+              "target": "_blank"
+            },
+            {
+              "title": "showmebest",
+              "url": "https://showmebest.ai",
+              "target": "_blank"
+            },
+            {
+              "title": "MossAI Tools",
+              "url": "https://mossai.org",
+              "target": "_blank"
+            },
+            {
+              "title": "Listed on AIBestTop",
+              "url": "https://aibesttop.com",
+              "target": "_blank"
+            },
+            {
+              "title": "shinylaunch",
+              "url": "https://shinylaunch.com",
+              "target": "_blank"
+            }
+          ]
+        }
+      ]
+    },
+    "social": {
+      "items": [
+        {
+          "title": "Email",
+          "icon": "Mail",
+          "url": "mailto:ai-image@fluxklein.co",
+          "target": "_self"
+        }
+      ]
+    },
+    "agreement": {
+      "items": [
+        {
+          "title": "Privacy Policy",
+          "url": "/privacy-policy"
+        },
+        {
+          "title": "Terms of Service",
+          "url": "/terms-of-service"
+        }
+      ]
+    },
+    "show_theme": true,
+    "show_locale": true
+  }
+}

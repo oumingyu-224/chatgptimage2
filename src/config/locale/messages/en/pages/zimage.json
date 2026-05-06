@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "title": "Z-Image - Fast AI Image Generation",
+    "description": "Quickly generate images with Z-Image AI model. Affordable and extremely fast text-to-image conversion experience."
+  },
+  "page": {
+    "title": "Z-Image AI Image Generator",
+    "description": "Experience fast and affordable AI image generation. Perfect text-to-image conversion for daily creation and rapid prototyping."
+  },
+  "generator": {
+    "title": "Z-Image Image Generator"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions about Z-Image",
+    "items": [
+      {
+        "question": "What are Z-Image's main features?",
+        "answer": "Z-Image is an AI model focused on text-to-image conversion, renowned for its affordability and fast generation speed. Perfect for creative scenarios requiring quick output and cost control."
+      },
+      {
+        "question": "When should you choose Z-Image?",
+        "answer": "When you need to quickly generate creative concepts, produce social media content, explore designs, or work with limited budgets, Z-Image is the ideal choice. Particularly suitable for daily creation and rapid iteration."
+      },
+      {
+        "question": "How fast is Z-Image's generation speed?",
+        "answer": "Compared to other high-end models, Z-Image can complete image generation in seconds, significantly shortening the creative cycle. Specific time depends on image complexity and selected parameters."
+      },
+      {
+        "question": "Where does Z-Image's price advantage lie?",
+        "answer": "Through optimized algorithms and resource allocation, Z-Image offers highly competitive pricing, making high-quality AI image generation services affordable for more creators."
+      },
+      {
+        "question": "How is Z-Image's image quality?",
+        "answer": "While主打性价比, Z-Image can still produce images with good visual effects. For everyday application scenarios that don't require极致细节, its quality fully meets requirements."
+      },
+      {
+        "question": "What best practices for using Z-Image?",
+        "answer": "Fully utilize its rapid iteration advantages for extensive creative experimentation. Start with simple, clear prompts and gradually refine requirements. Reasonably use batch generation features to improve efficiency."
+      }
+    ]
+  }
+}

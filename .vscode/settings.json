@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "i18n-ally.localesPaths": ["src/config/locale/messages"],
+  "i18n-ally.keystyle": "nested",
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
+}

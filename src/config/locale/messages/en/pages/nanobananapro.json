@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "title": "Nano Banana Pro - Character Consistency AI Image Generation",
+    "description": "Generate images with excellent character consistency using Nano Banana Pro AI model. Perfect character editing and scene preservation capabilities."
+  },
+  "page": {
+    "title": "Nano Banana Pro AI Image Generator",
+    "description": "Designed for projects requiring character feature consistency. Maintains facial features and stylistic tone stability across multiple generations."
+  },
+  "generator": {
+    "title": "Nano Banana Pro Image Generator"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions about Nano Banana Pro",
+    "items": [
+      {
+        "question": "What are Nano Banana Pro's core advantages?",
+        "answer": "Nano Banana Pro's advanced AI model focuses on delivering consistent character editing and scene preservation capabilities. It better maintains character facial features and stylistic tones across multiple generations or different scene transitions."
+      },
+      {
+        "question": "When is Nano Banana Pro most suitable to use?",
+        "answer": "Particularly suitable for projects requiring character consistency, such as series illustrations, character design, storyboard creation, and brand image shaping. It's the ideal choice when you need the same character to maintain a unified appearance across different scenes."
+      },
+      {
+        "question": "How to ensure character feature consistency?",
+        "answer": "Provide detailed character descriptions in the first generation, including facial features, hairstyle, clothing style, and other key elements. In subsequent generations, reference the same character settings or use reference images."
+      },
+      {
+        "question": "How does Nano Banana Pro perform in scene preservation?",
+        "answer": "This model can well maintain the overall atmosphere and compositional logic of scenes, preserving reasonable perspective relationships and lighting consistency during scene transitions, ensuring visual narrative coherence."
+      },
+      {
+        "question": "What makes Nano Banana Pro unique compared to other AI models?",
+        "answer": "Compared to other models, Nano Banana Pro performs more stably in long-term projects, effectively reducing character 'drift' phenomena, and providing reliable assurance for professional storytelling and continuity creation."
+      },
+      {
+        "question": "What recommendations for using Nano Banana Pro in professional creation?",
+        "answer": "Establish character profile documents recording key visual feature parameters. In large projects, conduct small-scale testing first to determine optimal prompt combinations and parameter settings."
+      }
+    ]
+  }
+}
