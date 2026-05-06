@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Flux Klein Prompts & Showcases",
-    "description": "Awesome projects built with Flux Klein"
+    "title": "ChatGPT Image 2 Prompts & Showcases",
+    "description": "Explore prompt ideas and generated examples created with ChatGPT Image 2."
   },
   "ui": {
     "create_similar": "Create Similar",
@@ -12,12 +12,12 @@
   "showcases-flow": {
     "id": "showcases",
     "sr_only_title": "Showcases",
-    "title": "Flux Klein Prompts",
-    "description": "Representative editing and generation cases powered by Flux Klein",
+    "title": "ChatGPT Image 2 Prompts",
+    "description": "Representative generation and editing examples powered by ChatGPT Image 2",
     "items": [
       {
         "title": "Vertical fisheye selfie",
-        "description": "AI SaaS Showcase",
+        "description": "ChatGPT Image 2 prompt example",
         "image": {
           "src": "/imgs/showcases/1.jpeg",
           "alt": "AI SaaS Showcase 1"
@@ -25,8 +25,8 @@
         "prompt": "vertical-fisheye-selfie"
       },
       {
-        "title": "AI SaaS Showcase 2",
-        "description": "AI SaaS Showcase",
+        "title": "3D digital human comics",
+        "description": "ChatGPT Image 2 prompt example",
         "image": {
           "src": "/imgs/showcases/2.jpeg",
           "alt": "AI SaaS Showcase 2"
@@ -34,64 +34,64 @@
         "prompt": "3d-digital-human-comics"
       },
       {
-        "title": "AI SaaS Showcase 3",
-        "description": "AI SaaS Showcase",
+        "title": "Fashion portrait composition",
+        "description": "ChatGPT Image 2 showcase",
         "image": {
           "src": "/imgs/showcases/3.jpeg",
           "alt": "AI SaaS Showcase 3"
         }
       },
       {
-        "title": "AI SaaS Showcase 4",
-        "description": "AI SaaS Showcase",
+        "title": "Cinematic close-up lighting",
+        "description": "ChatGPT Image 2 showcase",
         "image": {
           "src": "/imgs/showcases/4.jpeg",
           "alt": "AI SaaS Showcase 4"
         }
       },
       {
-        "title": "AI SaaS Showcase 5",
-        "description": "AI SaaS Showcase",
+        "title": "Product poster concept",
+        "description": "ChatGPT Image 2 showcase",
         "image": {
           "src": "/imgs/showcases/5.jpeg",
           "alt": "AI SaaS Showcase 5"
         }
       },
       {
-        "title": "AI SaaS Showcase 6",
-        "description": "AI SaaS Showcase",
+        "title": "Character consistency test",
+        "description": "ChatGPT Image 2 showcase",
         "image": {
           "src": "/imgs/showcases/6.jpeg",
           "alt": "AI SaaS Showcase 6"
         }
       },
       {
-        "title": "AI SaaS Showcase 7",
-        "description": "AI SaaS Showcase",
+        "title": "Transparent sticker design",
+        "description": "ChatGPT Image 2 showcase",
         "image": {
           "src": "/imgs/showcases/7.jpeg",
           "alt": "AI SaaS Showcase 7"
         }
       },
       {
-        "title": "AI SaaS Showcase 8",
-        "description": "AI SaaS Showcase",
+        "title": "Text-in-image social graphic",
+        "description": "ChatGPT Image 2 showcase",
         "image": {
           "src": "/imgs/showcases/8.jpeg",
           "alt": "AI SaaS Showcase 8"
         }
       },
       {
-        "title": "AI SaaS Showcase 9",
-        "description": "AI SaaS Showcase",
+        "title": "Reference-driven restyle",
+        "description": "ChatGPT Image 2 showcase",
         "image": {
           "src": "/imgs/showcases/9.jpeg",
           "alt": "AI SaaS Showcase 9"
         }
       },
       {
-        "title": "AI SaaS Showcase 10",
-        "description": "AI SaaS Showcase",
+        "title": "Ecommerce hero visual",
+        "description": "ChatGPT Image 2 showcase",
         "image": {
           "src": "/imgs/showcases/10.jpeg",
           "alt": "AI SaaS Showcase 10"
@@ -104,8 +104,8 @@
     "sections": {
       "showcases": {
         "id": "showcases",
-        "title": "AI SaaS Startups built with Flux Klein",
-        "description": "Easy to use and fast to ship.",
+        "title": "ChatGPT Image 2 Showcase Gallery",
+        "description": "Examples for prompt writing, editing workflows, and commercial visual generation.",
         "groups": [
           {
             "name": "all",

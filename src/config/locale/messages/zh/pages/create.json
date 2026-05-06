@@ -1,15 +1,15 @@
 {
   "metadata": {
-    "title": "Flux Klein 图像编辑",
-    "description": "使用 Flux Klein 模型编辑和生成图像。"
+    "title": "ChatGPT Image 2 生成器",
+    "description": "使用 ChatGPT Image 2 通过提示词和参考图生成、编辑图像。"
   },
   "page": {
-    "title": "Flux Klein 图像编辑",
-    "description": "使用 Flux Klein 模型编辑和生成图像。"
+    "title": "ChatGPT Image 2 生成器",
+    "description": "使用 ChatGPT Image 2 完成文生图和图生图工作流，生成并精修视觉内容。"
   },
   "generator": {
-    "title": "Flux Klein 图像编辑",
-    "description": "使用 Flux Klein 模型编辑和生成图像。",
+    "title": "ChatGPT Image 2 生成器",
+    "description": "使用 ChatGPT Image 2 进行高质量图像生成与编辑，获得更强的提示词控制能力。",
     "tabs": {
       "text-to-image": "文生图",
       "image-to-image": "图生图"
@@ -20,9 +20,9 @@
       "select_provider": "选择服务商",
       "select_model": "选择模型",
       "prompt": "提示词",
-      "prompt_placeholder": "描述图像的细节，如颜色、形状、纹理等。",
+      "prompt_placeholder": "详细描述图像内容，包括构图、文字、光线、材质，以及你希望执行的编辑。",
       "reference_image": "参考图片",
-      "reference_image_placeholder": "上传参考图片，支持多张图片",
+      "reference_image_placeholder": "上传一张或多张参考图，用于保留风格、布局或主体细节",
       "some_images_failed_to_upload": "部分图片上传失败，请删除后重新上传",
       "prompt_too_long": "提示词过长，请删除部分内容"
     },

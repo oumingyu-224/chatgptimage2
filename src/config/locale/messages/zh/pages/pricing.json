@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "Flux Klein 价格",
-    "description": "选择方案，开始使用 Flux Klein 模型生成图像。"
+    "title": "ChatGPT Image 2 价格",
+    "description": "选择适合的方案，使用 ChatGPT Image 2 进行图像生成与编辑。"
   },
   "pricing": {
     "id": "pricing",
-    "sr_only_title": "Flux Klein 价格方案",
-    "title": "Flux Klein 方案",
-    "description": "立即开始使用 Flux Klein 模型生成图像。",
+    "sr_only_title": "ChatGPT Image 2 价格方案",
+    "title": "ChatGPT Image 2 方案",
+    "description": "为 ChatGPT Image 2 的图像生成与编辑工作流选择积分包或订阅方案。",
     "groups": [
       {
         "name": "one-time",
@@ -24,323 +24,315 @@
         "label": "节省50%"
       }
     ],
-        "items": [
+    "items": [
+      {
+        "title": "入门积分包",
+        "description": "",
+        "features_title": "包含功能",
+        "features": [
+          "500 个 AI 图像积分",
+          "有效期 1 年",
+          "可用于 ChatGPT Image 2 的生成与编辑工作流"
+        ],
+        "interval": "one-time",
+        "amount": 2999,
+        "currency": "USD",
+        "price": "$29.99",
+        "original_price": "$40",
+        "currencies": [
           {
-            "title": "入门积分包",
-            "description": "一次采购，积分有效期1年。",
-            "features_title": "包含功能",
-            "features": [
-              "500 个 AI 生成积分",
-              "有效期1年",
-              "解锁所有功能，但具体其他权益需与订阅配合使用"
-            ],
-            "interval": "one-time",
-            "amount": 2999,
-            "currency": "USD",
-            "price": "$29.99",
-            "original_price": "$40",
-            "currencies": [
-              {
-                "currency": "CNY",
-                "amount": 9999,
-                "price": "¥99.99",
-                "original_price": "¥1999",
-                "payment_providers": ["stripe"]
-              }
-            ],
-            "unit": "",
-            "is_featured": false,
-            "tip": "",
-            "button": {
-              "title": "立即购买",
-              "url": "/#pricing",
-              "icon": "RiFlashlightFill"
-            },
-            "product_id": "starter",
-            "product_name": "Flux Klein 入门积分包",
-            "credits": 500,
-            "valid_days": 365,
-            "group": "one-time"
-          },
-          {
-            "title": "专业积分包",
-            "description": "一次采购，积分有效期1年。",
-            "label": "最受欢迎",
-            "features_title": "包含功能",
-            "features": [
-              "2000 个 AI 生成积分",
-              "有效期1年",
-              "解锁所有功能，但具体其他权益需与订阅配合使用"
-            ],
-            "interval": "one-time",
+            "currency": "CNY",
             "amount": 9999,
-            "currency": "USD",
-            "price": "$99.99",
-            "original_price": "$120",
-            "currencies": [
-              {
-                "currency": "CNY",
-                "amount": 34900,
-                "price": "¥349.00",
-                "original_price": "¥699.00",
-                "payment_providers": ["stripe"]
-              }
-            ],
-            "unit": "",
-            "is_featured": true,
-            "tip": "",
-            "button": {
-              "title": "立即购买",
-              "url": "/#pricing",
-              "icon": "RiFlashlightFill"
-            },
-            "product_id": "standard",
-            "product_name": "Flux Klein 专业积分包",
-            "credits": 2000,
-            "valid_days": 365,
-            "group": "one-time"
-          },
-          {
-            "title": "高级积分包",
-            "description": "一次采购，积分有效期1年，适合专业设计人士。",
-            "features_title": "包含功能",
-            "features": [
-              "7000 个 AI 生成积分",
-              "有效期1年",
-              "解锁所有功能，但具体其他权益需与订阅配合使用"
-            ],
-            "interval": "one-time",
-            "amount": 23000,
-            "currency": "USD",
-            "price": "$230",
-            "original_price": "$400",
-            "currencies": [
-              {
-                "currency": "CNY",
-                "amount": 80000,
-                "price": "¥800.00",
-                "original_price": "¥1600.00",
-                "payment_providers": ["stripe", "creem"]
-              }
-            ],
-            "unit": "",
-            "is_featured": false,
-            "tip": "",
-            "button": {
-              "title": "立即购买",
-              "url": "/#pricing",
-              "icon": "RiFlashlightFill"
-            },
-            "product_id": "premium",
-            "product_name": "Flux Klein 高级积分包",
-            "credits": 7000,
-            "valid_days": 365,
-            "group": "one-time"
-          },
-          {
-            "title": "入门版",
-            "description": "100 积分 ≈ $4.28",
-            "features_title": "包含功能",
-            "features": [
-              "350 个 AI 生成积分每个月",
-              "Flux Klein 模型",
-              "标准生成速度",
-              "标准生成成功率",
-              "标准客服支持",
-              "无限制的商业许可"
-            ],
-            "interval": "month",
-            "amount": 1499,
-            "currency": "USD",
-            "price": "$14.99",
-            "original_price": "$19.99",
-            "unit": "/ 月",
-            "is_featured": false,
-            "tip": "适合体验 AI 图像生成和小型项目。",
-            "button": {
-              "title": "订阅入门版",
-              "url": "/#pricing",
-              "icon": "RiFlashlightFill"
-            },
-            "product_id": "starter-monthly",
-            "product_name": "Flux Klein 入门版包月",
-            "credits": 350,
-            "valid_days": 30,
-            "group": "monthly",
-            "plan_name": "入门版"
-          },
-          {
-            "title": "专业版",
-            "description": "100 积分 ≈ $2.50",
-            "label": "最受欢迎",
-            "features_title": "包含入门版所有功能",
-            "features": [
-              "1600 个 AI 生成积分每个月",
-              "Flux Klein 模型",
-              "优先处理速度",
-              "高生成成功率",
-              "高速下载通道",
-              "优先客服支持",
-              "无限制的商业许可"
-            ],
-            "interval": "month",
-            "amount": 3999,
-            "currency": "USD",
-            "price": "$39.99",
-            "original_price": "$69.99",
-            "unit": "/ 月",
-            "is_featured": true,
-            "tip": "适合创作者、设计师和内容专业人士。",
-            "button": {
-              "title": "订阅专业版",
-              "url": "/#pricing",
-              "icon": "RiFlashlightFill"
-            },
-            "product_id": "standard-monthly",
-            "product_name": "Flux Klein 专业版包月",
-            "credits": 1600,
-            "valid_days": 30,
-            "group": "monthly",
-            "plan_name": "专业版"
-          },
-          {
-            "title": "高级版",
-            "description": "100 积分 ≈ $2.16",
-            "features_title": "包含专业版所有功能",
-            "features": [
-              "5500 个 AI 生成积分每个月",
-              "最快的生成速度",
-              "最高级的 AI 编辑能力",
-              "永久的图像存储",
-              "专属客户经理",
-              "无限制的商业许可"
-            ],
-            "interval": "month",
-            "amount": 11999,
-            "currency": "USD",
-            "price": "$119.99",
-            "original_price": "$199.99",
-            "unit": "/ 月",
-            "is_featured": false,
-            "tip": "适合团队、代理商和大量商业使用。",
-            "button": {
-              "title": "订阅高级版",
-              "url": "/#pricing",
-              "icon": "RiFlashlightFill"
-            },
-            "product_id": "premium-monthly",
-            "product_name": "Flux Klein 高级版包月",
-            "credits": 5500,
-            "valid_days": 30,
-            "group": "monthly",
-            "plan_name": "高级版"
-          },
-          {
-            "title": "入门版",
-            "description": "100 积分 ≈ $3.00",
-            "features_title": "包含功能",
-            "features": [
-              "4200 个 AI 生成积分每年",
-              "Flux Klein 模型",
-              "标准生成速度",
-              "标准生成成功率",
-              "标准客服支持",
-              "无限制的商业许可"
-            ],
-            "interval": "year",
-            "amount": 12600,
-            "currency": "USD",
-            "price": "$14.99",
-            "original_price": "$10.49",
-            "unit": "/ 月",
-            "is_featured": false,
-            "tip": "适合体验 AI 图像生成和小型项目。",
-            "button": {
-              "title": "订阅入门版",
-              "url": "/#pricing",
-              "icon": "RiFlashlightFill"
-            },
-            "product_id": "starter-yearly",
-            "product_name": "Flux Klein 入门版包年",
-            "credits": 4200,
-            "valid_days": 365,
-            "group": "yearly",
-            "plan_name": "入门版"
-          },
-          {
-            "title": "专业版",
-            "description": "100 积分 ≈ $1.25",
-            "label": "最受欢迎",
-            "features_title": "包含入门版所有功能",
-            "features": [
-              "19200 个 AI 生成积分每年",
-              "优先处理速度",
-              "高生成成功率",
-              "高速下载通道",
-              "优先客服支持",
-              "无限制的商业许可"
-            ],
-            "interval": "year",
-            "amount": 23994,
-            "currency": "USD",
-            "price": "$19.99",
-            "original_price": "$39.99",
-            "unit": "/ 月",
-            "is_featured": true,
-            "tip": "适合创作者、设计师和内容专业人士。",
-            "button": {
-              "title": "订阅专业版",
-              "url": "/#pricing",
-              "icon": "RiFlashlightFill"
-            },
-            "product_id": "standard-yearly",
-            "product_name": "Flux Klein 专业版包年",
-            "credits": 19200,
-            "valid_days": 365,
-            "group": "yearly",
-            "plan_name": "专业版"
-          },
-          {
-            "title": "高级版",
-            "description": "适合团队、代理商和大量商业使用。",
-            "features_title": "包含专业版所有功能",
-            "features": [
-              "66000 个 AI 生成积分每年",
-              "最快的生成速度",
-              "最高级的 AI 编辑能力",
-              "永久的图像存储",
-              "专属客户经理",
-              "无限制的商业许可"
-            ],
-            "interval": "year",
-            "amount": 71400,
-            "currency": "USD",
-            "price": "$59.5",
-            "original_price": "$119",
-            "unit": "/ 月",
-            "is_featured": false,
-            "tip": "100 积分 ≈ $1.08",
-            "button": {
-              "title": "订阅高级版",
-              "url": "/#pricing",
-              "icon": "RiFlashlightFill"
-            },
-            "product_id": "premium-yearly",
-            "product_name": "Flux Klein 高级版包年",
-            "credits": 66000,
-            "valid_days": 365,
-            "group": "yearly",
-            "plan_name": "高级版"
+            "price": "¥99.99",
+            "original_price": "¥1999",
+            "payment_providers": ["stripe"]
           }
-        ]
+        ],
+        "unit": "",
+        "is_featured": false,
+        "tip": "一次购买，积分有效期 1 年",
+        "button": {
+          "title": "立即购买",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "starter",
+        "product_name": "ChatGPT Image 2 入门积分包",
+        "credits": 500,
+        "valid_days": 365,
+        "group": "one-time"
+      },
+      {
+        "title": "专业积分包",
+        "description": "",
+        "label": "最受欢迎",
+        "features_title": "包含功能",
+        "features": [
+          "2000 个 AI 图像积分",
+          "有效期 1 年",
+          "可用于 ChatGPT Image 2 的生成与编辑工作流"
+        ],
+        "interval": "one-time",
+        "amount": 9999,
+        "currency": "USD",
+        "price": "$99.99",
+        "original_price": "$120",
+        "currencies": [
+          {
+            "currency": "CNY",
+            "amount": 34900,
+            "price": "¥349.00",
+            "original_price": "¥699.00",
+            "payment_providers": ["stripe"]
+          }
+        ],
+        "unit": "",
+        "is_featured": true,
+        "tip": "一次购买，积分有效期 1 年",
+        "button": {
+          "title": "立即购买",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "standard",
+        "product_name": "ChatGPT Image 2 专业积分包",
+        "credits": 2000,
+        "valid_days": 365,
+        "group": "one-time"
+      },
+      {
+        "title": "高级积分包",
+        "description": "",
+        "features_title": "包含功能",
+        "features": [
+          "7000 个 AI 图像积分",
+          "有效期 1 年",
+          "可用于 ChatGPT Image 2 的生成与编辑工作流"
+        ],
+        "interval": "one-time",
+        "amount": 23000,
+        "currency": "USD",
+        "price": "$230",
+        "original_price": "$400",
+        "currencies": [
+          {
+            "currency": "CNY",
+            "amount": 80000,
+            "price": "¥800.00",
+            "original_price": "¥1600.00",
+            "payment_providers": ["stripe", "creem"]
+          }
+        ],
+        "unit": "",
+        "is_featured": false,
+        "tip": "适合高频率图像生成与编辑",
+        "button": {
+          "title": "立即购买",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "premium",
+        "product_name": "ChatGPT Image 2 高级积分包",
+        "credits": 7000,
+        "valid_days": 365,
+        "group": "one-time"
+      },
+      {
+        "title": "入门版",
+        "description": "100 积分 ≈ $4.28",
+        "features_title": "包含功能",
+        "features": [
+          "每月 350 个 AI 图像积分",
+          "ChatGPT Image 2 工作流",
+          "标准生成速度",
+          "标准客服支持",
+          "支持商业使用"
+        ],
+        "interval": "month",
+        "amount": 1499,
+        "currency": "USD",
+        "price": "$14.99",
+        "original_price": "$19.99",
+        "unit": "/ 月",
+        "is_featured": false,
+        "tip": "适合测试提示词、图片编辑和小型项目",
+        "button": {
+          "title": "订阅入门版",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "starter-monthly",
+        "product_name": "ChatGPT Image 2 入门版包月",
+        "credits": 350,
+        "valid_days": 30,
+        "group": "monthly",
+        "plan_name": "入门版"
+      },
+      {
+        "title": "专业版",
+        "description": "100 积分 ≈ $2.50",
+        "label": "最受欢迎",
+        "features_title": "包含入门版所有功能",
+        "features": [
+          "每月 1600 个 AI 图像积分",
+          "ChatGPT Image 2 工作流",
+          "优先处理速度",
+          "更适合常规商业生产",
+          "优先客服支持"
+        ],
+        "interval": "month",
+        "amount": 3999,
+        "currency": "USD",
+        "price": "$39.99",
+        "original_price": "$69.99",
+        "unit": "/ 月",
+        "is_featured": true,
+        "tip": "适合创作者、营销团队和设计师",
+        "button": {
+          "title": "订阅专业版",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "standard-monthly",
+        "product_name": "ChatGPT Image 2 专业版包月",
+        "credits": 1600,
+        "valid_days": 30,
+        "group": "monthly",
+        "plan_name": "专业版"
+      },
+      {
+        "title": "高级版",
+        "description": "100 积分 ≈ $2.16",
+        "features_title": "包含专业版所有功能",
+        "features": [
+          "每月 5500 个 AI 图像积分",
+          "最快处理速度",
+          "更适合大量编辑和素材生产",
+          "永久图像存储",
+          "专属客户支持"
+        ],
+        "interval": "month",
+        "amount": 11999,
+        "currency": "USD",
+        "price": "$119.99",
+        "original_price": "$199.99",
+        "unit": "/ 月",
+        "is_featured": false,
+        "tip": "适合团队、代理商和更高频的商业使用",
+        "button": {
+          "title": "订阅高级版",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "premium-monthly",
+        "product_name": "ChatGPT Image 2 高级版包月",
+        "credits": 5500,
+        "valid_days": 30,
+        "group": "monthly",
+        "plan_name": "高级版"
+      },
+      {
+        "title": "入门版",
+        "description": "100 积分 ≈ $3.00",
+        "features_title": "包含功能",
+        "features": [
+          "每年 4200 个 AI 图像积分",
+          "ChatGPT Image 2 工作流",
+          "标准生成速度",
+          "标准客服支持",
+          "支持商业使用"
+        ],
+        "interval": "year",
+        "amount": 12600,
+        "currency": "USD",
+        "price": "$14.99",
+        "original_price": "$10.49",
+        "unit": "/ 月",
+        "is_featured": false,
+        "tip": "适合持续测试提示词和轻量生产",
+        "button": {
+          "title": "订阅入门版",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "starter-yearly",
+        "product_name": "ChatGPT Image 2 入门版包年",
+        "credits": 4200,
+        "valid_days": 365,
+        "group": "yearly",
+        "plan_name": "入门版"
+      },
+      {
+        "title": "专业版",
+        "description": "100 积分 ≈ $1.25",
+        "label": "最受欢迎",
+        "features_title": "包含入门版所有功能",
+        "features": [
+          "每年 19200 个 AI 图像积分",
+          "优先处理速度",
+          "更适合常规商业生产",
+          "优先客服支持"
+        ],
+        "interval": "year",
+        "amount": 23994,
+        "currency": "USD",
+        "price": "$19.99",
+        "original_price": "$39.99",
+        "unit": "/ 月",
+        "is_featured": true,
+        "tip": "适合长期创作和设计工作流",
+        "button": {
+          "title": "订阅专业版",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "standard-yearly",
+        "product_name": "ChatGPT Image 2 专业版包年",
+        "credits": 19200,
+        "valid_days": 365,
+        "group": "yearly",
+        "plan_name": "专业版"
+      },
+      {
+        "title": "高级版",
+        "description": "100 积分 ≈ $1.08",
+        "features_title": "包含专业版所有功能",
+        "features": [
+          "每年 66000 个 AI 图像积分",
+          "最快处理速度",
+          "更适合大规模编辑和商用素材生产",
+          "永久图像存储",
+          "专属客户支持"
+        ],
+        "interval": "year",
+        "amount": 71400,
+        "currency": "USD",
+        "price": "$59.5",
+        "original_price": "$119",
+        "unit": "/ 月",
+        "is_featured": false,
+        "tip": "适合团队、代理商和高频商业使用",
+        "button": {
+          "title": "订阅高级版",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "premium-yearly",
+        "product_name": "ChatGPT Image 2 高级版包年",
+        "credits": 66000,
+        "valid_days": 365,
+        "group": "yearly",
+        "plan_name": "高级版"
+      }
+    ]
   },
   "page": {
-    "title": "Flux Klein 价格方案",
+    "title": "ChatGPT Image 2 价格方案",
     "sections": {
       "pricing": {
         "id": "pricing",
-        "title": "Flux Klein 方案",
-        "description": "立即开始使用 Flux Klein 模型生成图像。"
+        "title": "ChatGPT Image 2 方案",
+        "description": "选择符合你图像生成与编辑频率的方案。"
       }
     }
   },

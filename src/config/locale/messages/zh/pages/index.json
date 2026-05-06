@@ -15,33 +15,33 @@
     "sections": {
       "hero": {
         "id": "hero",
-        "title": "一小时快速上线你的 AI 创业项目",
-        "highlight_text": "一小时",
-        "description": "Flux Klein 是用于构建 AI SaaS 创业项目的 NextJS 项目模板。<br/>集成常用功能，快速上线你的产品。",
+        "title": "ChatGPT Image 2 AI 图像生成与编辑",
+        "highlight_text": "ChatGPT Image 2",
+        "description": "使用 ChatGPT Image 2 创建更专业的视觉内容。<br/>支持文生图、参考图编辑、图中文字生成，以及透明背景素材输出。",
         "announcement": {
           "badge": "全新",
-          "title": "🎉 Flux Klein 模板二已发布",
+          "title": "🎉 ChatGPT Image 2",
           "url": "/pricing"
         },
-        "tip": "🎁 前 1000 名用户特价优惠",
+        "tip": "面向提示词生成、图像编辑和商业视觉创作的实用工作流",
         "buttons": [
           {
-            "title": "立即开始",
+            "title": "开始创作",
             "icon": "Zap",
-            "url": "/pricing",
+            "url": "/create",
             "target": "_self",
             "variant": "default"
           },
           {
-            "title": "阅读文档",
+            "title": "查看价格",
             "icon": "BookOpenText",
-            "url": "/docs",
-            "target": "_blank",
+            "url": "/pricing",
+            "target": "_self",
             "variant": "outline"
           }
         ],
         "show_avatars": true,
-        "avatars_tip": "999+ 用户在使用 Flux Klein 上站",
+        "avatars_tip": "999+ 用户正在探索 ChatGPT Image 2",
         "show_award": false,
         "image": {
           "src": "/imgs/features/admin.png",
@@ -61,7 +61,7 @@
         }
       },
       "logos": {
-        "title": "Flux Klein 使用以下技术栈构建",
+        "title": "构建于生产可用的 AI 图像平台之上",
         "items": [
           {
             "title": "Next.js",
@@ -103,17 +103,17 @@
       "introduce": {
         "block": "features-list",
         "id": "introduce",
-        "title": "Flux Klein 是什么？",
+        "title": "什么是 ChatGPT Image 2？",
         "label": "产品简介",
-        "description": "Flux Klein 是专为 AI SaaS 创业项目打造的 NextJS 脚手架，包括丰富模板、组件及文档。",
+        "description": "ChatGPT Image 2 是本站围绕主关键词打造的产品定位，代表一套基于 OpenAI 最新图像能力的现代 AI 图像生成与编辑体验。",
         "image": {
           "src": "/imgs/features/landing-page.png",
           "alt": "introduce"
         },
         "items": [
           {
-            "title": "开箱即用的模板",
-            "description": "从数十款生产级 AI SaaS 模板中选择，快速开启你的项目。",
+            "title": "文生图创作",
+            "description": "通过详细提示词生成概念图、产品场景、海报和社媒视觉内容。",
             "icon": "RiNextjsFill",
             "image": {
               "src": "/imgs/features/1.png",
@@ -121,8 +121,8 @@
             }
           },
           {
-            "title": "基础设施搭建",
-            "description": "内置最佳实践，即刻拥有可扩展的基础设施。",
+            "title": "基于参考图的编辑",
+            "description": "上传一张或多张输入图片，在图像编辑流程中保留风格、主体细节或布局信息。",
             "icon": "RiDatabase2Line",
             "image": {
               "src": "/imgs/features/2.png",
@@ -130,8 +130,8 @@
             }
           },
           {
-            "title": "极速部署",
-            "description": "AI SaaS 产品快速上线，助力小时级交付。",
+            "title": "商业视觉输出",
+            "description": "适用于营销海报、电商主图、社媒图片、贴纸和可直接使用的设计素材。",
             "icon": "RiCloudyFill",
             "image": {
               "src": "/imgs/features/3.png",
@@ -139,8 +139,8 @@
             }
           },
           {
-            "title": "AI 集成",
-            "description": "通过内置的 AI SDK，轻松为你的项目集成 AI 能力。",
+            "title": "更实用的提示词控制",
+            "description": "可通过更细致的提示词控制图中文字、局部修改、透明背景和高保真输出方向。",
             "icon": "RiRobot2Line",
             "image": {
               "src": "/imgs/features/4.png",
@@ -153,13 +153,13 @@
       "benefits": {
         "block": "features-accordion",
         "id": "benefits",
-        "title": "为何选择 Flux Klein",
+        "title": "为什么选择 ChatGPT Image 2",
         "label": "产品优势",
-        "description": "你获得一切 AI 创业所需——从开箱即用的模板到专业技术支持。",
+        "description": "它更适合那些真正关心提示词控制和输出质量的图像生成与编辑任务。",
         "items": [
           {
-            "title": "全栈解决方案",
-            "description": "基于 Next.js，集成认证、支付、AI，一站式开箱即用。",
+            "title": "生成与编辑合一",
+            "description": "既可用于从零生成图片，也可用于参考图引导编辑和多轮视觉精修。",
             "icon": "RiNextjsFill",
             "image": {
               "src": "/imgs/features/user-billing.png",
@@ -167,8 +167,8 @@
             }
           },
           {
-            "title": "丰富模板库",
-            "description": "多样的 AI SaaS 模板，点击即用，涵盖聊天、图像生成等多场景。",
+            "title": "更强的指令执行能力",
+            "description": "更适合图中文字摆放、局部修改、构图控制和多约束提示词场景。",
             "icon": "RiClapperboardAiLine",
             "image": {
               "src": "/imgs/features/admin-settings.png",
@@ -176,8 +176,8 @@
             }
           },
           {
-            "title": "专属技术指导",
-            "description": "享受专属技术支持与开发者社区，为你的成功保驾护航。",
+            "title": "商用素材更实用",
+            "description": "适合品牌创意、电商商品图、透明背景素材和高质量社媒视觉内容。",
             "icon": "RiCodeFill",
             "image": {
               "src": "/imgs/features/landing-page.png",
@@ -189,8 +189,8 @@
       "usage": {
         "block": "features-step",
         "id": "usage",
-        "title": "三步使用 Flux Klein 极速上线",
-        "description": "只需三步，快速开启你的 AI SaaS 创业之路：",
+        "title": "如何使用 ChatGPT Image 2 创作",
+        "description": "一个简单直接的生成与编辑工作流：",
         "image": {
           "src": "/imgs/features/1.png",
           "alt": "usage"
@@ -199,32 +199,32 @@
         "text_align": "center",
         "items": [
           {
-            "title": "获取 Flux Klein",
-            "description": "一次性购买 Nano Banana Pro，查收邮件获取代码与文档。",
+            "title": "写清楚提示词",
+            "description": "描述主体、构图、光线、材质、镜头感、图中文字需求，以及背景要求。",
             "image": {
               "src": "/imgs/features/5.png",
               "alt": "usage"
             }
           },
           {
-            "title": "启动你的项目",
-            "description": "阅读说明文档，克隆 Flux Klein 代码，开始开发你的 AI SaaS 项目。",
+            "title": "需要时上传参考图",
+            "description": "如果需要保留商品结构、风格方向、角色细节或场景布局，就上传参考图。",
             "image": {
               "src": "/imgs/features/6.png",
               "alt": "usage"
             }
           },
           {
-            "title": "个性化定制",
-            "description": "根据需求修改模板内容和数据，配置专属 AI 能力。",
+            "title": "执行生成或编辑",
+            "description": "根据需求选择文生图或图生图流程，决定是从零创作还是基于输入图精修。",
             "image": {
               "src": "/imgs/features/7.png",
               "alt": "usage"
             }
           },
           {
-            "title": "部署上线",
-            "description": "简单几步将你的项目推向生产环境，立刻为客户提供服务。",
+            "title": "迭代到可用成品",
+            "description": "继续调整文字、构图、透明背景和细节，直到结果可以用于设计或商用发布。",
             "image": {
               "src": "/imgs/features/8.png",
               "alt": "usage"
@@ -235,168 +235,141 @@
       },
       "features": {
         "id": "features",
-        "title": "Flux Klein 核心功能",
-        "description": "一切你需要的工具，助力 AI SaaS 项目高效上线。",
+        "title": "ChatGPT Image 2 核心功能",
+        "description": "用户搜索 ChatGPT Image 2 时最关心的几项能力。",
         "items": [
           {
-            "title": "Next.js 项目模板",
-            "description": "生产就绪、支持 SEO 与多语言的 Next.js 脚手架。",
+            "title": "高质量图像生成",
+            "description": "更偏向成品级视觉结果，而不只是快速预览。",
             "icon": "RiNextjsFill"
           },
           {
-            "title": "身份认证与支付",
-            "description": "集成谷歌 OAuth、一键登录，以及 Stripe 支付。",
+            "title": "支持图像编辑",
+            "description": "适合图生图、重绘和参考图引导修改等工作流。",
             "icon": "RiKey2Fill"
           },
           {
-            "title": "数据基础设施",
-            "description": "内置 Supabase，稳定可靠的数据存储。",
+            "title": "参考图保真",
+            "description": "更适合保留上传图片中的关键视觉细节。",
             "icon": "RiDatabase2Line"
           },
           {
-            "title": "一键部署",
-            "description": "自动化部署到 Vercel 或 Cloudflare，极速上线。",
+            "title": "图中文字渲染",
+            "description": "适合海报、公告图、社媒视觉和品牌素材。",
             "icon": "RiCloudy2Fill"
           },
           {
-            "title": "商业分析",
-            "description": "集成 Google Analytics、Search Console，助力业务增长。",
+            "title": "透明背景输出",
+            "description": "适合商品抠图、贴纸和可复用设计素材。",
             "icon": "RiBarChart2Line"
           },
           {
-            "title": "AI 原生基础设施",
-            "description": "预置 AI 集成、积分系统和 API 售卖能力。",
+            "title": "灵活的商用工作流",
+            "description": "适用于电商、营销、创作者和内容生产场景。",
             "icon": "RiRobot2Line"
           }
         ]
       },
       "stats": {
         "id": "stats",
-        "title": "用户喜爱 Flux Klein",
-        "description": "因其易用且上线飞快。",
+        "title": "用户为什么关注 ChatGPT Image 2",
+        "description": "因为它匹配真实的图像生成需求。",
         "items": [
           {
-            "title": "999+",
-            "description": "位用户"
+            "title": "文字 + 图片",
+            "description": "输入工作流"
           },
           {
-            "title": "200+",
-            "description": "组件块"
+            "title": "编辑能力",
+            "description": "内置支持"
           },
           {
-            "title": "50+",
-            "description": "专业模板"
+            "title": "质量优先",
+            "description": "模型定位"
           }
         ],
         "className": "bg-muted"
       },
       "testimonials": {
         "id": "testimonials",
-        "title": "用户对 Flux Klein 的评价",
-        "description": "听听开发者与创始人用 Flux Klein 快速上线 AI 创业项目的故事。",
+        "title": "用户希望从 ChatGPT Image 2 获得什么",
+        "description": "创作者与团队关注这类能力组合的常见原因。",
         "items": [
           {
-            "name": "David Chen",
-            "role": "AIWallpaper.shop 创始人",
-            "quote": "Flux Klein 为我们节省了数月开发时间。2 天上线 AI 壁纸业务，一周内就收到了第一笔付费订单！",
+            "name": "设计团队",
+            "role": "品牌与创意运营",
+            "quote": "我们需要更好地遵循美术方向、保留产品细节，并快速把创意转化成可用的营销视觉内容。",
             "image": {
               "src": "/imgs/avatars/1.png",
-              "alt": "david"
+              "alt": "design teams"
             }
           },
           {
-            "name": "Rachel Kim",
-            "role": "HeyBeauty.ai CTO",
-            "quote": "内置 AI 基础设施颠覆了开发体验，无需担心架构，只需专注核心功能，极快落地。",
+            "name": "电商卖家",
+            "role": "商品图与广告创意",
+            "quote": "参考图保真和透明背景比新奇效果更重要，我们需要的是能直接发布的素材。",
             "image": {
               "src": "/imgs/avatars/2.png",
-              "alt": "rachel"
+              "alt": "ecommerce sellers"
             }
           },
           {
-            "name": "Marcus Thompson",
-            "role": "独立开发者",
-            "quote": "作为独立开发者，Nano Banana Pro 满足了全部需求——认证、支付、AI 集成、美观界面，一个周末上线 SaaS！",
+            "name": "内容创作者",
+            "role": "社媒与视觉发布",
+            "quote": "图中文字、海报式布局和更可控的编辑能力，正是我们关注 ChatGPT Image 2 的核心原因。",
             "image": {
               "src": "/imgs/avatars/3.png",
-              "alt": "marcus"
-            }
-          },
-          {
-            "name": "Sofia Garcia",
-            "role": "Melodisco CEO",
-            "quote": "模板高度可定制且生产级。我们几小时内搭建出了 AI 音乐平台，上市周期大大缩短！",
-            "image": {
-              "src": "/imgs/avatars/4.png",
-              "alt": "sofia"
-            }
-          },
-          {
-            "name": "James Wilson",
-            "role": "GPTs.works 技术负责人",
-            "quote": "Flux Klein 基础设施极其稳定。我们从 0 到 1 万用户，无需关心后端维护，是最棒的 AI 创业投资。",
-            "image": {
-              "src": "/imgs/avatars/5.png",
-              "alt": "james"
-            }
-          },
-          {
-            "name": "Anna Zhang",
-            "role": "创业者",
-            "quote": "从想法到上线，仅用 3 天！Nano Banana Pro 模板和部署工具让我们极快验证 AI 商业创意。",
-            "image": {
-              "src": "/imgs/avatars/6.png",
-              "alt": "anna"
+              "alt": "content creators"
             }
           }
         ]
       },
       "faq": {
         "id": "faq",
-        "title": "关于 Flux Klein 的常见问题",
-        "description": "还有其他问题？欢迎加入 Discord 或发邮件联系我们。",
+        "title": "关于 ChatGPT Image 2 的常见问题",
+        "description": "如果还有问题，可以直接去生成页测试整个工作流。",
         "items": [
           {
-            "question": "Flux Klein 是什么？怎么帮到我？",
-            "answer": "Flux Klein 是专为 AI SaaS 创业设计的 NextJS 全套脚手架，内含开箱即用的模板、基础设施搭建和部署工具，让你数小时内上线 AI 产品。"
+            "question": "ChatGPT Image 2 是一个 API 模型名吗？",
+            "answer": "不完全是。在本站里，ChatGPT Image 2 是产品侧关键词；在 API 语境中，当前最接近的模型参考是 gpt-image-2。"
           },
           {
-            "question": "使用 Flux Klein 需要很高的技术水平吗？",
-            "answer": "有基础编程知识即可上手。Nano Banana Pro 面向开发者友好，详细文档和模板让初学者也能轻松起步，不需深厚 AI 或云计算背景。"
+            "question": "ChatGPT Image 2 最核心的优势是什么？",
+            "answer": "核心优势包括高质量生成、图像编辑支持、更强的提示词遵循、参考图保真、图中文字渲染，以及透明背景生成能力。"
           },
           {
-            "question": "Flux Klein 支持哪些类型的 AI SaaS 项目？",
-            "answer": "Flux Klein 支持内容生成、数据分析、AI 聊天机器人、图片/内容生成器等多种主流 AI 应用场景。"
+            "question": "ChatGPT Image 2 适合电商和营销场景吗？",
+            "answer": "适合。它特别适合电商主图、海报、品牌创意、社媒图片和可复用商品素材。"
           },
           {
-            "question": "用 Flux Klein 一般多久能上线？",
-            "answer": "借助 Nano Banana Pro，可在数小时内拿到产品原型并上线生产环境，预配置的一键部署大幅缩短开发周期。"
+            "question": "ChatGPT Image 2 只能文生图吗？",
+            "answer": "不是。它的关键定位之一就是同时支持生成与编辑两类工作流。"
           },
           {
-            "question": "Flux Klein 的基础设施包括哪些内容？",
-            "answer": "包含认证、数据库、API 集成、支付、云端部署等全栈解决方案，全部遵循业界最佳实践预配置。"
+            "question": "ChatGPT Image 2 一定是秒出图吗？",
+            "answer": "不是。它更适合被理解为质量优先模型，复杂提示词或精细编辑可能需要更长时间。"
           },
           {
-            "question": "模板是否支持定制自己的品牌？",
-            "answer": "当然支持！所有模板均可自定义设计、功能和品牌，既保持基础架构稳定，又能满足个性扩展需求。"
+            "question": "什么时候应该上传参考图？",
+            "answer": "当你需要更准确地保留主体、风格、商品结构或视觉识别元素时，就应该上传参考图。"
           }
         ]
       },
       "cta": {
         "id": "cta",
-        "title": "发布你的第一个 AI SaaS 项目",
-        "description": "从这里出发，用 Flux Klein 极速交付。",
+        "title": "使用 ChatGPT Image 2 开始创作",
+        "description": "用更强的提示词控制和更实用的商业输出质量，开始生成与编辑视觉内容。",
         "buttons": [
           {
-            "title": "获取 Flux Klein",
-            "url": "https://shipany.ai",
-            "target": "_blank",
+            "title": "打开生成器",
+            "url": "/create",
+            "target": "_self",
             "icon": "Zap"
           },
           {
-            "title": "阅读文档",
-            "url": "/docs",
-            "target": "_blank",
+            "title": "查看价格",
+            "url": "/pricing",
+            "target": "_self",
             "variant": "outline",
             "icon": "BookOpenText"
           }
@@ -405,8 +378,8 @@
       },
       "subscribe": {
         "id": "subscribe",
-        "title": "订阅我们的邮件通知",
-        "description": "获取 Flux Klein 最新资讯与产品动态。",
+        "title": "订阅更新",
+        "description": "获取与 ChatGPT Image 2 相关的最新产品动态和工作流更新。",
         "submit": {
           "input": {
             "placeholder": "输入邮箱"

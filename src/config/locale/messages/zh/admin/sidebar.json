@@ -1,13 +1,13 @@
 {
-  "header": {
-    "brand": {
-      "title": "Flux Klein",
-      "logo": {
-        "src": "/logo.png",
-        "alt": "Flux Klein"
+    "header": {
+      "brand": {
+        "title": "ChatGPT Image 2",
+        "logo": {
+          "src": "/logo.png",
+          "alt": "ChatGPT Image 2"
+        },
+        "url": "/admin"
       },
-      "url": "/admin"
-    },
     "show_trigger": false
   },
   "main_navs": [

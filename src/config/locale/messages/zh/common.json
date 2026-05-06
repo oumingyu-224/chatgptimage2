@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Flux Klein – 旗舰级 AI 写实影像生成模型",
-    "description": "Flux Klein 是基于 Flux 架构的专业级 AI 影像生成模型。通过超写实的纹理表现，提供业界领先的图像生成体验。"
+    "title": "ChatGPT Image 2 - AI 图像生成与编辑平台",
+    "description": "ChatGPT Image 2 是围绕 OpenAI 最新图像能力打造的 AI 图像生成与编辑平台，具备更强的提示词遵循、参考图保真、文字渲染与透明背景生成能力。"
   },
   "sign": {
     "sign_in_title": "登录",

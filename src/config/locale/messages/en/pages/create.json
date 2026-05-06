@@ -1,15 +1,15 @@
 {
   "metadata": {
-    "title": "Flux Klein Image Editing",
-    "description": "Edit and generate images with Flux Klein model."
+    "title": "ChatGPT Image 2 Generator",
+    "description": "Generate and edit images with ChatGPT Image 2 using text prompts and reference images."
   },
   "page": {
-    "title": "Flux Klein Image Editing",
-    "description": "Edit and generate images with Flux Klein model."
+    "title": "ChatGPT Image 2 Generator",
+    "description": "Create and refine visuals with ChatGPT Image 2 for text-to-image and image-to-image workflows."
   },
   "generator": {
-    "title": "Flux Klein Image Editing",
-    "description": "Edit and generate images with Flux Klein model.",
+    "title": "ChatGPT Image 2 Generator",
+    "description": "Use ChatGPT Image 2 for high-quality image generation and editing with strong prompt control.",
     "tabs": {
       "text-to-image": "Text to Image",
       "image-to-image": "Image to Image"
@@ -20,9 +20,9 @@
       "select_provider": "Select Provider",
       "select_model": "Select Model",
       "prompt": "Prompt",
-      "prompt_placeholder": "Describe the details of the image, such as color, shape, texture, etc.",
+      "prompt_placeholder": "Describe the image in detail, including composition, text, lighting, materials, and any edits you want.",
       "reference_image": "Reference Image",
-      "reference_image_placeholder": "Upload reference images, support multiple images",
+      "reference_image_placeholder": "Upload one or more reference images to preserve style, layout, or subject details",
       "some_images_failed_to_upload": "Some images failed to upload, please delete them and re-upload",
       "prompt_too_long": "Prompt is too long, please delete some content"
     },

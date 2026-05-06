@@ -2,10 +2,10 @@
   "header": {
     "id": "header",
     "brand": {
-      "title": "Flux Klein",
+      "title": "ChatGPT Image 2",
       "logo": {
         "src": "/logo.png",
-        "alt": "Flux Klein"
+        "alt": "ChatGPT Image 2"
       },
       "url": "/"
     },
@@ -34,19 +34,19 @@
               "title": "Seedream 4.5",
               "url": "/seedream4-5",
               "icon": "Wind",
-              "description": "高质量的海报设计和图片编辑，宽松的内容政策"
+              "description": "适合高质量海报设计和图像编辑，内容策略更宽松"
             },
             {
               "title": "Nano Banana Pro",
               "url": "/nano-banana-pro",
               "icon": "Wind",
-              "description": "Nano Banana 的先进AI模型提供一致的角色编辑和场景保持"
+              "description": "适合强调角色一致性和场景保持的高级图像编辑"
             },
             {
               "title": "Z-Image",
               "url": "/z-image",
               "icon": "Wind",
-              "description": "文本转图片，价格实惠速度快！"
+              "description": "快速且低成本的文生图能力"
             }
           ]
         }
@@ -76,8 +76,8 @@
   },
   "hero": {
     "id": "hero",
-    "title": "Flux Klein",
-    "description": "Flux 架构的旗舰级写实进化版本。专为追求极致皮肤纹理、电影级光影与专业摄影质感的创作者打造。",
+    "title": "ChatGPT Image 2",
+    "description": "围绕 OpenAI 最新图像能力打造的高质量 AI 图像生成与编辑体验。通过更强的提示词遵循、参考图保真、图中文字渲染和透明背景能力，帮助你完成更专业的视觉创作。",
     "buttons": [
       {
         "title": "立即体验",
@@ -95,7 +95,7 @@
       }
     ],
     "show_avatars": false,
-    "avatars_tip": "999+ 用户正在使用 Flux Klein",
+    "avatars_tip": "999+ 用户正在使用 ChatGPT Image 2 创作",
     "show_award": false,
     "background_image": {
       "src": "/imgs/bg/girl.jpeg",
@@ -104,87 +104,87 @@
   },
   "showcases-flow": {
     "id": "showcases",
-    "title": "Flux Klein 案例展示",
-    "description": "由 Flux Klein 驱动的代表性超写实影像生成与数字艺术案例。",
+    "title": "ChatGPT Image 2 案例展示",
+    "description": "用于提示词生成、图像编辑与商业视觉创作的代表性案例。",
     "items": [
       {
-        "title": "Flux Klein 案例 1",
-        "description": "Flux Klein 案例",
+        "title": "ChatGPT Image 2 案例 1",
+        "description": "提示词生成案例",
         "image": {
           "src": "/imgs/showcases/1.jpeg",
-          "alt": "Flux Klein 案例 1"
+          "alt": "ChatGPT Image 2 案例 1"
         }
       },
       {
-        "title": "Flux Klein 案例 2",
-        "description": "Flux Klein 案例",
+        "title": "ChatGPT Image 2 案例 2",
+        "description": "提示词生成案例",
         "image": {
           "src": "/imgs/showcases/2.jpeg",
-          "alt": "Flux Klein 案例 2"
+          "alt": "ChatGPT Image 2 案例 2"
         }
       },
       {
-        "title": "Flux Klein 案例 3",
-        "description": "Flux Klein 案例",
+        "title": "ChatGPT Image 2 案例 3",
+        "description": "提示词生成案例",
         "image": {
           "src": "/imgs/showcases/3.jpeg",
-          "alt": "Flux Klein 案例 3"
+          "alt": "ChatGPT Image 2 案例 3"
         }
       },
       {
-        "title": "Flux Klein 案例 4",
-        "description": "Flux Klein 案例",
+        "title": "ChatGPT Image 2 案例 4",
+        "description": "提示词生成案例",
         "image": {
           "src": "/imgs/showcases/4.jpeg",
-          "alt": "Flux Klein 案例 4"
+          "alt": "ChatGPT Image 2 案例 4"
         }
       },
       {
-        "title": "Flux Klein 案例 5",
-        "description": "Flux Klein 案例",
+        "title": "ChatGPT Image 2 案例 5",
+        "description": "提示词生成案例",
         "image": {
           "src": "/imgs/showcases/5.jpeg",
-          "alt": "Flux Klein 案例 5"
+          "alt": "ChatGPT Image 2 案例 5"
         }
       },
       {
-        "title": "Flux Klein 案例 6",
-        "description": "Flux Klein 案例",
+        "title": "ChatGPT Image 2 案例 6",
+        "description": "提示词生成案例",
         "image": {
           "src": "/imgs/showcases/6.jpeg",
-          "alt": "Flux Klein 案例 6"
+          "alt": "ChatGPT Image 2 案例 6"
         }
       },
       {
-        "title": "Flux Klein 案例 7",
-        "description": "Flux Klein 案例",
+        "title": "ChatGPT Image 2 案例 7",
+        "description": "提示词生成案例",
         "image": {
           "src": "/imgs/showcases/7.jpeg",
-          "alt": "Flux Klein 案例 7"
+          "alt": "ChatGPT Image 2 案例 7"
         }
       },
       {
-        "title": "Flux Klein 案例 8",
-        "description": "Flux Klein 案例",
+        "title": "ChatGPT Image 2 案例 8",
+        "description": "提示词生成案例",
         "image": {
           "src": "/imgs/showcases/8.jpeg",
-          "alt": "Flux Klein 案例 8"
+          "alt": "ChatGPT Image 2 案例 8"
         }
       },
       {
-        "title": "Flux Klein 案例 9",
-        "description": "Flux Klein 案例",
+        "title": "ChatGPT Image 2 案例 9",
+        "description": "提示词生成案例",
         "image": {
           "src": "/imgs/showcases/9.jpeg",
-          "alt": "Flux Klein 案例 9"
+          "alt": "ChatGPT Image 2 案例 9"
         }
       },
       {
-        "title": "Flux Klein 案例 10",
-        "description": "Flux Klein 案例",
+        "title": "ChatGPT Image 2 案例 10",
+        "description": "提示词生成案例",
         "image": {
           "src": "/imgs/showcases/10.jpeg",
-          "alt": "Flux Klein 案例 10"
+          "alt": "ChatGPT Image 2 案例 10"
         }
       }
     ]
@@ -203,37 +203,37 @@
   },
   "features": {
     "id": "features",
-    "title": "Flux Klein 核心特性",
-    "description": "借助基于 Flux 的领先 AI 影像模型 Flux Klein，获取生成与优化视觉作品所需的一切。",
+    "title": "ChatGPT Image 2 核心特性",
+    "description": "围绕主关键词 ChatGPT Image 2 构建的现代 AI 图像生成与编辑工作流能力。",
     "items": [
       {
-        "title": "超写实纹理生成",
-        "description": "告别 AI 的“平滑感”。Flux Klein 专注于微米级皮肤孔隙、发丝绒毛及织物纹理的细腻还原，生成具有呼吸感的超写实影像。",
+        "title": "高质量生成与编辑一体化",
+        "description": "ChatGPT Image 2 同时适合生成新图和编辑已有图片，适合从创意到精修的一体化工作流。",
         "icon": "RiMagicLine"
       },
       {
-        "title": "顶尖指令遵循",
-        "description": "完美解读复杂的摄影指令。无论是特定的镜头焦段、构图角度还是极其细腻的光位分布，Flux Klein 都能精准还原您的文本意图。",
+        "title": "更强的提示词遵循能力",
+        "description": "对于构图控制、局部修改、图中文字摆放和商业设计需求，它能更稳定地理解并执行复杂指令。",
         "icon": "RiUserStarLine"
       },
       {
-        "title": "电影级光影与光学景深",
-        "description": "模拟真实的光学折射与动态范围。利用 Flux 架构的深度感知能力，自动平衡画面明暗，呈现具有电影质感的光影层次与自然虚化。",
+        "title": "参考图保真度更高",
+        "description": "上传参考图后，更适合保留风格、主体细节、商品结构或品牌元素，提升图生图编辑的一致性。",
         "icon": "RiLandscapeLine"
       },
       {
-        "title": "视觉特征一致性",
-        "description": "专为连贯性艺术创作优化。在多轮生成或不同场景切换中，Flux Klein 能更好地保持人物面部特征与风格基调，满足专业叙事需求。",
+        "title": "支持图中文字与透明背景",
+        "description": "非常适合社媒海报、商品素材、贴纸、Logo 辅助图等需要图中文字或透明背景输出的场景。",
         "icon": "Layers"
       },
       {
-        "title": "专业级构图与画幅控制",
-        "description": "原生支持全画幅比例构图。在 1:1 到 21:9 的超宽比例下，模型能自适应重构人体解剖与透视关系，确保画面边缘无畸变。",
+        "title": "多尺寸输出与商业视觉生产",
+        "description": "支持多种尺寸，适合电商主图、营销海报、社媒内容和品牌视觉资产等商用场景。",
         "icon": "RiAspectRatioLine"
       },
       {
-        "title": "即时高保真变体迭代",
-        "description": "秒级生成多样化采样方案。在不改变核心构图的前提下，让您能够快速探索不同的光效方案、材质表现和色彩饱和度变体。",
+        "title": "质量优先的图像输出",
+        "description": "它的定位更偏向高质量而不是最低延迟，因此复杂任务可能更耗时，但更适合成品级视觉内容。",
         "icon": "RiFlashlightLine"
       }
     ]
@@ -246,41 +246,41 @@
   },
   "faq": {
     "id": "faq",
-    "title": "关于 Flux Klein 的常见问题",
+    "title": "关于 ChatGPT Image 2 的常见问题",
     "items": [
       {
-        "question": "Flux Klein 到底是什么，它是如何工作的？",
-        "answer": "Flux Klein 是基于 Flux.1 架构的顶级微调模型。它利用高保真 RAW 数据集，优先优化超写实的皮肤纹理和电影级光影效果，为创作者提供了一个用于高端图像生成的尖端工具。"
+        "question": "ChatGPT Image 2 是什么？",
+        "answer": "ChatGPT Image 2 是本站对一套 AI 图像生成与编辑体验的产品命名，围绕 OpenAI 最新图像能力构建。在 API 语境中，当前最接近的模型参考是 gpt-image-2。"
       },
       {
-        "question": "如何使用 Flux Klein 生成高保真图像？",
-        "answer": "您可以通过提供自然语言提示词来创建令人惊叹的视觉效果。Flux Klein 经过专门优化，能够深度理解“景深”、“黄金小时”和“胶片颗粒”等专业摄影术语，从而产出画廊级别的作品。"
+        "question": "ChatGPT Image 2 擅长哪些任务？",
+        "answer": "它适合文生图、图生图编辑、参考图重绘、图中文字生成、透明背景输出，以及面向商业场景的视觉内容生产。"
       },
       {
-        "question": "Flux Klein 与其他 Flux 变体有什么不同？",
-        "answer": "虽然标准的 Flux 模型功能广泛，但 Flux Klein 专注于“回归真实”。它解决了 AI 常见的皮肤过度平滑和人体结构畸形问题，使其成为写实数字人摄影的行业标准。"
+        "question": "为什么 ChatGPT Image 2 和旧图像模型不同？",
+        "answer": "它的实际优势在于更强的提示词遵循、更好的参考图保真度、更可靠的图像编辑能力，以及更适合海报、电商素材、贴纸和品牌内容等场景。"
       },
       {
-        "question": "我可以控制输出的尺寸和宽高比吗？",
-        "answer": "是的。Flux Klein 原生支持广泛的宽高比（如 1:1、16:9、9:16、21:9）。其架构确保了即使在超宽或垂直构图中，画面的构图完整性和人体比例依然保持完美。"
+        "question": "我可以上传图片进行编辑吗？",
+        "answer": "可以。ChatGPT Image 2 支持图像编辑工作流，你可以上传一张或多张参考图，再通过详细指令引导修改。"
       },
       {
-        "question": "如何利用 Flux Klein 获得最佳的“写实效果”？",
-        "answer": "为了获得最佳效果，请在提示词中包含材质细节和光影环境的描述。提及特定的摄影设备（如“使用 35mm 胶片拍摄”）将触发模型专门的纹理层。"
+        "question": "ChatGPT Image 2 支持图中文字和透明背景吗？",
+        "answer": "支持。这正是当前产品定位里非常实用的两项能力，尤其适合社媒图、商品素材、Logo 辅助图和贴纸类输出。"
       },
       {
-        "question": "我可以将 Flux Klein 的生成结果用于专业的品牌营销吗？",
-        "answer": "当然可以。其卓越的图像分辨率和视觉一致性使其成为商业广告、产品原型和时尚手册的理想工具，完全能满足高标准的审美需求。"
+        "question": "ChatGPT Image 2 是速度优先模型吗？",
+        "answer": "它更适合被理解为质量优先。复杂提示词或精细编辑可能耗时更久，但整体更偏向高质量生成和编辑结果。"
       }
     ]
   },
   "cta": {
     "id": "cta",
-    "title": "立即体验 Flux Klein",
-    "description": "感受 Flux Klein 带来的巅峰写实性能。通过极致的纹理表现与电影级的光影渲染，将您的想象力转化为高保真视觉杰作。",
+    "title": "立即体验 ChatGPT Image 2",
+    "description": "使用更强的提示词控制、参考图保真、图中文字渲染和灵活编辑能力，生成更高质量的视觉内容。",
     "buttons": [
       {
-        "title": "体验 Flux Klein",
+        "title": "体验 ChatGPT Image 2",
         "url": "/create",
         "target": "_self",
         "icon": "Wand"
@@ -294,11 +294,11 @@
   "footer": {
     "id": "footer",
     "brand": {
-      "title": "Flux Klein",
-      "description": "Flux Klein 是基于 Flux 架构的旗舰级 AI 影像生成模型。通过超写实的皮肤纹理与精准的指令遵循，为创作者提供业界领先的视觉创作体验。",
+      "title": "ChatGPT Image 2",
+      "description": "ChatGPT Image 2 是面向高质量输出的 AI 图像生成与编辑体验，强调更强的提示词遵循、参考图保真与实用商业场景表现。",
       "logo": {
         "src": "/logo.png",
-        "alt": "Flux Klein"
+        "alt": "ChatGPT Image 2"
       },
       "url": "/"
     },
@@ -348,51 +348,6 @@
               "target": "_self"
             }
           ]
-        },
-        {
-          "title": "友情链接",
-          "children": [
-            {
-              "title": "SeekAIs - AI Tools Directory",
-              "url": "https://seekais.com/",
-              "target": "_blank"
-            },
-            {
-              "title": "RightAI Tools Diresctory",
-              "url": "https://right-ai.com/",
-              "target": "_blank"
-            },
-            {
-              "title": "navfolders",
-              "url": "https://navfolders.com",
-              "target": "_blank"
-            },
-            {
-              "title": "Ai Tools List",
-              "url": "https://aiai.tools/",
-              "target": "_blank"
-            },
-            {
-              "title": "showmebest",
-              "url": "https://showmebest.ai",
-              "target": "_blank"
-            },
-            {
-              "title": "MossAI Tools",
-              "url": "https://mossai.org",
-              "target": "_blank"
-            },
-            {
-              "title": "Listed on AIBestTop",
-              "url": "https://aibesttop.com",
-              "target": "_blank"
-            },
-            {
-              "title": "shinylaunch",
-              "url": "https://shinylaunch.com",
-              "target": "_blank"
-            }
-          ]
         }
       ]
     },
@@ -401,7 +356,7 @@
         {
           "title": "邮箱",
           "icon": "Mail",
-          "url": "mailto:ai-image@fluxklein.co",
+          "url": "mailto:ai-image@chatgptimage2.app",
           "target": "_self"
         }
       ]

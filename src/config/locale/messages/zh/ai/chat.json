@@ -2,10 +2,10 @@
   "sidebar": {
     "header": {
       "brand": {
-        "title": "Flux Klein Chat",
+        "title": "ChatGPT Image 2 对话",
         "logo": {
           "src": "/logo.png",
-          "alt": "Flux Klein Chat"
+          "alt": "ChatGPT Image 2 对话"
         },
         "url": "/chat"
       },

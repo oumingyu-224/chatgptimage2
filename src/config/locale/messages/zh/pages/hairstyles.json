@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "title": "AI 发型生成器 | Flux Klein",
-    "description": "Flux Klein 是 Nano Banana 的第二代旗舰 AI 图像编辑模型，提供一流的图像编辑体验。"
+    "title": "AI 发型生成器 | ChatGPT Image 2",
+    "description": "使用 ChatGPT Image 2 生成和编辑发型灵感，获得更强的提示词控制和参考图保真效果。"
   },
   "page": {
     "title": "AI 发型生成器",
-    "description": "使用 Flux Klein 模型生成发型。"
+    "description": "使用 ChatGPT Image 2 生成发型灵感。"
   },
    "showcases-flow": {
     "id": "showcases-flow",
@@ -29,7 +29,7 @@
     ],
     "sr_only_title": "发型展示",
     "title": "AI 发型生成器",
-    "description": "使用 Flux Klein 模型生成发型。",
+    "description": "使用 ChatGPT Image 2 生成多种发型变化。",
     "buttons": [
       {
         "title": "立即生成",

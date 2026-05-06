@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "案例展示",
-    "description": "用 Flux Klein 打造的精彩项目"
+    "title": "ChatGPT Image 2 提示词与案例",
+    "description": "查看使用 ChatGPT Image 2 生成的提示词案例与图像示例。"
   },
   "ui": {
     "create_similar": "创建相似",
@@ -12,12 +12,12 @@
   "showcases-flow": {
     "id": "showcases",
     "sr_only_title": "案例展示",
-    "title": "Flux Klein 提示词",
-    "description": "由 Flux Klein 提供支持的代表性编辑和生成案例",
+    "title": "ChatGPT Image 2 提示词",
+    "description": "由 ChatGPT Image 2 驱动的代表性生成与编辑案例",
     "items": [
       {
         "title": "垂直鱼眼自拍",
-        "description": "AI SaaS 案例展示",
+        "description": "ChatGPT Image 2 提示词示例",
         "image": {
           "src": "/imgs/showcases/1.jpeg",
           "alt": "AI SaaS 案例展示 1"
@@ -25,8 +25,8 @@
         "prompt": "vertical-fisheye-selfie"
       },
       {
-        "title": "AI SaaS 案例展示 2",
-        "description": "AI SaaS 案例展示",
+        "title": "3D 数字人漫画风格",
+        "description": "ChatGPT Image 2 提示词示例",
         "image": {
           "src": "/imgs/showcases/2.jpeg",
           "alt": "AI SaaS 案例展示 2"
@@ -34,64 +34,64 @@
         "prompt": "3d-digital-human-comics"
       },
       {
-        "title": "AI SaaS 案例展示 3",
-        "description": "AI SaaS 案例展示",
+        "title": "时尚人像构图",
+        "description": "ChatGPT Image 2 案例",
         "image": {
           "src": "/imgs/showcases/3.jpeg",
           "alt": "AI SaaS 案例展示 3"
         }
       },
       {
-        "title": "AI SaaS 案例展示 4",
-        "description": "AI SaaS 案例展示",
+        "title": "电影感近景布光",
+        "description": "ChatGPT Image 2 案例",
         "image": {
           "src": "/imgs/showcases/4.jpeg",
           "alt": "AI SaaS 案例展示 4"
         }
       },
       {
-        "title": "AI SaaS 案例展示 5",
-        "description": "AI SaaS 案例展示",
+        "title": "产品海报概念图",
+        "description": "ChatGPT Image 2 案例",
         "image": {
           "src": "/imgs/showcases/5.jpeg",
           "alt": "AI SaaS 案例展示 5"
         }
       },
       {
-        "title": "AI SaaS 案例展示 6",
-        "description": "AI SaaS 案例展示",
+        "title": "角色一致性测试",
+        "description": "ChatGPT Image 2 案例",
         "image": {
           "src": "/imgs/showcases/6.jpeg",
           "alt": "AI SaaS 案例展示 6"
         }
       },
       {
-        "title": "AI SaaS 案例展示 7",
-        "description": "AI SaaS 案例展示",
+        "title": "透明背景贴纸设计",
+        "description": "ChatGPT Image 2 案例",
         "image": {
           "src": "/imgs/showcases/7.jpeg",
           "alt": "AI SaaS 案例展示 7"
         }
       },
       {
-        "title": "AI SaaS 案例展示 8",
-        "description": "AI SaaS 案例展示",
+        "title": "图中文字社媒海报",
+        "description": "ChatGPT Image 2 案例",
         "image": {
           "src": "/imgs/showcases/8.jpeg",
           "alt": "AI SaaS 案例展示 8"
         }
       },
       {
-        "title": "AI SaaS 案例展示 9",
-        "description": "AI SaaS 案例展示",
+        "title": "参考图重绘风格转换",
+        "description": "ChatGPT Image 2 案例",
         "image": {
           "src": "/imgs/showcases/9.jpeg",
           "alt": "AI SaaS 案例展示 9"
         }
       },
       {
-        "title": "AI SaaS 案例展示 10",
-        "description": "AI SaaS 案例展示",
+        "title": "电商主视觉图",
+        "description": "ChatGPT Image 2 案例",
         "image": {
           "src": "/imgs/showcases/10.jpeg",
           "alt": "AI SaaS 案例展示 10"
@@ -104,8 +104,8 @@
     "sections": {
       "showcases": {
         "id": "showcases",
-        "title": "用 Flux Klein 构建的 AI SaaS 创业项目",
-        "description": "简单、快速、高效。",
+        "title": "ChatGPT Image 2 案例库",
+        "description": "用于提示词编写、编辑工作流和商业视觉生成的参考示例。",
         "groups": [
           {
             "name": "all",

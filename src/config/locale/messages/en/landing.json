@@ -2,10 +2,10 @@
   "header": {
     "id": "header",
     "brand": {
-      "title": "Flux Klein",
+      "title": "ChatGPT Image 2",
       "logo": {
         "src": "/logo.png",
-        "alt": "Flux Klein"
+        "alt": "ChatGPT Image 2"
       },
       "url": "/"
     },
@@ -40,13 +40,13 @@
               "title": "Nano Banana Pro",
               "url": "/nano-banana-pro",
               "icon": "Wind",
-              "description": "Nano Banana's advanced AI model delivers consistent character editing and scene preservation"
+              "description": "Advanced image editing with strong character consistency and scene preservation"
             },
             {
               "title": "Z-Image",
               "url": "/z-image",
               "icon": "Wind",
-              "description": "Text-to-image, affordable and fast!"
+              "description": "Fast and affordable text-to-image generation"
             }
           ]
         }
@@ -76,8 +76,8 @@
   },
   "hero": {
     "id": "hero",
-    "title": "Flux Klein",
-    "description": "The flagship evolution of realistic generation based on the Flux architecture. Designed for creators pursuing ultimate skin texture, cinematic lighting, and professional photography quality.",
+    "title": "ChatGPT Image 2",
+    "description": "A high-quality AI image generation and editing experience built around OpenAI's latest image capabilities. Create polished visuals with stronger prompt adherence, reference image fidelity, text rendering, and transparent backgrounds.",
     "buttons": [
       {
         "title": "Try Now",
@@ -95,7 +95,7 @@
       }
     ],
     "show_avatars": false,
-    "avatars_tip": "999+ users are using Flux Klein",
+    "avatars_tip": "999+ users are creating with ChatGPT Image 2",
     "show_award": false,
     "background_image": {
       "src": "/imgs/bg/girl.jpeg",
@@ -104,87 +104,87 @@
   },
   "showcases-flow": {
     "id": "showcases",
-    "title": "Flux Klein Showcases",
-    "description": "Representative hyper-realistic image generation and digital art cases powered by Flux Klein.",
+    "title": "ChatGPT Image 2 Showcases",
+    "description": "Representative examples for prompt-driven generation, image editing, and commercial visual creation.",
     "items": [
       {
-        "title": "Flux Klein Showcase 1",
-        "description": "Flux Klein showcase",
+        "title": "ChatGPT Image 2 Showcase 1",
+        "description": "Prompt-based image generation example",
         "image": {
           "src": "/imgs/showcases/1.jpeg",
-          "alt": "Flux Klein Showcase 1"
+          "alt": "ChatGPT Image 2 Showcase 1"
         }
       },
       {
-        "title": "Flux Klein Showcase 2",
-        "description": "Flux Klein showcase",
+        "title": "ChatGPT Image 2 Showcase 2",
+        "description": "Prompt-based image generation example",
         "image": {
           "src": "/imgs/showcases/2.jpeg",
-          "alt": "Flux Klein Showcase 2"
+          "alt": "ChatGPT Image 2 Showcase 2"
         }
       },
       {
-        "title": "Flux Klein Showcase 3",
-        "description": "Flux Klein showcase",
+        "title": "ChatGPT Image 2 Showcase 3",
+        "description": "Prompt-based image generation example",
         "image": {
           "src": "/imgs/showcases/3.jpeg",
-          "alt": "Flux Klein Showcase 3"
+          "alt": "ChatGPT Image 2 Showcase 3"
         }
       },
       {
-        "title": "Flux Klein Showcase 4",
-        "description": "Flux Klein showcase",
+        "title": "ChatGPT Image 2 Showcase 4",
+        "description": "Prompt-based image generation example",
         "image": {
           "src": "/imgs/showcases/4.jpeg",
-          "alt": "Flux Klein Showcase 4"
+          "alt": "ChatGPT Image 2 Showcase 4"
         }
       },
       {
-        "title": "Flux Klein Showcase 5",
-        "description": "Flux Klein showcase",
+        "title": "ChatGPT Image 2 Showcase 5",
+        "description": "Prompt-based image generation example",
         "image": {
           "src": "/imgs/showcases/5.jpeg",
-          "alt": "Flux Klein Showcase 5"
+          "alt": "ChatGPT Image 2 Showcase 5"
         }
       },
       {
-        "title": "Flux Klein Showcase 6",
-        "description": "Flux Klein showcase",
+        "title": "ChatGPT Image 2 Showcase 6",
+        "description": "Prompt-based image generation example",
         "image": {
           "src": "/imgs/showcases/6.jpeg",
-          "alt": "Flux Klein Showcase 6"
+          "alt": "ChatGPT Image 2 Showcase 6"
         }
       },
       {
-        "title": "Flux Klein Showcase 7",
-        "description": "Flux Klein showcase",
+        "title": "ChatGPT Image 2 Showcase 7",
+        "description": "Prompt-based image generation example",
         "image": {
           "src": "/imgs/showcases/7.jpeg",
-          "alt": "Flux Klein Showcase 7"
+          "alt": "ChatGPT Image 2 Showcase 7"
         }
       },
       {
-        "title": "Flux Klein Showcase 8",
-        "description": "Flux Klein showcase",
+        "title": "ChatGPT Image 2 Showcase 8",
+        "description": "Prompt-based image generation example",
         "image": {
           "src": "/imgs/showcases/8.jpeg",
-          "alt": "Flux Klein Showcase 8"
+          "alt": "ChatGPT Image 2 Showcase 8"
         }
       },
       {
-        "title": "Flux Klein Showcase 9",
-        "description": "Flux Klein showcase",
+        "title": "ChatGPT Image 2 Showcase 9",
+        "description": "Prompt-based image generation example",
         "image": {
           "src": "/imgs/showcases/9.jpeg",
-          "alt": "Flux Klein Showcase 9"
+          "alt": "ChatGPT Image 2 Showcase 9"
         }
       },
       {
-        "title": "Flux Klein Showcase 10",
-        "description": "Flux Klein showcase",
+        "title": "ChatGPT Image 2 Showcase 10",
+        "description": "Prompt-based image generation example",
         "image": {
           "src": "/imgs/showcases/10.jpeg",
-          "alt": "Flux Klein Showcase 10"
+          "alt": "ChatGPT Image 2 Showcase 10"
         }
       }
     ]
@@ -203,37 +203,37 @@
   },
   "features": {
     "id": "features",
-    "title": "Key Features of Flux Klein",
-    "description": "Everything you need to generate and refine visuals with Flux Klein, the leading AI image generation model powered by Flux.",
+    "title": "Key Features of ChatGPT Image 2",
+    "description": "Everything you need for modern AI image generation and editing workflows centered around the keyword ChatGPT Image 2.",
     "items": [
       {
-        "title": "Hyper-Realistic Texture Generation",
-        "description": "Say goodbye to the 'AI plastic look.' Flux Klein focuses on micron-level skin pores, hair strands, and fabric textures, generating hyper-realistic images with a true sense of vitality.",
+        "title": "High-Quality Generation and Editing",
+        "description": "ChatGPT Image 2 is designed for both generating new images and editing existing ones, making it suitable for end-to-end creative workflows.",
         "icon": "RiMagicLine"
       },
       {
-        "title": "Advanced Prompt Adherence",
-        "description": "Perfectly interpret complex photographic commands. From specific focal lengths to precise lighting setups, Flux Klein accurately renders your textual intentions with extreme fidelity.",
+        "title": "Stronger Prompt Adherence",
+        "description": "It follows detailed instructions more reliably, which is especially useful for composition control, scene edits, text placement, and commercial design tasks.",
         "icon": "RiUserStarLine"
       },
       {
-        "title": "Cinematic Lighting & Optical Depth",
-        "description": "Simulate real optical refraction and dynamic range. Utilizing Flux's depth perception, it balances highlights and shadows to present cinematic lighting layers and natural bokeh.",
+        "title": "Reference Image Fidelity",
+        "description": "Upload reference images to preserve style, subject details, product structure, or brand elements with better consistency during image-to-image editing.",
         "icon": "RiLandscapeLine"
       },
       {
-        "title": "Consistency in Visual Identity",
-        "description": "Optimized for sequential artistic creation. Across different scenes and prompts, Flux Klein excels at preserving facial identities and stylistic tones for professional storytelling.",
+        "title": "Text Rendering and Transparent Backgrounds",
+        "description": "Well-suited for posters, social graphics, stickers, and product assets that need text in image or transparent background output.",
         "icon": "Layers"
       },
       {
-        "title": "Professional Canvas & Aspect Control",
-        "description": "Native support for full-frame aspect ratios. From 1:1 to 21:9, the model adaptively reconstructs anatomy and perspective to ensure perfect composition without edge distortion.",
+        "title": "Flexible Sizes and Commercial Visuals",
+        "description": "Supports a range of image sizes and practical workflows for ecommerce, marketing creatives, social content, and branded image production.",
         "icon": "RiAspectRatioLine"
       },
       {
-        "title": "Instant High-Fidelity Iterations",
-        "description": "Generate diverse sampling schemes in seconds. Quickly explore variations in lighting, materials, and color saturation without altering the core composition of your scene.",
+        "title": "Quality-First Output",
+        "description": "Optimized for image quality rather than ultra-low latency, so complex generations may take longer but are better suited for polished final visuals.",
         "icon": "RiFlashlightLine"
       }
     ]
@@ -246,41 +246,41 @@
   },
   "faq": {
     "id": "faq",
-    "title": "Frequently asked questions about Flux Klein",
+    "title": "Frequently asked questions about ChatGPT Image 2",
     "items": [
       {
-        "question": "What exactly is Flux Klein and how does it work?",
-        "answer": "Flux Klein is a premier fine-tuned model based on the Flux.1 architecture. It leverages high-fidelity RAW datasets to prioritize hyper-realistic skin textures and cinematic lighting, providing creators with a state-of-the-art tool for high-end image generation."
+        "question": "What is ChatGPT Image 2?",
+        "answer": "ChatGPT Image 2 is the product positioning used on this site for an image generation and editing experience built around OpenAI's latest image capabilities. In API-facing terms, the closest current model reference is gpt-image-2."
       },
       {
-        "question": "How do I generate high-fidelity images with Flux Klein?",
-        "answer": "You can create stunning visuals by providing natural language prompts. Flux Klein is specifically optimized to interpret professional photography terms like 'depth of field,' 'golden hour,' and 'analog grain' to produce gallery-quality outputs."
+        "question": "What can ChatGPT Image 2 do well?",
+        "answer": "It is well suited for text-to-image generation, image-to-image editing, reference-driven restyling, text rendering inside images, transparent background outputs, and commercial creative production."
       },
       {
-        "question": "What makes Flux Klein different from other Flux variants?",
-        "answer": "While standard Flux models are versatile, Flux Klein focuses on 'True-to-Life' realism. It solves common AI issues such as over-smoothed skin and anatomical distortions, making it the industry standard for realistic digital human photography."
+        "question": "Why is ChatGPT Image 2 different from older image models?",
+        "answer": "Its practical strengths are stronger prompt adherence, better reference image fidelity, more reliable image editing, and improved support for use cases like posters, ecommerce assets, stickers, and branded content."
       },
       {
-        "question": "Can I control output dimensions and aspect ratios?",
-        "answer": "Yes. Flux Klein natively supports a wide range of aspect ratios (e.g., 1:1, 16:9, 9:16, 21:9). Its architecture ensures that compositional integrity and human proportions remain perfect even in ultra-wide or vertical frames."
+        "question": "Can I upload images and edit them?",
+        "answer": "Yes. ChatGPT Image 2 supports image editing workflows, so you can upload one or more reference images and guide changes with detailed instructions."
       },
       {
-        "question": "How do I achieve the best 'Photorealistic Look' with Flux Klein?",
-        "answer": "To get the best results, use descriptive prompts that include material details and lighting environments. Describing specific camera gear (e.g., 'shot on 35mm film') will unlock the model's specialized texture layers."
+        "question": "Does ChatGPT Image 2 support text in image and transparent backgrounds?",
+        "answer": "Yes. These are two of the most useful characteristics highlighted in the current product positioning, especially for social graphics, product assets, logos, and sticker-like outputs."
       },
       {
-        "question": "Can I use Flux Klein outputs for professional brand marketing?",
-        "answer": "Absolutely. Its superior image resolution and visual consistency make it an ideal tool for commercial ad campaigns, product mockups, and fashion lookbooks where high aesthetic standards are required."
+        "question": "Is ChatGPT Image 2 optimized for speed?",
+        "answer": "It is better described as quality-first. Complex prompts or detailed edits can take longer, but the model is positioned for higher-quality generation and editing rather than minimum latency."
       }
     ]
   },
   "cta": {
     "id": "cta",
-    "title": "Try Flux Klein now",
-    "description": "Experience the pinnacle of photorealistic performance with Flux Klein. Transform your imagination into high-fidelity visual masterpieces through superior texture rendering and cinematic lighting.",
+    "title": "Try ChatGPT Image 2 now",
+    "description": "Create high-quality visuals with better prompt control, reference image fidelity, text rendering, and editing flexibility.",
     "buttons": [
       {
-        "title": "Try Flux Klein",
+        "title": "Try ChatGPT Image 2",
         "url": "/create",
         "target": "_self",
         "icon": "Wand"
@@ -294,11 +294,11 @@
   "footer": {
     "id": "footer",
     "brand": {
-      "title": "Flux Klein",
-      "description": "Flux Klein is the flagship AI image generation model based on the Flux architecture. Through hyper-realistic skin textures and precise command adherence, it provides creators with industry-leading visual creation experience.",
+      "title": "ChatGPT Image 2",
+      "description": "ChatGPT Image 2 is an AI image generation and editing experience focused on high-quality outputs, stronger prompt adherence, reference image fidelity, and practical commercial use cases.",
       "logo": {
         "src": "/logo.png",
-        "alt": "Flux Klein"
+        "alt": "ChatGPT Image 2"
       },
       "url": "/"
     },
@@ -348,51 +348,6 @@
               "target": "_self"
             }
           ]
-        },
-        {
-          "title": "Friends Links",
-          "children": [
-            {
-              "title": "SeekAIs - AI Tools Directory",
-              "url": "https://seekais.com/",
-              "target": "_blank"
-            },
-            {
-              "title": "RightAI Tools Diresctory",
-              "url": "https://right-ai.com/",
-              "target": "_blank"
-            },
-            {
-              "title": "navfolders",
-              "url": "https://navfolders.com",
-              "target": "_blank"
-            },
-            {
-              "title": "Ai Tools List",
-              "url": "https://aiai.tools/",
-              "target": "_blank"
-            },
-            {
-              "title": "showmebest",
-              "url": "https://showmebest.ai",
-              "target": "_blank"
-            },
-            {
-              "title": "MossAI Tools",
-              "url": "https://mossai.org",
-              "target": "_blank"
-            },
-            {
-              "title": "Listed on AIBestTop",
-              "url": "https://aibesttop.com",
-              "target": "_blank"
-            },
-            {
-              "title": "shinylaunch",
-              "url": "https://shinylaunch.com",
-              "target": "_blank"
-            }
-          ]
         }
       ]
     },
@@ -401,7 +356,7 @@
         {
           "title": "Email",
           "icon": "Mail",
-          "url": "mailto:ai-image@fluxklein.co",
+          "url": "mailto:ai-image@chatgptimage2.app",
           "target": "_self"
         }
       ]

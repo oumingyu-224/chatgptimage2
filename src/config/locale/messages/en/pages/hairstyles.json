@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "title": "AI Hairstyle Generator | Flux Klein",
-    "description": "Flux Klein is the second generation of Nano Banana, also the flagship AI image editing model. Provide the best-in-class image editing experience."
+    "title": "AI Hairstyle Generator | ChatGPT Image 2",
+    "description": "Use ChatGPT Image 2 to generate and edit hairstyle ideas with better prompt control and reference image fidelity."
   },
   "page": {
     "title": "AI Hairstyle Generator",
-    "description": "Generate hairstyles with Flux Klein model."
+    "description": "Generate hairstyle ideas with ChatGPT Image 2."
   },
    "showcases-flow": {
     "id": "showcases-flow",
@@ -29,7 +29,7 @@
     ],
     "sr_only_title": "Hairstyles",
     "title": "AI Hairstyle Generator",
-    "description": "Generate hairstyles with Flux Klein model.",
+    "description": "Generate hairstyle variations with ChatGPT Image 2.",
     "buttons": [
       {
         "title": "Generate Now",
