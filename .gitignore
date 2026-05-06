@@ -64,3 +64,6 @@ src/config/db/migrations
 .source
 
 .chats
+
+# local skills folder (do not push)
+google-seo-skills 优化版/
