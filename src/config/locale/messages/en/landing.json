@@ -1,6 +1,13 @@
 {
   "header": {
     "id": "header",
+    "topbanner": {
+      "text": "ChatGPT Image 2 Launch Special - Get 30% OFF all Pro plans for a limited time!",
+      "buttonText": "Claim Now →",
+      "href": "/pricing",
+      "target": "_self",
+      "dismissedExpiryDays": 1
+    },
     "brand": {
       "title": "ChatGPT Image 2",
       "logo": {
@@ -78,6 +85,11 @@
     "id": "hero",
     "title": "ChatGPT Image 2",
     "description": "A high-quality AI image generation and editing experience built around OpenAI's latest image capabilities. Create polished visuals with stronger prompt adherence, reference image fidelity, text rendering, and transparent backgrounds.",
+    "trust_items": [
+      "Free credits to start",
+      "Up to 4K",
+      "No watermarks"
+    ],
     "buttons": [
       {
         "title": "Try Now",
@@ -98,7 +110,7 @@
     "avatars_tip": "999+ users are creating with ChatGPT Image 2",
     "show_award": false,
     "background_image": {
-      "src": "/imgs/bg/girl.jpeg",
+      "src": "",
       "alt": "hero"
     }
   },
@@ -246,7 +258,7 @@
   },
   "faq": {
     "id": "faq",
-    "title": "Frequently asked questions about ChatGPT Image 2",
+    "title": "Frequently Asked Questions",
     "items": [
       {
         "question": "What is ChatGPT Image 2?",
@@ -271,6 +283,10 @@
       {
         "question": "Is ChatGPT Image 2 optimized for speed?",
         "answer": "It is better described as quality-first. Complex prompts or detailed edits can take longer, but the model is positioned for higher-quality generation and editing rather than minimum latency."
+      },
+      {
+        "question": "Can ChatGPT Image 2 generate NSFW or explicit content?",
+        "answer": "No. ChatGPT Image 2 strictly prohibits generating any NSFW, pornographic, explicit, or harmful content. All requests are automatically reviewed under our safety policies and OpenAI usage guidelines. Attempts to generate prohibited content will be rejected, and repeated violations may result in account suspension. We are committed to maintaining a safe and responsible platform for all users."
       }
     ]
   },
@@ -286,7 +302,7 @@
         "icon": "Wand"
       }
     ],
-    "className": "bg-muted"
+    "className": "landing-cta-band"
   },
   "subscribe": {
     "hidden": true
@@ -374,6 +390,7 @@
       ]
     },
     "show_theme": true,
-    "show_locale": true
+    "show_locale": true,
+    "className": "landing-bottom-band"
   }
 }

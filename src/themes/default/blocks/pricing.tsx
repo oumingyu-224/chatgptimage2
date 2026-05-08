@@ -101,11 +101,15 @@ export function Pricing({
       (i) => i.product_id === currentSubscription?.productId
     );
 
+    const yearlyGroup = pricing.groups?.find((g) => g.name === 'yearly');
     // First look for a group with is_featured set to true
     const featuredGroup = pricing.groups?.find((g) => g.is_featured);
     // If no featured group exists, fall back to the first group
     return (
-      currentItem?.group || featuredGroup?.name || pricing.groups?.[0]?.name
+      currentItem?.group ||
+      yearlyGroup?.name ||
+      featuredGroup?.name ||
+      pricing.groups?.[0]?.name
     );
   });
 
@@ -317,11 +321,18 @@ export function Pricing({
 
   useEffect(() => {
     if (pricing.items) {
-      const featuredItem = pricing.items.find((i) => i.is_featured);
-      setProductId(featuredItem?.product_id || pricing.items[0]?.product_id);
+      const visibleItems = pricing.items.filter(
+        (item) => !item.group || item.group === group
+      );
+      const featuredItem = visibleItems.find((i) => i.is_featured);
+      setProductId(
+        featuredItem?.product_id ||
+          visibleItems[0]?.product_id ||
+          pricing.items[0]?.product_id
+      );
       setIsLoading(false);
     }
-  }, [pricing.items]);
+  }, [pricing.items, group]);
 
   return (
     <section
@@ -332,10 +343,10 @@ export function Pricing({
         {pricing.sr_only_title && (
           <h1 className="sr-only">{pricing.sr_only_title}</h1>
         )}
-        <h2 className="mb-6 text-3xl font-bold text-pretty lg:text-4xl">
+        <h2 className="landing-title mb-6 text-3xl font-bold text-pretty lg:text-4xl">
           {pricing.title}
         </h2>
-        <p className="text-muted-foreground mx-auto mb-4 max-w-xl lg:max-w-none lg:text-lg">
+        <p className="landing-body mx-auto mb-4 max-w-xl lg:max-w-none lg:text-lg">
           {pricing.description}
         </p>
       </div>
@@ -343,14 +354,20 @@ export function Pricing({
       <div className="container">
         {pricing.groups && pricing.groups.length > 0 && (
           <div className="mx-auto mt-8 mb-16 flex w-full justify-center md:max-w-lg">
-            <Tabs value={group} onValueChange={setGroup} className="">
-              <TabsList>
+            <Tabs value={group} onValueChange={setGroup}>
+              <TabsList className="landing-input-surface h-auto rounded-full border p-1">
                 {pricing.groups.map((item, i) => {
                   return (
-                    <TabsTrigger key={i} value={item.name || ''}>
+                    <TabsTrigger
+                      key={i}
+                      value={item.name || ''}
+                      className="rounded-full px-4 py-2 text-xs font-medium data-[state=active]:bg-[#1773ea] data-[state=active]:text-white data-[state=active]:shadow-none"
+                    >
                       {item.title}
                       {item.label && (
-                        <Badge className="ml-2">{item.label}</Badge>
+                        <Badge className="ml-2 bg-[#dff6e8] text-[#169c53] shadow-none">
+                          {item.label}
+                        </Badge>
                       )}
                     </TabsTrigger>
                   );
@@ -360,12 +377,7 @@ export function Pricing({
           </div>
         )}
 
-        <div
-          className={`mx-auto mt-0 grid w-full gap-6 md:grid-cols-${
-            pricing.items?.filter((item) => !item.group || item.group === group)
-              ?.length
-          }`}
-        >
+        <div className="mx-auto mt-0 grid w-full gap-6 lg:grid-cols-3">
           {pricing.items?.map((item: PricingItem, idx) => {
             if (item.group && item.group !== group) {
               return null;
@@ -387,31 +399,40 @@ export function Pricing({
             const currencies = getCurrenciesFromItem(item);
 
             return (
-              <Card key={idx} className="relative mx-auto">
+              <Card
+                key={idx}
+                className={cn(
+                  'landing-panel relative mx-auto w-full rounded-[24px] border shadow-none',
+                  item.is_featured &&
+                    'border-[#1773ea] shadow-[0_0_0_1px_rgba(23,115,234,0.28),0_18px_42px_rgba(23,115,234,0.14)]'
+                )}
+              >
                 {item.label && (
-                  <span className="absolute inset-x-0 -top-3 mx-auto flex h-6 w-fit items-center rounded-full bg-linear-to-br/increasing from-purple-400 to-amber-300 px-3 py-1 text-xs font-medium text-amber-950 ring-1 ring-white/20 ring-offset-1 ring-offset-gray-950/5 ring-inset">
+                  <span className="absolute top-4 right-4 flex h-6 w-fit items-center rounded-full bg-[#1773ea] px-3 py-1 text-xs font-medium text-white">
                     {item.label}
                   </span>
                 )}
 
-                <CardHeader>
+                <CardHeader className="p-6 pb-4">
                   <CardTitle className="font-medium">
-                    <h3 className="text-sm font-medium">{item.title}</h3>
+                    <h3 className="landing-strong text-sm font-medium">
+                      {item.title}
+                    </h3>
                   </CardTitle>
 
                   <div className="my-3 flex items-baseline gap-2">
                     {displayedItem.original_price && (
-                      <span className="text-muted-foreground text-sm line-through">
+                      <span className="landing-muted text-sm line-through">
                         {displayedItem.original_price}
                       </span>
                     )}
 
                     <div className="my-3 block text-2xl font-semibold">
-                      <span className="text-primary">
+                      <span className="text-[#1773ea]">
                         {displayedItem.price}
                       </span>{' '}
                       {displayedItem.unit ? (
-                        <span className="text-muted-foreground text-sm font-normal">
+                        <span className="landing-muted text-sm font-normal">
                           {displayedItem.unit}
                         </span>
                       ) : (
@@ -428,7 +449,7 @@ export function Pricing({
                       >
                         <SelectTrigger
                           size="sm"
-                          className="border-muted-foreground/30 bg-background/50 h-6 min-w-[60px] px-2 text-xs"
+                          className="landing-input-surface h-6 min-w-[60px] border px-2 text-xs shadow-none"
                         >
                           <SelectValue placeholder="Currency" />
                         </SelectTrigger>
@@ -447,11 +468,11 @@ export function Pricing({
                     )}
                   </div>
 
-                  <CardDescription className="text-sm">
+                  <CardDescription className="landing-body text-sm">
                     {item.description}
                   </CardDescription>
                   {item.tip && (
-                    <span className="text-muted-foreground text-sm">
+                    <span className="landing-muted text-sm">
                       {item.tip}
                     </span>
                   )}
@@ -460,9 +481,8 @@ export function Pricing({
                     <Button
                       disabled
                       className={cn(
-                        'focus-visible:ring-ring inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:pointer-events-none',
-                        'mt-4 h-9 w-full px-4 py-2',
-                        'bg-primary text-primary-foreground border-[0.5px] border-white/25 shadow-md shadow-black/20 opacity-50'
+                        'mt-4 h-10 w-full rounded-xl border px-4 py-2 text-sm font-medium',
+                        'bg-[#cfd6e2] text-white opacity-60'
                       )}
                     >
                       <span className="text-sm">
@@ -474,9 +494,8 @@ export function Pricing({
                       onClick={() => handlePayment(item)}
                       disabled={isLoading}
                       className={cn(
-                        'focus-visible:ring-ring inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
-                        'mt-4 h-9 w-full px-4 py-2',
-                        'bg-primary text-primary-foreground hover:bg-primary/90 border-[0.5px] border-white/25 shadow-md shadow-black/20'
+                        'mt-4 h-10 w-full rounded-xl px-4 py-2 text-sm font-medium text-white disabled:opacity-50',
+                        'bg-[#1773ea] hover:bg-[#1569d5]'
                       )}
                     >
                       {isLoading && item.product_id === productId ? (
@@ -499,16 +518,18 @@ export function Pricing({
                   )}
                 </CardHeader>
 
-                <CardContent className="space-y-4">
-                  <hr className="border-dashed" />
+                <CardContent className="space-y-4 px-6 pb-6">
+                  <hr className="landing-divider border-dashed" />
 
                   {item.features_title && (
-                    <p className="text-sm font-medium">{item.features_title}</p>
+                    <p className="landing-strong text-sm font-medium">
+                      {item.features_title}
+                    </p>
                   )}
-                  <ul className="list-outside space-y-3 text-sm">
+                  <ul className="landing-body list-outside space-y-3 text-sm">
                     {item.features?.map((item, index) => (
                       <li key={index} className="flex items-center gap-2">
-                        <Check className="size-3" />
+                        <Check className="size-3 text-[#1773ea]" />
                         {item}
                       </li>
                     ))}

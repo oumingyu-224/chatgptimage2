@@ -4,10 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 import { Link } from '@/core/i18n/navigation';
-import { LazyImage, SmartIcon } from '@/shared/blocks/common';
-import { AnimatedGridPattern } from '@/shared/components/ui/animated-grid-pattern';
-import { Button } from '@/shared/components/ui/button';
-import { Highlighter } from '@/shared/components/ui/highlighter';
+import { LazyImage } from '@/shared/blocks/common';
 import { cn } from '@/shared/lib/utils';
 import { Section } from '@/shared/types/blocks/landing';
 
@@ -39,6 +36,10 @@ export function Hero({
   className?: string;
 }) {
   const highlightText = section.highlight_text ?? '';
+  const primaryButton = section.buttons?.[0];
+  const trustItems = Array.isArray(section.trust_items)
+    ? section.trust_items
+    : [];
   let texts = null;
   if (highlightText) {
     texts = section.title?.split(highlightText, 2);
@@ -49,7 +50,7 @@ export function Hero({
       <section
         id={section.id}
         className={cn(
-          `pt-24 pb-8 md:pt-36 md:pb-8`,
+          `pt-26 pb-6 md:pt-34 md:pb-4`,
           section.className,
           className
         )}
@@ -59,14 +60,19 @@ export function Hero({
             <Link
               href={section.announcement.url || ''}
               target={section.announcement.target || '_self'}
-              className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto mb-8 flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
+              className="landing-input-surface group mx-auto mb-7 flex w-fit items-center gap-2 rounded-full border p-1 pl-2 pr-2 shadow-[0_18px_50px_rgba(91,103,214,0.10)] transition-transform duration-300 hover:-translate-y-0.5"
             >
-              <span className="text-foreground text-sm">
+              {section.announcement.badge ? (
+                <span className="rounded-full bg-[linear-gradient(135deg,#eff4ff_0%,#f7e8ff_100%)] px-2.5 py-1 text-[11px] font-semibold text-[#6d5efc]">
+                  {section.announcement.badge}
+                </span>
+              ) : null}
+
+              <span className="landing-soft-text text-[13px] font-medium">
                 {section.announcement.title}
               </span>
-              <span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700"></span>
 
-              <div className="bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500">
+              <div className="size-6 overflow-hidden rounded-full bg-[linear-gradient(135deg,#7b7fff_0%,#cf69ff_100%)] text-white duration-500">
                 <div className="flex w-12 -translate-x-1/2 duration-500 ease-in-out group-hover:translate-x-0">
                   <span className="flex size-6">
                     <ArrowRight className="m-auto size-3" />
@@ -83,15 +89,15 @@ export function Hero({
         <div className="relative mx-auto max-w-5xl px-4 text-center">
           <motion.div {...createFadeInVariant(0.15)}>
             {texts && texts.length > 0 ? (
-              <h1 className="text-foreground text-5xl font-semibold text-balance sm:mt-12 sm:text-6xl">
+              <h1 className="landing-title mx-auto max-w-4xl text-5xl font-semibold tracking-[-0.06em] text-balance sm:mt-5 sm:text-6xl md:text-7xl">
                 {texts[0]}
-                <Highlighter action="underline" color="#FF9800">
+                <span className="bg-[linear-gradient(90deg,#637dff_0%,#9f67ff_48%,#ff5fa8_100%)] bg-clip-text text-transparent">
                   {highlightText}
-                </Highlighter>
+                </span>
                 {texts[1]}
               </h1>
             ) : (
-              <h1 className="text-foreground text-5xl font-semibold text-balance sm:mt-12 sm:text-6xl">
+              <h1 className="landing-title mx-auto max-w-4xl text-5xl font-semibold tracking-[-0.06em] text-balance sm:mt-5 sm:text-6xl md:text-7xl">
                 {section.title}
               </h1>
             )}
@@ -99,31 +105,82 @@ export function Hero({
 
           <motion.p
             {...createFadeInVariant(0.3)}
-            className="text-muted-foreground mt-8 mb-8 text-lg text-balance"
+            className="landing-body mx-auto mt-4 mb-6 max-w-3xl text-[15px] leading-6 text-balance sm:text-[17px]"
             dangerouslySetInnerHTML={{ __html: section.description ?? '' }}
           />
 
-          {section.buttons && (
+          {primaryButton && (
             <motion.div
               {...createFadeInVariant(0.45)}
-              className="flex items-center justify-center gap-4"
+              className="flex items-center justify-center"
             >
-              {section.buttons.map((button, idx) => (
-                <Button
-                  asChild
-                  size={button.size || 'default'}
-                  variant={button.variant || 'default'}
-                  className="px-4 text-sm"
-                  key={idx}
-                >
-                  <Link
-                    href={button.url ?? ''}
-                    target={button.target ?? '_self'}
+              <Link
+                href={primaryButton.url ?? ''}
+                target={primaryButton.target ?? '_self'}
+                className="group relative inline-flex rounded-full bg-[#dcd6e3] p-px shadow-[0_10px_26px_rgba(24,39,75,0.07)] transition-[transform,box-shadow] duration-200 hover:-translate-y-px hover:shadow-[0_14px_30px_rgba(24,39,75,0.10)]"
+              >
+                <span className="absolute inset-0 rounded-full bg-[linear-gradient(90deg,#7a5cff_0%,#d34dff_48%,#ff9f67_100%)] opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+                <span className="landing-input-surface relative inline-flex h-11 items-center justify-center gap-2 rounded-full px-7 text-[15px] font-semibold">
+                  <span className="flex items-center justify-center">
+                    <svg
+                      aria-hidden
+                      width="13"
+                      height="13"
+                      viewBox="0 0 13 13"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <defs>
+                        <linearGradient
+                          id="hero-cta-play"
+                          x1="1.5"
+                          y1="1.5"
+                          x2="11.5"
+                          y2="11.5"
+                          gradientUnits="userSpaceOnUse"
+                        >
+                          <stop stopColor="#7C5CFF" />
+                          <stop offset="0.56" stopColor="#D84FFF" />
+                          <stop offset="1" stopColor="#FF9B5C" />
+                        </linearGradient>
+                      </defs>
+                      <path
+                        d="M4.15 3.2C4.15 2.77 4.62 2.5 5 2.73L9.64 5.53C10 5.75 10 6.25 9.64 6.47L5 9.27C4.62 9.5 4.15 9.23 4.15 8.8V3.2Z"
+                        fill="url(#hero-cta-play)"
+                      />
+                    </svg>
+                  </span>
+                  <span className="bg-[linear-gradient(90deg,#7a5cff_0%,#d34dff_48%,#ff9f67_100%)] bg-clip-text text-transparent">
+                    {primaryButton.title}
+                  </span>
+                </span>
+              </Link>
+            </motion.div>
+          )}
+
+          {trustItems.length > 0 && (
+            <motion.div
+              {...createFadeInVariant(0.55)}
+              className="landing-muted mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[12px] font-medium sm:text-[13px]"
+            >
+              {trustItems.map((item, index) => (
+                <span key={`${item}-${index}`} className="inline-flex items-center gap-1.5">
+                  <svg
+                    aria-hidden
+                    width="11"
+                    height="11"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="shrink-0"
                   >
-                    {button.icon && <SmartIcon name={button.icon as string} />}
-                    <span>{button.title}</span>
-                  </Link>
-                </Button>
+                    <path
+                      d="M9.82 3.12C10.03 3.31 10.05 3.62 9.86 3.83L5.44 8.69C5.34 8.79 5.21 8.85 5.08 8.85C4.94 8.85 4.81 8.8 4.71 8.7L2.25 6.29C2.05 6.1 2.04 5.78 2.23 5.58C2.42 5.38 2.74 5.37 2.94 5.56L5.03 7.61L9.11 3.16C9.3 2.95 9.61 2.93 9.82 3.12Z"
+                      fill="#16C784"
+                    />
+                  </svg>
+                  <span>{item}</span>
+                </span>
               ))}
             </motion.div>
           )}
@@ -131,7 +188,7 @@ export function Hero({
           {section.tip && (
             <motion.p
               {...createFadeInVariant(0.6)}
-              className="text-muted-foreground mt-6 block text-center text-sm"
+              className="landing-muted mt-3 block text-center text-xs font-medium tracking-[0.01em] sm:text-sm"
               dangerouslySetInnerHTML={{ __html: section.tip ?? '' }}
             />
           )}
@@ -175,7 +232,7 @@ export function Hero({
         </motion.section>
       )}
 
-      {section.background_image ? (
+      {section.background_image?.src ? (
         <div className="absolute inset-0 -z-10 h-full w-full overflow-hidden">
           <div className="from-background/80 via-background/80 to-background absolute inset-0 z-10 bg-gradient-to-b" />
           <LazyImage
@@ -184,17 +241,6 @@ export function Hero({
             className="h-full w-full object-cover opacity-20 blur-[0px]"
           />
         </div>
-      ) : section.show_bg !== false ? (
-        <AnimatedGridPattern
-          numSquares={30}
-          maxOpacity={0.1}
-          duration={3}
-          repeatDelay={1}
-          className={cn(
-            '[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]',
-            'inset-x-0 inset-y-[-30%] h-[200%] skew-y-12'
-          )}
-        />
       ) : null}
     </>
   );

@@ -217,28 +217,25 @@ export function TopBanner({
       <div
         ref={bannerRef}
         className={cn(
-          'from-primary to-primary text-primary-foreground fixed top-0 right-0 left-0 z-[51] hidden min-h-12 bg-gradient-to-r py-1 shadow-lg md:block',
+          'fixed top-0 right-0 left-0 z-[51] bg-gradient-to-r from-[#ff8a00] via-[#ff6a00] to-[#ff4d00] text-white',
           className
         )}
       >
-        <div className="container py-2.5">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex flex-1 items-center justify-center gap-3">
+        <div className="container">
+          <div className="relative flex min-h-11 items-center justify-center px-4 text-center">
+            <div className="flex flex-wrap items-center justify-center gap-1 text-sm font-medium">
               <div
-                className="text-sm"
+                className="inline"
                 dangerouslySetInnerHTML={{ __html: String(text ?? '') }}
               />
-            </div>
-
-            <div className="flex flex-shrink-0 items-center gap-2">
               {showButton ? (
                 href ? (
                   isExternalHref(href) ? (
                     <Button
                       asChild
-                      variant="secondary"
+                      variant="link"
                       size="sm"
-                      className="bg-background text-xs"
+                      className="h-auto px-0 text-sm font-semibold text-white no-underline hover:underline"
                     >
                       <a
                         href={href}
@@ -255,9 +252,9 @@ export function TopBanner({
                   ) : (
                     <Button
                       asChild
-                      variant="secondary"
+                      variant="link"
                       size="sm"
-                      className="bg-background text-xs"
+                      className="h-auto px-0 text-sm font-semibold text-white no-underline hover:underline"
                     >
                       <Link href={href}>{buttonText}</Link>
                     </Button>
@@ -265,25 +262,24 @@ export function TopBanner({
                 ) : (
                   <Button
                     onClick={onAction}
-                    variant="secondary"
+                    variant="link"
                     size="sm"
-                    className="bg-background text-xs"
+                    className="h-auto px-0 text-sm font-semibold text-white no-underline hover:underline"
                   >
                     {buttonText}
                   </Button>
                 )
               ) : null}
-
-              {closable ? (
-                <button
-                  onClick={handleDismiss}
-                  className="bg-primary/10 flex-shrink-0 rounded p-1 transition-colors"
-                  aria-label="Close"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              ) : null}
             </div>
+            {closable ? (
+              <button
+                onClick={handleDismiss}
+                className="sr-only"
+                aria-label="Close"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            ) : null}
           </div>
         </div>
       </div>

@@ -1,6 +1,13 @@
 {
   "header": {
     "id": "header",
+    "topbanner": {
+      "text": "ChatGPT Image 2 限时特惠，全场 Pro 套餐限时 7 折！",
+      "buttonText": "立即领取 →",
+      "href": "/pricing",
+      "target": "_self",
+      "dismissedExpiryDays": 1
+    },
     "brand": {
       "title": "ChatGPT Image 2",
       "logo": {
@@ -78,6 +85,11 @@
     "id": "hero",
     "title": "ChatGPT Image 2",
     "description": "围绕 OpenAI 最新图像能力打造的高质量 AI 图像生成与编辑体验。通过更强的提示词遵循、参考图保真、图中文字渲染和透明背景能力，帮助你完成更专业的视觉创作。",
+    "trust_items": [
+      "免费积分可直接开始",
+      "最高支持 4K",
+      "无水印"
+    ],
     "buttons": [
       {
         "title": "立即体验",
@@ -98,7 +110,7 @@
     "avatars_tip": "999+ 用户正在使用 ChatGPT Image 2 创作",
     "show_award": false,
     "background_image": {
-      "src": "/imgs/bg/girl.jpeg",
+      "src": "",
       "alt": "hero"
     }
   },
@@ -246,7 +258,7 @@
   },
   "faq": {
     "id": "faq",
-    "title": "关于 ChatGPT Image 2 的常见问题",
+    "title": "常见问题",
     "items": [
       {
         "question": "ChatGPT Image 2 是什么？",
@@ -271,6 +283,10 @@
       {
         "question": "ChatGPT Image 2 是速度优先模型吗？",
         "answer": "它更适合被理解为质量优先。复杂提示词或精细编辑可能耗时更久，但整体更偏向高质量生成和编辑结果。"
+      },
+      {
+        "question": "ChatGPT Image 2 可以生成 NSFW 或露骨内容吗？",
+        "answer": "不可以。ChatGPT Image 2 严格禁止生成任何 NSFW（不适合工作场合）、色情、露骨或有害内容。所有请求均会自动经过我们的安全策略和 OpenAI 使用规范的审核。试图生成违禁内容的请求将被拒绝，多次违规可能导致账号封禁。我们致力于为所有用户维护一个安全、负责任的平台。"
       }
     ]
   },
@@ -286,7 +302,7 @@
         "icon": "Wand"
       }
     ],
-    "className": "bg-muted"
+    "className": "landing-cta-band"
   },
   "subscribe": {
     "hidden": true
@@ -374,6 +390,7 @@
       ]
     },
     "show_theme": true,
-    "show_locale": true
+    "show_locale": true,
+    "className": "landing-bottom-band"
   }
 }

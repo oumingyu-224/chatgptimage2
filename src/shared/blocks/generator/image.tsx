@@ -5,10 +5,11 @@ import {
   CreditCard,
   Download,
   ImageIcon,
-  Wand,
   Loader2,
+  Settings2,
   Sparkles,
   User,
+  Wand,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
@@ -27,6 +28,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/shared/components/ui/card';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/shared/components/ui/dialog';
 import { Label } from '@/shared/components/ui/label';
 import { Progress } from '@/shared/components/ui/progress';
 import {
@@ -38,13 +46,6 @@ import {
 } from '@/shared/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 import { Textarea } from '@/shared/components/ui/textarea';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/shared/components/ui/dialog';
 import { useAppContext } from '@/shared/contexts/app';
 import { cn } from '@/shared/lib/utils';
 
@@ -89,7 +90,7 @@ const MODEL_OPTIONS = [
     provider: 'kie',
     scenes: ['image-to-image'],
   },
-    {
+  {
     value: 'flux-2/pro-text-to-image',
     label: 'Flux Klein',
     provider: 'kie',
@@ -188,6 +189,13 @@ const RESOLUTION_OPTIONS = [
   { value: '2K', label: '2K' },
 ];
 
+const OUTPUT_COUNT_OPTIONS = ['1', '2', '3', '4'];
+const QUALITY_OPTIONS = [
+  { value: 'standard', labelKey: 'settings.quality_standard', badge: '1K' },
+  { value: 'hd', labelKey: 'settings.quality_hd', badge: '2K' },
+  { value: 'ultra', labelKey: 'settings.quality_ultra', badge: '4K' },
+];
+
 function parseTaskResult(taskResult: string | null): any {
   if (!taskResult) {
     return null;
@@ -261,15 +269,17 @@ export function ImageGenerator({
   const [model, setModel] = useState(MODEL_OPTIONS[0]?.value ?? '');
   const [aspectRatio, setAspectRatio] = useState<string>('16:9'); // 默认宽高比
   const [resolution, setResolution] = useState<string>('2K'); // 默认分辨率（大写 K）
+  const [qualityStyle, setQualityStyle] = useState<string>('standard');
+  const [outputCountStyle, setOutputCountStyle] = useState<string>('1');
   // Set default values only when no promptKey is provided
   const [prompt, setPrompt] = useState(
-    promptKey 
-      ? '' 
+    promptKey
+      ? ''
       : 'Hyperrealistic supermarket blister pack on clean olive green surface. No shadows. Inside: bright pink 3D letters spelling "FLUX.2" pressing against stretched plastic film, creating realistic deformation and reflective highlights. Bottom left corner: barcode sticker with text "GENERATE NOW" and "PLAYGROUND". Plastic shows tension wrinkles and realistic shine where stretched by the volumetric letters.'
   );
   const [previewImage, setPreviewImage] = useState<string>(
-    promptKey 
-      ? '' 
+    promptKey
+      ? ''
       : 'https://kie.ai/cdn-cgi/image/width=1920,quality=85,fit=scale-down,format=webp/https://static.aiquickdraw.com/tools/example/1764234173157_0nmhDbXC.png'
   );
   const [referenceImageItems, setReferenceImageItems] = useState<
@@ -293,7 +303,7 @@ export function ImageGenerator({
   const [availableProviders, setAvailableProviders] = useState<string[]>([]);
   const [isLoadingProviders, setIsLoadingProviders] = useState(true);
   const hasLoadedCreditsRef = useRef(false);
-  
+
   // Showcase dialog state
   const [showShowcaseDialog, setShowShowcaseDialog] = useState(false);
   const [pendingShowcaseData, setPendingShowcaseData] = useState<{
@@ -308,7 +318,7 @@ export function ImageGenerator({
 
   useEffect(() => {
     setIsMounted(true);
-    
+
     // Fetch available AI providers
     fetch('/api/ai/providers')
       .then((res) => res.json())
@@ -317,25 +327,27 @@ export function ImageGenerator({
           const providers = data.data.providers || [];
           console.log('Available AI providers:', providers);
           setAvailableProviders(providers);
-          
+
           // Set initial provider and model based on available providers
           if (providers.length > 0) {
             const firstProvider = providers[0];
             setProvider(firstProvider);
-            
+
             // Find first available model for this provider
             const availableModel = MODEL_OPTIONS.find(
-              (option) => 
-                option.scenes.includes(activeTab) && 
+              (option) =>
+                option.scenes.includes(activeTab) &&
                 option.provider === firstProvider
             );
-            
+
             if (availableModel) {
               setModel(availableModel.value);
             }
           } else {
             // No providers configured, clear provider and model
-            console.log('No AI providers configured, clearing provider and model');
+            console.log(
+              'No AI providers configured, clearing provider and model'
+            );
             setProvider('');
             setModel('');
           }
@@ -352,14 +364,14 @@ export function ImageGenerator({
 
   // Track user ID to reset credits loading flag when user changes
   const userIdRef = useRef<string | null>(null);
-  
+
   useEffect(() => {
     // Reset flag when user changes
     if (user?.id !== userIdRef.current) {
       userIdRef.current = user?.id || null;
       hasLoadedCreditsRef.current = false;
     }
-    
+
     // Only fetch credits once per user session
     if (user && !user.credits && !hasLoadedCreditsRef.current) {
       hasLoadedCreditsRef.current = true;
@@ -437,14 +449,27 @@ export function ImageGenerator({
   const remainingCredits = user?.credits?.remainingCredits ?? 0;
   const isPromptTooLong = promptLength > MAX_PROMPT_LENGTH;
   const isTextToImageMode = activeTab === 'text-to-image';
+  const featuredExamples = generatedImages.length
+    ? generatedImages
+    : previewImage
+      ? [
+          {
+            id: 'preview-image',
+            url: previewImage,
+            prompt,
+          } as GeneratedImage,
+        ]
+      : [];
+  const promptNote = t('form.prompt_note');
+  const optionalLabel = t('form.optional');
 
   const handleTabChange = (value: string) => {
     const tab = value as ImageGeneratorTab;
     setActiveTab(tab);
 
     const availableModels = MODEL_OPTIONS.filter(
-      (option) => 
-        option.scenes.includes(tab) && 
+      (option) =>
+        option.scenes.includes(tab) &&
         option.provider === provider &&
         availableProviders.includes(option.provider)
     );
@@ -466,8 +491,8 @@ export function ImageGenerator({
     setProvider(value);
 
     const availableModels = MODEL_OPTIONS.filter(
-      (option) => 
-        option.scenes.includes(activeTab) && 
+      (option) =>
+        option.scenes.includes(activeTab) &&
         option.provider === value &&
         availableProviders.includes(option.provider)
     );
@@ -486,17 +511,17 @@ export function ImageGenerator({
 
     switch (taskStatus) {
       case AITaskStatus.PENDING:
-        return 'Waiting for the model to start';
+        return t('progress_pending');
       case AITaskStatus.PROCESSING:
-        return 'Generating your image...';
+        return t('progress_processing');
       case AITaskStatus.SUCCESS:
-        return 'Image generation completed';
+        return t('progress_success');
       case AITaskStatus.FAILED:
-        return 'Generation failed';
+        return t('progress_failed');
       default:
         return '';
     }
-  }, [taskStatus]);
+  }, [taskStatus, t]);
 
   const handleReferenceImagesChange = useCallback(
     (items: ImageUploaderValue[]) => {
@@ -528,97 +553,105 @@ export function ImageGenerator({
     // Don't clear savedTaskIds here - keep it to prevent duplicates across generations
   }, []);
 
-  const saveShowcase = useCallback(async (imageUrl: string, taskIdForTracking: string, promptText: string) => {
-    // Prevent duplicate saves for the same task
-    if (savedTaskIdsRef.current.has(taskIdForTracking)) {
-      console.log('Already saved, skipping:', taskIdForTracking);
-      return;
-    }
+  const saveShowcase = useCallback(
+    async (imageUrl: string, taskIdForTracking: string, promptText: string) => {
+      // Prevent duplicate saves for the same task
+      if (savedTaskIdsRef.current.has(taskIdForTracking)) {
+        console.log('Already saved, skipping:', taskIdForTracking);
+        return;
+      }
 
-    // Mark as saved immediately to prevent race conditions
-    savedTaskIdsRef.current.add(taskIdForTracking);
-    console.log('Saving showcase for task:', taskIdForTracking);
+      // Mark as saved immediately to prevent race conditions
+      savedTaskIdsRef.current.add(taskIdForTracking);
+      console.log('Saving showcase for task:', taskIdForTracking);
 
-    try {
-      const compressImageFile = async (imageUrl: string): Promise<string> => {
-        console.log('Fetching image from proxy...');
-        const response = await fetch(`/api/proxy/file?url=${encodeURIComponent(imageUrl)}`);
-        if (!response.ok) throw new Error('Failed to fetch image');
-        
-        const blob = await response.blob();
-        const file = new File([blob], 'showcase.jpg', { type: blob.type });
+      try {
+        const compressImageFile = async (imageUrl: string): Promise<string> => {
+          console.log('Fetching image from proxy...');
+          const response = await fetch(
+            `/api/proxy/file?url=${encodeURIComponent(imageUrl)}`
+          );
+          if (!response.ok) throw new Error('Failed to fetch image');
 
-        // Use shared compressImage function
-        const { compressImage } = await import('@/shared/blocks/common');
-        const compressedFile = await compressImage(file);
+          const blob = await response.blob();
+          const file = new File([blob], 'showcase.jpg', { type: blob.type });
 
-        return new Promise((resolve, reject) => {
-           const formData = new FormData();
-           formData.append('file', compressedFile);
+          // Use shared compressImage function
+          const { compressImage } = await import('@/shared/blocks/common');
+          const compressedFile = await compressImage(file);
 
-           console.log('Uploading compressed image...');
-           fetch('/api/upload', {
-             method: 'POST',
-             body: formData,
-           })
-           .then(res => {
-             if (!res.ok) throw new Error('Upload failed');
-             return res.json();
-           })
-           .then(result => {
-             if (!result.success || !result.url) {
-               throw new Error(result.error || 'Upload failed');
-             }
-             console.log('Upload successful:', result.url);
-             resolve(result.url);
-           })
-           .catch(reject);
+          return new Promise((resolve, reject) => {
+            const formData = new FormData();
+            formData.append('file', compressedFile);
+
+            console.log('Uploading compressed image...');
+            fetch('/api/upload', {
+              method: 'POST',
+              body: formData,
+            })
+              .then((res) => {
+                if (!res.ok) throw new Error('Upload failed');
+                return res.json();
+              })
+              .then((result) => {
+                if (!result.success || !result.url) {
+                  throw new Error(result.error || 'Upload failed');
+                }
+                console.log('Upload successful:', result.url);
+                resolve(result.url);
+              })
+              .catch(reject);
+          });
+        };
+
+        const compressedImageUrl = await compressImageFile(imageUrl);
+
+        console.log('Adding showcase to database...');
+        await fetch('/api/showcases/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: promptText.trim().substring(0, 100),
+            prompt: promptText.trim(),
+            image: compressedImageUrl,
+            tags: promptKey || null,
+          }),
         });
-      };
-
-      const compressedImageUrl = await compressImageFile(imageUrl);
-
-      console.log('Adding showcase to database...');
-      await fetch('/api/showcases/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: promptText.trim().substring(0, 100),
-          prompt: promptText.trim(),
-          image: compressedImageUrl,
-          tags: promptKey || null,
-        }),
-      });
-      console.log('Showcase saved successfully');
-      toast.success(t('success.saved_to_showcase'));
-    } catch (error) {
-      console.error('Failed to save showcase:', error);
-      toast.error(t('errors.save_showcase_failed'));
-      // Remove from saved set if failed
-      savedTaskIdsRef.current.delete(taskIdForTracking);
-    }
-  }, [prompt, promptKey, t]);
+        console.log('Showcase saved successfully');
+        toast.success(t('success.saved_to_showcase'));
+      } catch (error) {
+        console.error('Failed to save showcase:', error);
+        toast.error(t('errors.save_showcase_failed'));
+        // Remove from saved set if failed
+        savedTaskIdsRef.current.delete(taskIdForTracking);
+      }
+    },
+    [prompt, promptKey, t]
+  );
 
   // Handle showcase dialog actions
-  const handleShowcaseDialogAction = useCallback(async (allow: boolean, dontAsk?: boolean) => {
-    if (dontAsk) {
-      setDontAskAgain(true);
-    }
-    
-    setShowShowcaseDialog(false);
-    
-    if (allow && pendingShowcaseData) {
-      await saveShowcase(
-        pendingShowcaseData.imageUrl,
-        pendingShowcaseData.taskId,
-        pendingShowcaseData.prompt
-      );
-    }
-    
-    setPendingShowcaseData(null);
-  }, [pendingShowcaseData, saveShowcase]);
+  const handleShowcaseDialogAction = useCallback(
+    async (allow: boolean, dontAsk?: boolean) => {
+      if (dontAsk) {
+        setDontAskAgain(true);
+      }
+
+      setShowShowcaseDialog(false);
+
+      if (allow && pendingShowcaseData) {
+        await saveShowcase(
+          pendingShowcaseData.imageUrl,
+          pendingShowcaseData.taskId,
+          pendingShowcaseData.prompt
+        );
+      }
+
+      setPendingShowcaseData(null);
+    },
+    [pendingShowcaseData, saveShowcase]
+  );
 
   const pollTaskStatus = useCallback(
     async (id: string) => {
@@ -634,7 +667,7 @@ export function ImageGenerator({
           Date.now() - generationStartTime > GENERATION_TIMEOUT
         ) {
           resetTaskState();
-          toast.error('Image generation timed out. Please try again.');
+          toast.error(t('errors.timed_out'));
           return true;
         }
 
@@ -687,7 +720,7 @@ export function ImageGenerator({
 
         if (currentStatus === AITaskStatus.SUCCESS) {
           if (imageUrls.length === 0) {
-            toast.error('The provider returned no images. Please retry.');
+            toast.error(t('errors.provider_returned_no_images'));
           } else {
             const images = imageUrls.map((url, index) => ({
               id: `${task.id}-${index}`,
@@ -697,16 +730,24 @@ export function ImageGenerator({
               prompt: task.prompt ?? undefined,
             }));
             setGeneratedImages(images);
-            
+
             // Show showcase dialog instead of auto-saving
-            if (images.length > 0 && !savedTaskIdsRef.current.has(task.id) && !dontAskAgain) {
+            if (
+              images.length > 0 &&
+              !savedTaskIdsRef.current.has(task.id) &&
+              !dontAskAgain
+            ) {
               setPendingShowcaseData({
                 imageUrl: images[0].url,
                 taskId: task.id,
                 prompt: task.prompt ?? prompt,
               });
               setShowShowcaseDialog(true);
-            } else if (images.length > 0 && !savedTaskIdsRef.current.has(task.id) && dontAskAgain) {
+            } else if (
+              images.length > 0 &&
+              !savedTaskIdsRef.current.has(task.id) &&
+              dontAskAgain
+            ) {
               // If don't ask again is enabled, skip saving
               console.log('Skipping showcase dialog due to user preference');
             }
@@ -733,7 +774,7 @@ export function ImageGenerator({
         return false;
       } catch (error: any) {
         console.error('Error polling image task:', error);
-        toast.error(`Query task failed: ${error.message}`);
+        toast.error(t('errors.query_task_failed', { message: error.message }));
         resetTaskState();
 
         fetchUserCredits();
@@ -787,18 +828,20 @@ export function ImageGenerator({
     console.log('current model:', model);
     console.log('remainingCredits:', remainingCredits);
     console.log('costCredits:', costCredits);
-    
+
     // Check AI providers FIRST - highest priority
     if (availableProviders.length === 0) {
       console.log('No AI providers configured - showing error');
-      toast.error('Please contact the administrator to configure AI models.');
+      toast.error(t('errors.no_providers_configured'));
       return;
     }
 
     // Check if current provider is in available providers
     if (!availableProviders.includes(provider)) {
-      console.log('Current provider not in available providers - showing error');
-      toast.error('Please contact the administrator to configure AI models.');
+      console.log(
+        'Current provider not in available providers - showing error'
+      );
+      toast.error(t('errors.no_providers_configured'));
       return;
     }
 
@@ -814,17 +857,17 @@ export function ImageGenerator({
 
     const trimmedPrompt = prompt.trim();
     if (!trimmedPrompt) {
-      toast.error('Please enter a prompt before generating.');
+      toast.error(t('errors.no_prompt'));
       return;
     }
 
     if (!provider || !model) {
-      toast.error('Provider or model is not configured correctly.');
+      toast.error(t('errors.no_provider_or_model'));
       return;
     }
 
     if (!isTextToImageMode && referenceImageUrls.length === 0) {
-      toast.error('Please upload reference images before generating.');
+      toast.error(t('errors.no_reference_image'));
       return;
     }
 
@@ -840,12 +883,12 @@ export function ImageGenerator({
       if (!isTextToImageMode) {
         options.image_input = referenceImageUrls;
       }
-      
+
       // 添加宽高比参数
       if (aspectRatio) {
         options.aspect_ratio = aspectRatio;
       }
-      
+
       // 添加分辨率参数
       if (resolution) {
         options.resolution = resolution;
@@ -896,16 +939,24 @@ export function ImageGenerator({
           setProgress(100);
           resetTaskState();
           await fetchUserCredits();
-          
+
           // Show showcase dialog for immediate success case
-          if (images.length > 0 && !savedTaskIdsRef.current.has(newTaskId) && !dontAskAgain) {
+          if (
+            images.length > 0 &&
+            !savedTaskIdsRef.current.has(newTaskId) &&
+            !dontAskAgain
+          ) {
             setPendingShowcaseData({
               imageUrl: images[0].url,
               taskId: newTaskId,
               prompt: trimmedPrompt,
             });
             setShowShowcaseDialog(true);
-          } else if (images.length > 0 && !savedTaskIdsRef.current.has(newTaskId) && dontAskAgain) {
+          } else if (
+            images.length > 0 &&
+            !savedTaskIdsRef.current.has(newTaskId) &&
+            dontAskAgain
+          ) {
             // If don't ask again is enabled, skip saving
             console.log('Skipping showcase dialog due to user preference');
           }
@@ -936,7 +987,7 @@ export function ImageGenerator({
         `/api/proxy/file?url=${encodeURIComponent(image.url)}`
       );
       if (!resp.ok) {
-        throw new Error('Failed to fetch image');
+        throw new Error(t('errors.download_fetch_failed'));
       }
 
       const blob = await resp.blob();
@@ -948,305 +999,481 @@ export function ImageGenerator({
       link.click();
       document.body.removeChild(link);
       setTimeout(() => URL.revokeObjectURL(blobUrl), 200);
-      toast.success('Image downloaded');
+      toast.success(t('success.downloaded'));
     } catch (error) {
       console.error('Failed to download image:', error);
-      toast.error('Failed to download image');
+      toast.error(t('errors.download_failed'));
     } finally {
       setDownloadingImageId(null);
     }
   };
 
   return (
-    <section className={cn('py-16 md:py-24', className)}>
+    <section className={cn('py-0', className)}>
       <div className="container">
         <div className="mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-            <Card>
-              <CardHeader>
-                {srOnlyTitle && <h2 className="sr-only">{srOnlyTitle}</h2>}
-                <CardTitle className="flex items-center gap-2 text-xl font-semibold">
-                  <Wand className="h-5 w-5" />
-                  {t('title')}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6 pb-8">
-                <Tabs value={activeTab} onValueChange={handleTabChange}>
-                  <TabsList className="bg-primary/10 grid w-full grid-cols-2">
-                    <TabsTrigger value="text-to-image">
-                      {t('tabs.text-to-image')}
-                    </TabsTrigger>
-                    <TabsTrigger value="image-to-image">
-                      {t('tabs.image-to-image')}
-                    </TabsTrigger>
-                  </TabsList>
-                </Tabs>
-
-                {!isTextToImageMode && (
-                  <div className="space-y-4">
-                    <ImageUploader
-                      title={t('form.reference_image')}
-                      allowMultiple={allowMultipleImages}
-                      maxImages={allowMultipleImages ? maxImages : 1}
-                      maxSizeMB={maxSizeMB}
-                      onChange={handleReferenceImagesChange}
-                      emptyHint={t('form.reference_image_placeholder')}
-                    />
-
-                    {hasReferenceUploadError && (
-                      <p className="text-destructive text-xs">
-                        {t('form.some_images_failed_to_upload')}
-                      </p>
-                    )}
-                  </div>
-                )}
-
-                <div className="space-y-2">
-                  <Label htmlFor="image-prompt">{t('form.prompt')}</Label>
-                  <Textarea
-                    id="image-prompt"
-                    value={prompt}
-                    onChange={(e) => setPrompt(e.target.value)}
-                    placeholder={t('form.prompt_placeholder')}
-                    className="min-h-32"
-                  />
-                  <div className="text-muted-foreground flex items-center justify-between text-xs">
-                    <span>
-                      {promptLength} / {MAX_PROMPT_LENGTH}
-                    </span>
-                    {isPromptTooLong && (
-                      <span className="text-destructive">
-                        {t('form.prompt_too_long')}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* 宽高比选择器 - 放在按钮前面 */}
-                <div className="space-y-2">
-                  <Label htmlFor="aspect-ratio">{t('form.aspect_ratio')}</Label>
-                  <Select
-                    value={aspectRatio}
-                    onValueChange={setAspectRatio}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder={t('form.select_aspect_ratio')} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {ASPECT_RATIO_OPTIONS.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* 分辨率选择器 */}
-                <div className="space-y-2">
-                  <Label htmlFor="resolution">{t('form.resolution')}</Label>
-                  <Select
-                    value={resolution}
-                    onValueChange={setResolution}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder={t('form.select_resolution')} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {RESOLUTION_OPTIONS.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {!isMounted ? (
-                  <Button className="w-full" disabled size="lg">
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {t('loading')}
-                  </Button>
-                ) : isCheckSign ? (
-                  <Button className="w-full" disabled size="lg">
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {t('checking_account')}
-                  </Button>
-                ) : user ? (
-                  <Button
-                    size="lg"
-                    className="w-full"
-                    onClick={handleGenerate}
-                    disabled={
-                      isGenerating ||
-                      isLoadingCredits ||
-                      isLoadingProviders ||
-                      !prompt.trim() ||
-                      isPromptTooLong ||
-                      isReferenceUploading ||
-                      hasReferenceUploadError ||
-                      (!isLoadingCredits && remainingCredits < costCredits)
-                    }
-                  >
-                    {isGenerating ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        {t('generating')}
-                      </>
-                    ) : isLoadingProviders ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        {t('loading')}
-                      </>
-                    ) : (
-                      <>
-                        <Sparkles className="mr-2 h-4 w-4" />
-                        {t('generate')}
-                      </>
-                    )}
-                  </Button>
-                ) : (
-                  <Button
-                    size="lg"
-                    className="w-full"
-                    onClick={() => setIsShowSignModal(true)}
-                  >
-                    <User className="mr-2 h-4 w-4" />
-                    {t('sign_in_to_generate')}
-                  </Button>
-                )}
-
-                {!isMounted || isLoadingCredits || isLoadingProviders ? (
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-primary">
-                      {t('credits_cost', { credits: costCredits })}
-                    </span>
-                    <span className="flex items-center gap-2">
-                      <Loader2 className="h-3 w-3 animate-spin" />
-                      {t('credits_remaining', { credits: 0 })}
-                    </span>
-                  </div>
-                ) : user && remainingCredits > 0 ? (
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-primary">
-                      {t('credits_cost', { credits: costCredits })}
-                    </span>
-                    <span>
-                      {t('credits_remaining', { credits: remainingCredits })}
-                    </span>
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-primary">
-                        {t('credits_cost', { credits: costCredits })}
-                      </span>
-                      <span>
-                        {t('credits_remaining', { credits: remainingCredits })}
-                      </span>
-                    </div>
-                    <Link href="/pricing">
-                      <Button variant="outline" className="w-full" size="lg">
-                        <CreditCard className="mr-2 h-4 w-4" />
-                        {t('buy_credits')}
-                      </Button>
-                    </Link>
-                  </div>
-                )}
-
-                {isGenerating && (
-                  <div className="space-y-2 rounded-lg border p-4">
-                    <div className="flex items-center justify-between text-sm">
-                      <span>{t('progress')}</span>
-                      <span>{progress}%</span>
-                    </div>
-                    <Progress value={progress} />
-                    {taskStatusLabel && (
-                      <p className="text-muted-foreground text-center text-xs">
-                        {taskStatusLabel}
-                      </p>
-                    )}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-xl font-semibold">
-                  <ImageIcon className="h-5 w-5" />
-                  {t('generated_images')}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pb-8">
-                {generatedImages.length > 0 ? (
-                  <div
-                    className={
-                      generatedImages.length === 1
-                        ? 'grid grid-cols-1 gap-6'
-                        : 'grid gap-6 sm:grid-cols-2'
-                    }
-                  >
-                    {generatedImages.map((image) => (
-                      <div key={image.id} className="space-y-3">
-                        <div
-                          className={
-                            generatedImages.length === 1
-                              ? 'relative overflow-hidden rounded-lg border'
-                              : 'relative aspect-square overflow-hidden rounded-lg border'
-                          }
-                        >
-                          <LazyImage
-                            src={image.url}
-                            alt={image.prompt || 'Generated image'}
-                            className={
-                              generatedImages.length === 1
-                                ? 'h-auto w-full'
-                                : 'h-full w-full object-cover'
-                            }
-                          />
-
-                          <div className="absolute right-2 bottom-2 flex justify-end text-sm">
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="ml-auto"
-                              onClick={() => handleDownloadImage(image)}
-                              disabled={downloadingImageId === image.id}
-                            >
-                              {downloadingImageId === image.id ? (
-                                <>
-                                  <Loader2 className="h-4 w-4 animate-spin" />
-                                </>
-                              ) : (
-                                <>
-                                  <Download className="h-4 w-4" />
-                                </>
-                              )}
-                            </Button>
+          {srOnlyTitle && <h2 className="sr-only">{srOnlyTitle}</h2>}
+          <div className="landing-panel overflow-hidden rounded-[24px] border">
+            <div className="landing-panel-inner overflow-hidden rounded-[23px]">
+              <div className="grid grid-cols-1 gap-0 lg:grid-cols-[1fr_1.08fr]">
+                <div className="landing-divider-soft border-b p-5 sm:p-6 lg:border-r lg:border-b-0">
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <div className="flex items-end justify-between gap-3">
+                        <div>
+                          <div className="landing-title text-[18px] font-semibold tracking-[-0.03em] sm:text-[20px]">
+                            {t('form.prompt')}
+                            <span className="landing-muted ml-1 text-[12px] font-normal">
+                              ({promptNote})
+                            </span>
                           </div>
+                          <p className="landing-body mt-1 text-[12px] leading-5">
+                            {t('form.prompt_placeholder')}
+                          </p>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center py-4 text-center">
-                    {previewImage && (
-                      <LazyImage 
-                        src={previewImage} 
-                        alt="Preview image"
-                        className="mb-6"
+
+                      <Textarea
+                        id="image-prompt"
+                        value={prompt}
+                        onChange={(e) => setPrompt(e.target.value)}
+                        placeholder={t('form.prompt_placeholder')}
+                        className="landing-input-surface landing-generator-accent-border-hover mt-3 min-h-[124px] rounded-[16px] px-4 py-4 text-[13px] leading-6 shadow-none placeholder:text-[var(--landing-input-placeholder)] focus-visible:ring-0"
                       />
-                    )}
-                    <p className="text-muted-foreground">
-                      {isGenerating
-                        ? t('ready_to_generate')
-                        : t('no_images_generated')}
-                    </p>
+
+                      <div className="landing-muted flex items-center justify-between text-xs">
+                        <span>
+                          {isPromptTooLong ? t('form.prompt_too_long') : ' '}
+                        </span>
+                        <span>
+                          {promptLength} / {MAX_PROMPT_LENGTH}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="landing-title text-[18px] font-semibold tracking-[-0.03em] sm:text-[20px]">
+                        {t('form.reference_image')}
+                        <span className="landing-muted ml-1 text-[12px] font-normal">
+                          ({optionalLabel})
+                        </span>
+                      </div>
+                      <p className="landing-body text-[12px] leading-5">
+                        {t('form.reference_image_placeholder')}
+                      </p>
+                      <ImageUploader
+                        title=""
+                        allowMultiple={allowMultipleImages}
+                        maxImages={allowMultipleImages ? maxImages : 1}
+                        maxSizeMB={maxSizeMB}
+                        onChange={handleReferenceImagesChange}
+                        emptyHint={t('form.reference_image_hint')}
+                        compactMetaHint={t('form.reference_image_format', {
+                          maxImages: allowMultipleImages ? maxImages : 1,
+                          maxSizeMB,
+                        })}
+                        compact
+                      />
+
+                      {hasReferenceUploadError && (
+                        <p className="text-xs text-[#ef4444]">
+                          {t('form.some_images_failed_to_upload')}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="landing-title flex items-center gap-2 text-[18px] font-semibold tracking-[-0.03em] sm:text-[20px]">
+                        <Settings2 className="landing-soft-text h-5 w-5" />
+                        <span>{t('settings.title')}</span>
+                      </div>
+
+                      <div className="space-y-4">
+                        <div className="grid gap-3 sm:grid-cols-[90px_minmax(0,1fr)] sm:items-center">
+                          <Label className="landing-soft-text text-[13px] font-medium">
+                            {t('form.output_number')}
+                          </Label>
+                          <div className="grid grid-cols-4 gap-2">
+                            {OUTPUT_COUNT_OPTIONS.map((option) => {
+                              const active = outputCountStyle === option;
+                              return (
+                                <button
+                                  key={option}
+                                  type="button"
+                                  onClick={() => setOutputCountStyle(option)}
+                                  className={cn(
+                                    'landing-generator-accent-border-hover flex h-9 items-center justify-center rounded-xl border text-[13px] font-medium transition-colors',
+                                    active
+                                      ? 'landing-generator-selected'
+                                      : 'landing-generator-secondary'
+                                  )}
+                                >
+                                  {option}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        <div className="grid gap-3 sm:grid-cols-[90px_minmax(0,1fr)] sm:items-center">
+                          <Label className="landing-soft-text text-[13px] font-medium">
+                            {t('form.quality')}
+                          </Label>
+                          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+                            {QUALITY_OPTIONS.map((option) => {
+                              const active = qualityStyle === option.value;
+                              return (
+                                <button
+                                  key={option.value}
+                                  type="button"
+                                  onClick={() => {
+                                    setQualityStyle(option.value);
+                                    if (option.badge === '2K')
+                                      setResolution('2K');
+                                    if (option.badge === '1K')
+                                      setResolution('1K');
+                                  }}
+                                  className={cn(
+                                    'landing-generator-accent-border-hover flex h-10 items-center justify-center gap-1 rounded-xl border px-3 text-[13px] font-medium transition-colors',
+                                    active
+                                      ? 'landing-generator-selected'
+                                      : 'landing-generator-secondary'
+                                  )}
+                                >
+                                  <span>{t(option.labelKey)}</span>
+                                  <span
+                                    className={cn(
+                                      'rounded-full px-1.5 py-0.5 text-[10px] font-semibold',
+                                      option.value === 'ultra'
+                                        ? 'bg-[#fff3e4] text-[#ff9b21]'
+                                        : active
+                                          ? 'landing-generator-selected-badge'
+                                          : 'bg-[#edf2ff] text-[#7a86a7]'
+                                    )}
+                                  >
+                                    {option.badge}
+                                  </span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        <div className="grid gap-3 sm:grid-cols-[90px_minmax(0,1fr)] sm:items-center">
+                          <Label className="landing-soft-text text-[13px] font-medium">
+                            {t('form.aspect_ratio')}
+                          </Label>
+                          <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+                            {['1:1', '2:3', '3:2', '9:16', '16:9'].map(
+                              (option) => {
+                                const active = aspectRatio === option;
+                                return (
+                                  <button
+                                    key={option}
+                                    type="button"
+                                    onClick={() => setAspectRatio(option)}
+                                    className={cn(
+                                      'landing-generator-accent-border-hover flex h-9 items-center justify-center rounded-xl border text-[13px] font-medium transition-colors',
+                                      active
+                                        ? 'landing-generator-selected'
+                                        : 'landing-generator-secondary'
+                                    )}
+                                  >
+                                    {option}
+                                  </button>
+                                );
+                              }
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="hidden">
+                          <Select
+                            value={provider}
+                            onValueChange={handleProviderChange}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue
+                                placeholder={t('form.select_provider')}
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {PROVIDER_OPTIONS.filter((option) =>
+                                availableProviders.includes(option.value)
+                              ).map((option) => (
+                                <SelectItem
+                                  key={option.value}
+                                  value={option.value}
+                                >
+                                  {option.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+
+                          <Select value={model} onValueChange={setModel}>
+                            <SelectTrigger className="w-full">
+                              <SelectValue
+                                placeholder={t('form.select_model')}
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {MODEL_OPTIONS.filter(
+                                (option) =>
+                                  option.provider === provider &&
+                                  option.scenes.includes(activeTab) &&
+                                  availableProviders.includes(option.provider)
+                              ).map((option) => (
+                                <SelectItem
+                                  key={option.value}
+                                  value={option.value}
+                                >
+                                  {option.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3 pt-1">
+                      {!isMounted ? (
+                        <Button
+                          className="h-12 w-full rounded-[14px] bg-[linear-gradient(90deg,#b897f8_0%,#f0a0ea_52%,#ffca76_100%)] text-[15px] font-semibold text-white shadow-none hover:opacity-95"
+                          disabled
+                        >
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          {t('loading')}
+                        </Button>
+                      ) : isCheckSign ? (
+                        <Button
+                          className="h-12 w-full rounded-[14px] bg-[linear-gradient(90deg,#b897f8_0%,#f0a0ea_52%,#ffca76_100%)] text-[15px] font-semibold text-white shadow-none hover:opacity-95"
+                          disabled
+                        >
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          {t('checking_account')}
+                        </Button>
+                      ) : user ? (
+                        <Button
+                          className="h-12 w-full rounded-[14px] bg-[linear-gradient(90deg,#b897f8_0%,#f0a0ea_52%,#ffca76_100%)] text-[15px] font-semibold text-white shadow-none hover:opacity-95"
+                          onClick={handleGenerate}
+                          disabled={
+                            isGenerating ||
+                            isLoadingCredits ||
+                            isLoadingProviders ||
+                            !prompt.trim() ||
+                            isPromptTooLong ||
+                            isReferenceUploading ||
+                            hasReferenceUploadError ||
+                            (!isLoadingCredits &&
+                              remainingCredits < costCredits)
+                          }
+                        >
+                          {isGenerating ? (
+                            <>
+                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                              {t('generating')}
+                            </>
+                          ) : (
+                            <>
+                              <Sparkles className="mr-2 h-4 w-4" />
+                              {t('generate')}
+                            </>
+                          )}
+                        </Button>
+                      ) : (
+                        <Button
+                          className="h-12 w-full rounded-[14px] bg-[linear-gradient(90deg,#b897f8_0%,#f0a0ea_52%,#ffca76_100%)] text-[15px] font-semibold text-white shadow-none hover:opacity-95"
+                          onClick={() => setIsShowSignModal(true)}
+                        >
+                          <User className="mr-2 h-4 w-4" />
+                          {t('sign_in_to_generate')}
+                        </Button>
+                      )}
+
+                      <div className="landing-muted text-center text-[11px]">
+                        <span className="mr-1 text-[#f1b759]">💡</span>
+                        {t('tip_message')}
+                      </div>
+
+                      {!isMounted || isLoadingCredits || isLoadingProviders ? (
+                        <div className="landing-soft-text flex items-center justify-between text-[13px]">
+                          <span>
+                            {t('credits_cost', { credits: costCredits })}
+                          </span>
+                          <span className="flex items-center gap-2">
+                            <Loader2 className="h-3 w-3 animate-spin" />
+                            {t('credits_remaining', { credits: 0 })}
+                          </span>
+                        </div>
+                      ) : user && remainingCredits > 0 ? (
+                      <div className="landing-soft-text flex items-center justify-between text-[13px]">
+                          <span>
+                            {t('credits_cost', { credits: costCredits })}
+                          </span>
+                          <span>
+                            {t('credits_remaining', {
+                              credits: remainingCredits,
+                            })}
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="space-y-3">
+                          <div className="landing-soft-text flex items-center justify-between text-[13px]">
+                            <span>
+                              {t('credits_cost', { credits: costCredits })}
+                            </span>
+                            <span>
+                              {t('credits_remaining', {
+                                credits: remainingCredits,
+                              })}
+                            </span>
+                          </div>
+                          <Link href="/pricing">
+                            <Button
+                              variant="outline"
+                              className="landing-input-surface h-11 w-full rounded-[14px] text-[14px] hover:opacity-90"
+                            >
+                              <CreditCard className="mr-2 h-4 w-4" />
+                              {t('buy_credits')}
+                            </Button>
+                          </Link>
+                        </div>
+                      )}
+
+                      {isGenerating && (
+                        <div className="landing-generator-preview rounded-[16px] border p-4">
+                          <div className="landing-soft-text mb-2 flex items-center justify-between text-[13px]">
+                            <span>{t('progress')}</span>
+                            <span>{progress}%</span>
+                          </div>
+                          <Progress value={progress} />
+                          {taskStatusLabel && (
+                            <p className="mt-2 text-center text-[11px] text-[#8f96a3]">
+                              {taskStatusLabel}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                )}
-              </CardContent>
-            </Card>
+                </div>
+
+                <div className="flex h-full min-h-0 self-stretch p-5 sm:p-6">
+                  <div className="flex h-full min-h-0 w-full flex-col">
+                    <div className="space-y-2">
+                      <div className="flex items-end justify-between gap-3">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <Wand className="h-4 w-4 text-[#d44dff]" />
+                            <div className="landing-title text-[18px] font-semibold tracking-[-0.03em] sm:text-[20px]">
+                              {t('featured.title')}
+                            </div>
+                          </div>
+                          <p className="landing-body mt-1 text-[12px] leading-5">
+                            {t('featured.description')}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          className="hidden self-start pt-1 text-[12px] font-semibold text-[#d570ff] md:inline-flex"
+                        >
+                          {t('featured.more_examples')} →
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="landing-generator-accent-surface mt-3 flex min-h-0 min-w-0 flex-1 overflow-hidden rounded-[18px] border">
+                      {featuredExamples[0]?.url ? (
+                        <div className="relative h-full min-h-[320px] w-full">
+                          <LazyImage
+                            src={featuredExamples[0].url}
+                            alt={
+                              featuredExamples[0].prompt ||
+                              'Featured inspiration'
+                            }
+                            className="h-full w-full object-cover"
+                          />
+
+                          {generatedImages.length > 0 && (
+                            <div className="absolute right-2.5 bottom-2.5 flex gap-1.5">
+                              {generatedImages.map((image) => (
+                                <Button
+                                  key={image.id}
+                                  size="sm"
+                                  variant="secondary"
+                                  className="h-6 rounded-full border border-black/5 bg-black/55 px-2 text-[10px] text-white shadow-none backdrop-blur-sm"
+                                  onClick={() => handleDownloadImage(image)}
+                                  disabled={downloadingImageId === image.id}
+                                >
+                                  {downloadingImageId === image.id ? (
+                                    <Loader2 className="h-3 w-3 animate-spin" />
+                                  ) : (
+                                    <Download className="h-3 w-3" />
+                                  )}
+                                </Button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="flex h-full min-h-[320px] w-full items-center justify-center">
+                          <div className="landing-muted text-center">
+                            <ImageIcon className="mx-auto mb-3 h-8 w-8" />
+                            <p>
+                              {isGenerating
+                                ? t('ready_to_generate')
+                                : t('no_images_generated')}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="mt-3 grid shrink-0 grid-cols-4 gap-2.5">
+                      {featuredExamples.slice(0, 4).map((image, index) => (
+                        <button
+                          key={image.id}
+                          type="button"
+                          className="space-y-1.5 text-left"
+                          onClick={() =>
+                            image.prompt && setPrompt(image.prompt)
+                          }
+                        >
+                          <div className="landing-generator-preview h-[112px] overflow-hidden rounded-[12px] border sm:h-[120px]">
+                            <LazyImage
+                              src={image.url}
+                              alt={
+                                image.prompt ||
+                                t('featured.example_fallback', {
+                                  index: index + 1,
+                                })
+                              }
+                              className="h-full w-full object-cover"
+                            />
+                          </div>
+                          <p className="landing-body line-clamp-1 px-0.5 text-[9px] leading-4 sm:text-[10px]">
+                            {image.prompt ||
+                              t('featured.example_fallback', {
+                                index: index + 1,
+                              })}
+                          </p>
+                        </button>
+                      ))}
+
+                      {featuredExamples.length === 0 &&
+                        Array.from({ length: 4 }).map((_, index) => (
+                          <div key={index} className="space-y-1.5">
+                            <div className="landing-generator-preview h-[112px] rounded-[12px] border sm:h-[120px]" />
+                            <div className="h-3 rounded bg-[#edf0f5]" />
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1277,7 +1504,7 @@ export function ImageGenerator({
             </Button>
           </div>
           <div className="flex items-center justify-center">
-            <label className="flex items-center gap-2 text-sm cursor-pointer">
+            <label className="flex cursor-pointer items-center gap-2 text-sm">
               <input
                 type="checkbox"
                 checked={dontAskAgain}

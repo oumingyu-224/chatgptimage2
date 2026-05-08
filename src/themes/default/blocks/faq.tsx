@@ -7,6 +7,7 @@ import {
   AccordionTrigger,
 } from '@/shared/components/ui/accordion';
 import { ScrollAnimation } from '@/shared/components/ui/scroll-animation';
+import { cn } from '@/shared/lib/utils';
 import { Section } from '@/shared/types/blocks/landing';
 
 export function FAQ({
@@ -17,14 +18,17 @@ export function FAQ({
   className?: string;
 }) {
   return (
-    <section id={section.id} className={`py-16 md:py-24 ${className}`}>
+    <section
+      id={section.id}
+      className={cn('py-16 md:py-24', section.className, className)}
+    >
       <div className={`mx-auto max-w-full px-4 md:max-w-3xl md:px-8`}>
         <ScrollAnimation>
           <div className="mx-auto max-w-2xl text-center text-balance">
-            <h2 className="text-foreground mb-4 text-3xl font-semibold tracking-tight md:text-4xl">
+            <h2 className="landing-title mb-4 text-3xl font-semibold tracking-tight md:text-4xl">
               {section.title}
             </h2>
-            <p className="text-muted-foreground mb-6 md:mb-12 lg:mb-16">
+            <p className="landing-body mb-6 md:mb-12 lg:mb-16">
               {section.description}
             </p>
           </div>
@@ -35,30 +39,31 @@ export function FAQ({
             <Accordion
               type="single"
               collapsible
-              className="bg-muted dark:bg-muted/50 w-full rounded-2xl p-1"
+              className="landing-panel relative w-full rounded-2xl border p-1 shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_0_28px_rgba(94,114,255,0.14),0_0_52px_rgba(245,120,255,0.10)]"
             >
+              <div className="pointer-events-none absolute inset-x-10 -top-px h-px bg-[linear-gradient(90deg,transparent,rgba(120,132,255,0.7),rgba(243,122,255,0.65),transparent)]" />
               {section.items?.map((item, idx) => (
                 <div className="group" key={idx}>
                   <AccordionItem
                     value={item.question || item.title || ''}
-                    className="data-[state=open]:bg-card dark:data-[state=open]:bg-muted peer rounded-xl border-none px-7 py-1 data-[state=open]:border-none data-[state=open]:shadow-sm"
+                    className="peer rounded-xl border-none bg-transparent px-7 py-1 data-[state=open]:border-none data-[state=open]:bg-transparent data-[state=open]:shadow-none"
                   >
-                    <AccordionTrigger className="cursor-pointer text-base hover:no-underline">
+                    <AccordionTrigger className="landing-strong cursor-pointer text-base hover:no-underline">
                       {item.question || item.title || ''}
                     </AccordionTrigger>
                     <AccordionContent>
-                      <p className="text-base">
+                      <p className="landing-body text-base">
                         {item.answer || item.description || ''}
                       </p>
                     </AccordionContent>
                   </AccordionItem>
-                  <hr className="mx-7 border-dashed group-last:hidden peer-data-[state=open]:opacity-0" />
+                  <hr className="landing-divider mx-7 border-dashed group-last:hidden" />
                 </div>
               ))}
             </Accordion>
 
             <p
-              className="text-muted-foreground mt-6 px-8"
+              className="landing-body mt-6 px-8"
               dangerouslySetInnerHTML={{ __html: section.tip || '' }}
             />
           </div>

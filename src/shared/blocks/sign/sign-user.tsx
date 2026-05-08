@@ -33,10 +33,20 @@ export function SignUser({
   isScrolled,
   signButtonSize = 'sm',
   userNav,
+  showSignUp = false,
+  containerClassName,
+  signInClassName,
+  signUpClassName,
+  avatarButtonClassName,
 }: {
   isScrolled?: boolean;
   signButtonSize?: 'default' | 'sm' | 'lg' | 'icon';
   userNav?: UserNav;
+  showSignUp?: boolean;
+  containerClassName?: string;
+  signInClassName?: string;
+  signUpClassName?: string;
+  avatarButtonClassName?: string;
 }) {
   const t = useTranslations('common.sign');
   const router = useRouter();
@@ -110,7 +120,10 @@ export function SignUser({
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              className="relative h-10 w-10 rounded-full p-0"
+              className={cn(
+                'relative h-10 w-10 rounded-full p-0',
+                avatarButtonClassName
+              )}
             >
               <Avatar>
                 <AvatarImage
@@ -207,18 +220,33 @@ export function SignUser({
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+        <div
+          className={cn(
+            'flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit',
+            containerClassName
+          )}
+        >
           <Button
-            asChild
             size={signButtonSize}
+            type="button"
             className={cn(
               'border-foreground/10 ml-4 cursor-pointer ring-0',
-              isScrolled && 'lg:hidden'
+              isScrolled && 'lg:hidden',
+              signInClassName
             )}
             onClick={() => setIsShowSignModal(true)}
           >
-            <span>{t('sign_in_title')}</span>
+            {t('sign_in_title')}
           </Button>
+          {showSignUp ? (
+            <Button
+              asChild
+              size={signButtonSize}
+              className={cn(signUpClassName)}
+            >
+              <Link href="/sign-up">{t('sign_up_title')}</Link>
+            </Button>
+          ) : null}
           <SignModal callbackUrl={pathname || '/'} />
         </div>
       )}

@@ -22,13 +22,13 @@ export function CTA({
       <div className="container">
         <div className="text-center">
           <ScrollAnimation>
-            <h2 className="text-4xl font-semibold text-balance lg:text-5xl">
+            <h2 className="landing-title text-4xl font-semibold text-balance lg:text-5xl">
               {section.title}
             </h2>
           </ScrollAnimation>
           <ScrollAnimation delay={0.15}>
             <p
-              className="mt-4"
+              className="landing-body mt-4"
               dangerouslySetInnerHTML={{ __html: section.description ?? '' }}
             />
           </ScrollAnimation>

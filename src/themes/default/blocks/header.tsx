@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { ChevronDown, Menu, Sparkles, X } from 'lucide-react';
 
 import { Link, usePathname } from '@/core/i18n/navigation';
 import {
@@ -17,313 +17,309 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/shared/components/ui/accordion';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger as RawNavigationMenuTrigger,
-} from '@/shared/components/ui/navigation-menu';
-import { useMedia } from '@/shared/hooks/use-media';
 import { cn } from '@/shared/lib/utils';
 import { NavItem } from '@/shared/types/blocks/common';
 import { Header as HeaderType } from '@/shared/types/blocks/landing';
 
-// For Next.js hydration mismatch warning, conditionally render NavigationMenuTrigger only after mount to avoid inconsistency between server/client render
-function NavigationMenuTrigger(
-  props: React.ComponentProps<typeof RawNavigationMenuTrigger>
-) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  // Only render after client has mounted, to avoid SSR/client render id mismatch
-  if (!mounted) return null;
-  return <RawNavigationMenuTrigger {...props} />;
+function shouldHideItem(item: NavItem) {
+  const value = `${item.title || ''} ${item.url || ''}`.toLowerCase();
+  return value.includes('seedance') || value.includes('topics');
+}
+
+function filterNavItems(items?: NavItem[]) {
+  return (items || [])
+    .filter((item) => !shouldHideItem(item))
+    .map((item) => ({
+      ...item,
+      children: item.children?.filter((child) => !shouldHideItem(child)),
+    }));
+}
+
+function HeaderTopPromo({
+  text,
+  buttonText,
+  href,
+  target,
+}: {
+  text?: string;
+  buttonText?: string;
+  href?: string;
+  target?: string;
+}) {
+  return (
+    <div className="hidden h-10 bg-[linear-gradient(90deg,#0d7df2_0%,#7b3ff5_50%,#c600ff_100%)] text-white md:block">
+      <div className="relative container flex h-full items-center justify-center px-4 text-center">
+        <div className="flex items-center gap-2 text-sm font-medium">
+          <span className="flex size-4 items-center justify-center">
+            <Sparkles className="size-3.5" />
+          </span>
+          {text ? <span>{text}</span> : null}
+          {buttonText ? (
+            <Link
+              href={href || '/pricing'}
+              target={target || '_self'}
+              className="ml-2 rounded-md bg-white px-3 py-1 text-xs font-semibold text-[#5f22ff]"
+            >
+              {buttonText}
+            </Link>
+          ) : null}
+        </div>
+
+        <button
+          type="button"
+          className="absolute right-0 flex size-10 items-center justify-center text-white/90"
+          aria-label="Close promo"
+        >
+          <X className="size-4" />
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export function Header({ header }: { header: HeaderType }) {
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const isScrolledRef = useRef(false);
   const scrollRafRef = useRef<number | null>(null);
-  const isLarge = useMedia('(min-width: 64rem)');
-  const pathname = usePathname();
+  const navItems = useMemo(
+    () => filterNavItems(header.nav?.items),
+    [header.nav]
+  );
 
   useEffect(() => {
-    // Listen to scroll event to enable header styles on scroll
     const handleScroll = () => {
-      // Coalesce high-frequency scroll events & only update state when value changes.
       if (scrollRafRef.current != null) return;
+
       scrollRafRef.current = window.requestAnimationFrame(() => {
         scrollRafRef.current = null;
-        const next = window.scrollY > 50;
-        if (next === isScrolledRef.current) return;
-        isScrolledRef.current = next;
-        setIsScrolled(next);
+        setIsScrolled(window.scrollY > 6);
       });
     };
 
-    // Initialize once on mount.
     handleScroll();
-
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       if (scrollRafRef.current != null) {
         window.cancelAnimationFrame(scrollRafRef.current);
-        scrollRafRef.current = null;
       }
     };
   }, []);
 
-  // Navigation menu for large screens
-  const NavMenu = () => {
-    return (
-      <NavigationMenu
-        viewport={false}
-        className="**:data-[slot=navigation-menu-content]:top-10 max-lg:hidden"
-      >
-        <NavigationMenuList className="gap-2">
-          {header.nav?.items?.map((item, idx) => {
-            if (!item.children || item.children.length === 0) {
-              return (
-                <NavigationMenuLink key={idx} asChild>
-                  <Link
-                    href={item.url || ''}
-                    target={item.target || '_self'}
-                    className={`flex flex-row items-center gap-2 px-4 py-1.5 text-sm ${
-                      item.is_active || pathname.endsWith(item.url as string)
-                        ? 'bg-muted/40 text-muted-foreground'
-                        : ''
-                    }`}
-                  >
-                    {item.icon && <SmartIcon name={item.icon as string} />}
-                    {item.title}
-                  </Link>
-                </NavigationMenuLink>
-              );
-            }
-
-            return (
-              <NavigationMenuItem key={idx}>
-                <NavigationMenuTrigger className="flex flex-row items-center gap-2 text-sm">
-                  {item.icon && (
-                    <SmartIcon name={item.icon as string} className="h-4 w-4" />
-                  )}
-                  {item.title}
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="min-w-2xs origin-top p-0.5">
-                  <div className="border-foreground/5 bg-card ring-foreground/5 rounded-[calc(var(--radius)-2px)] border border-transparent p-2 shadow ring-1">
-                    <ul className="mt-1 space-y-2">
-                      {item.children?.map((subItem: NavItem, index: number) => (
-                        <ListItem
-                          key={index}
-                          href={subItem.url || ''}
-                          target={subItem.target || '_self'}
-                          title={subItem.title || ''}
-                          description={subItem.description || ''}
-                        >
-                          {subItem.icon && (
-                            <SmartIcon name={subItem.icon as string} />
-                          )}
-                        </ListItem>
-                      ))}
-                    </ul>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            );
-          })}
-        </NavigationMenuList>
-      </NavigationMenu>
-    );
+  const isItemActive = (item: NavItem) => {
+    if (!item.url) return false;
+    return pathname === item.url || pathname.startsWith(`${item.url}/`);
   };
-
-  // Mobile menu using Accordion, shown on small screens
-  const MobileMenu = ({ closeMenu }: { closeMenu: () => void }) => {
-    return (
-      <nav
-        role="navigation"
-        className="w-full [--color-border:--alpha(var(--color-foreground)/5%)] [--color-muted:--alpha(var(--color-foreground)/5%)]"
-      >
-        <Accordion
-          type="single"
-          collapsible
-          className="-mx-4 mt-0.5 space-y-0.5 **:hover:no-underline"
-        >
-          {header.nav?.items?.map((item, idx) => {
-            return (
-              <AccordionItem
-                key={idx}
-                value={item.title || ''}
-                className="group relative border-b-0 before:pointer-events-none before:absolute before:inset-x-4 before:bottom-0 before:border-b"
-              >
-                {item.children && item.children.length > 0 ? (
-                  <>
-                    <AccordionTrigger className="data-[state=open]:bg-muted flex items-center justify-between px-4 py-3 text-lg **:!font-normal">
-                      {item.title}
-                    </AccordionTrigger>
-                    <AccordionContent className="pb-5">
-                      <ul>
-                        {item.children?.map((subItem: NavItem, iidx) => (
-                          <li key={iidx}>
-                            <Link
-                              href={subItem.url || ''}
-                              onClick={closeMenu}
-                              className="grid grid-cols-[auto_1fr] items-center gap-2.5 px-4 py-2"
-                            >
-                              <div
-                                aria-hidden
-                                className="flex items-center justify-center *:size-4"
-                              >
-                                {subItem.icon && (
-                                  <SmartIcon name={subItem.icon as string} />
-                                )}
-                              </div>
-                              <div className="text-base">{subItem.title}</div>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </AccordionContent>
-                  </>
-                ) : (
-                  <Link
-                    href={item.url || ''}
-                    onClick={closeMenu}
-                    className="data-[state=open]:bg-muted flex items-center justify-between px-4 py-3 text-lg **:!font-normal"
-                  >
-                    {item.title}
-                  </Link>
-                )}
-              </AccordionItem>
-            );
-          })}
-        </Accordion>
-      </nav>
-    );
-  };
-
-  // List item for submenus in NavigationMenu
-  function ListItem({
-    title,
-    description,
-    children,
-    href,
-    target,
-    ...props
-  }: React.ComponentPropsWithoutRef<'li'> & {
-    href: string;
-    title: string;
-    description?: string;
-    target?: string;
-  }) {
-    return (
-      <li {...props}>
-        <NavigationMenuLink asChild>
-          <Link
-            href={href}
-            target={target || '_self'}
-            className="grid grid-cols-[auto_1fr] gap-3.5"
-          >
-            <div className="bg-background ring-foreground/10 relative flex size-9 items-center justify-center rounded border border-transparent shadow-sm ring-1">
-              {children}
-            </div>
-            <div className="space-y-0.5">
-              <div className="text-foreground text-sm font-medium">{title}</div>
-              <p className="text-muted-foreground line-clamp-1 text-xs">
-                {description}
-              </p>
-            </div>
-          </Link>
-        </NavigationMenuLink>
-      </li>
-    );
-  }
 
   return (
-    <>
-      <header
-        data-state={isMobileMenuOpen ? 'active' : 'inactive'}
-        {...(isScrolled && { 'data-scrolled': true })}
-        className="has-data-[state=open]:bg-background/50 fixed inset-x-0 top-0 z-50 has-data-[state=open]:h-screen has-data-[state=open]:backdrop-blur"
-      >
-        <div
-          className={cn(
-            'absolute inset-x-0 top-0 z-50 h-18 border-transparent ring-1 ring-transparent transition-all duration-300',
-            'in-data-scrolled:border-foreground/5 in-data-scrolled:bg-background/75 in-data-scrolled:border-b in-data-scrolled:backdrop-blur',
-            'has-data-[state=open]:ring-foreground/5 has-data-[state=open]:bg-card/75 has-data-[state=open]:h-[calc(var(--navigation-menu-viewport-height)+3.4rem)] has-data-[state=open]:border-b has-data-[state=open]:shadow-lg has-data-[state=open]:shadow-black/10 has-data-[state=open]:backdrop-blur',
-            'max-lg:in-data-[state=active]:bg-background/75 max-lg:h-14 max-lg:overflow-hidden max-lg:border-b max-lg:in-data-[state=active]:h-screen max-lg:in-data-[state=active]:backdrop-blur'
-          )}
-        >
-          <div className="container">
-            <div className="relative flex flex-wrap items-center justify-between lg:py-5">
-              <div className="flex justify-between gap-8 max-lg:h-14 max-lg:w-full max-lg:border-b">
-                {/* Brand Logo */}
-                {header.brand && <BrandLogo brand={header.brand} />}
+    <header
+      className={cn(
+        'landing-surface-header fixed inset-x-0 top-0 z-50',
+        isScrolled &&
+          'landing-surface-header-scrolled border-b shadow-[0_8px_28px_rgba(15,23,42,0.06)]'
+      )}
+    >
+      <HeaderTopPromo
+        text={header.topbanner?.text}
+        buttonText={header.topbanner?.buttonText}
+        href={header.topbanner?.href}
+        target={header.topbanner?.target}
+      />
 
-                {/* Desktop Navigation Menu */}
-                {isLarge && <NavMenu />}
-                {/* Hamburger menu button for mobile navigation */}
-                <button
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  aria-label={
-                    isMobileMenuOpen == true ? 'Close Menu' : 'Open Menu'
-                  }
-                  className="relative z-20 -m-2.5 -mr-3 block cursor-pointer p-2.5 lg:hidden"
-                >
-                  <Menu className="m-auto size-5 duration-200 in-data-[state=active]:scale-0 in-data-[state=active]:rotate-180 in-data-[state=active]:opacity-0" />
-                  <X className="absolute inset-0 m-auto size-5 scale-0 -rotate-180 opacity-0 duration-200 in-data-[state=active]:scale-100 in-data-[state=active]:rotate-0 in-data-[state=active]:opacity-100" />
-                </button>
-              </div>
+      <div className="bg-transparent">
+        <div className="container">
+          <div className="flex h-16 items-center justify-between gap-6">
+            <div className="flex min-w-0 items-center gap-10">
+              {header.brand ? <BrandLogo brand={header.brand} /> : null}
 
-              {/* Show mobile menu if needed */}
-              {!isLarge && isMobileMenuOpen && (
-                <MobileMenu closeMenu={() => setIsMobileMenuOpen(false)} />
-              )}
-
-              {/* Header right section: theme toggler, locale selector, sign, buttons */}
-              <div className="mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 in-data-[state=active]:flex max-lg:in-data-[state=active]:mt-6 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
-                <div className="flex w-full flex-row items-center gap-4 sm:flex-row sm:gap-6 sm:space-y-0 md:w-fit">
-                  {header.buttons &&
-                    header.buttons.map((button, idx) => (
+              <nav className="hidden items-center gap-8 lg:flex">
+                {navItems.map((item, idx) => (
+                  <div key={idx} className="group relative">
+                    {!item.children || item.children.length === 0 ? (
                       <Link
-                        key={idx}
-                        href={button.url || ''}
-                        target={button.target || '_self'}
+                        href={item.url || ''}
+                        target={item.target || '_self'}
                         className={cn(
-                          'focus-visible:ring-ring inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
-                          'h-7 px-3 ring-0',
-                          button.variant === 'outline'
-                            ? 'bg-background border-primary ring-foreground/10 hover:bg-muted/50 dark:ring-foreground/15 dark:hover:bg-muted/50 border border-transparent shadow-sm ring-1 shadow-black/15 duration-200'
-                            : 'bg-primary text-primary-foreground hover:bg-primary/90 border-[0.5px] border-white/25 shadow-md ring-1 shadow-black/20 ring-(--ring-color) [--ring-color:color-mix(in_oklab,var(--color-foreground)15%,var(--color-primary))]'
+                          'landing-nav-text landing-nav-text-hover flex items-center gap-1.5 text-[15px] font-medium transition-colors',
+                          isItemActive(item) && 'text-[var(--landing-nav-text-hover)]'
                         )}
                       >
-                        {button.icon && (
+                        {idx === 0 ? (
+                          <span className="text-base leading-none">🔥</span>
+                        ) : item.icon ? (
                           <SmartIcon
-                            name={button.icon as string}
-                            className="size-4"
+                            name={item.icon as string}
+                            className="landing-nav-text size-4"
                           />
-                        )}
-                        <span>{button.title}</span>
+                        ) : null}
+                        <span>{item.title}</span>
                       </Link>
-                    ))}
+                    ) : (
+                      <>
+                        <button
+                          type="button"
+                          className="landing-nav-text flex items-center gap-1.5 text-[15px] font-medium"
+                        >
+                          {item.icon ? (
+                            <SmartIcon
+                              name={item.icon as string}
+                              className="landing-nav-text size-4"
+                            />
+                          ) : null}
+                          <span>{item.title}</span>
+                          <ChevronDown className="landing-soft-text size-3.5" />
+                        </button>
 
-                  {header.show_theme ? <ThemeToggler /> : null}
-                  {header.show_locale ? <LocaleSelector /> : null}
-                  <div className="flex-1 md:hidden"></div>
-                  {header.show_sign ? (
-                    <SignUser userNav={header.user_nav} />
-                  ) : null}
+                        <div className="landing-popover invisible absolute top-full left-0 z-50 mt-3 w-72 rounded-2xl border p-2 opacity-0 shadow-[0_18px_48px_rgba(15,23,42,0.08)] transition-all group-hover:visible group-hover:opacity-100">
+                          {item.children.map((subItem, subIdx) => (
+                            <Link
+                              key={subIdx}
+                              href={subItem.url || ''}
+                              target={subItem.target || '_self'}
+                              className="landing-popover-hover block rounded-xl px-3 py-3"
+                            >
+                              <div className="landing-strong flex items-center gap-2 text-sm font-medium">
+                                {subItem.icon ? (
+                                  <SmartIcon
+                                    name={subItem.icon as string}
+                                    className="landing-soft-text size-4"
+                                  />
+                                ) : null}
+                                {subItem.title}
+                              </div>
+                              {subItem.description ? (
+                                <p className="landing-soft-text mt-1 text-xs leading-5">
+                                  {subItem.description}
+                                </p>
+                              ) : null}
+                            </Link>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </nav>
+            </div>
+
+            <div className="hidden items-center gap-3 lg:flex">
+              {header.show_locale ? <LocaleSelector type="button" /> : null}
+
+              {header.show_theme ? (
+                <div className="landing-input-surface flex size-8 items-center justify-center rounded-full border">
+                  <ThemeToggler />
                 </div>
+              ) : null}
+
+              {header.show_sign ? (
+                <SignUser
+                  userNav={header.user_nav}
+                  showSignUp
+                  containerClassName="items-center gap-3 space-y-0"
+                  signButtonSize="sm"
+                  signInClassName="landing-input-surface ml-0 h-10 rounded-xl border px-5 text-sm font-medium shadow-none hover:opacity-90"
+                  signUpClassName="h-10 rounded-xl bg-[#1773ea] px-5 text-sm font-medium text-white shadow-none hover:bg-[#1569d5]"
+                  avatarButtonClassName="landing-input-surface border"
+                />
+              ) : null}
+            </div>
+
+            <button
+              type="button"
+              aria-label={isMobileMenuOpen ? 'Close Menu' : 'Open Menu'}
+              className="landing-input-surface landing-nav-text flex size-10 items-center justify-center rounded-lg border lg:hidden"
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            >
+              {isMobileMenuOpen ? (
+                <X className="size-5" />
+              ) : (
+                <Menu className="size-5" />
+              )}
+            </button>
+          </div>
+
+          {isMobileMenuOpen ? (
+            <div className="landing-divider border-t py-4 lg:hidden">
+              <Accordion type="single" collapsible className="space-y-1">
+                {navItems.map((item, idx) => (
+                  <AccordionItem
+                    key={idx}
+                    value={item.title || ''}
+                    className="landing-divider border-b"
+                  >
+                    {item.children && item.children.length > 0 ? (
+                      <>
+                        <AccordionTrigger className="landing-strong py-3 text-sm font-medium hover:no-underline">
+                          <span className="flex items-center gap-2">
+                            {item.icon ? (
+                              <SmartIcon
+                                name={item.icon as string}
+                                className="landing-soft-text size-4"
+                              />
+                            ) : null}
+                            {item.title}
+                          </span>
+                        </AccordionTrigger>
+                        <AccordionContent className="pb-2">
+                          <div className="space-y-1">
+                            {item.children.map((subItem, subIdx) => (
+                              <Link
+                                key={subIdx}
+                                href={subItem.url || ''}
+                                target={subItem.target || '_self'}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="landing-soft-text landing-popover-hover block rounded-xl px-3 py-2 text-sm hover:text-[var(--landing-nav-text-hover)]"
+                              >
+                                {subItem.title}
+                              </Link>
+                            ))}
+                          </div>
+                        </AccordionContent>
+                      </>
+                    ) : (
+                      <Link
+                        href={item.url || ''}
+                        target={item.target || '_self'}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="landing-strong flex items-center gap-2 py-3 text-sm font-medium"
+                      >
+                        {idx === 0 ? (
+                          <span className="text-base leading-none">🔥</span>
+                        ) : item.icon ? (
+                          <SmartIcon
+                            name={item.icon as string}
+                            className="landing-soft-text size-4"
+                          />
+                        ) : null}
+                        {item.title}
+                      </Link>
+                    )}
+                  </AccordionItem>
+                ))}
+              </Accordion>
+
+              <div className="mt-4 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <LocaleSelector type="button" />
+                  {header.show_theme ? <ThemeToggler /> : null}
+                </div>
+                {header.show_sign ? (
+                  <SignUser
+                    userNav={header.user_nav}
+                    showSignUp
+                    containerClassName="items-center gap-2 space-y-0"
+                    signButtonSize="sm"
+                    signInClassName="landing-input-surface ml-0 h-9 rounded-lg border px-4 text-sm font-medium"
+                    signUpClassName="h-9 rounded-lg bg-[#1773ea] px-4 text-sm font-medium text-white"
+                  />
+                ) : null}
               </div>
             </div>
-          </div>
+          ) : null}
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 }

@@ -19,6 +19,10 @@
       "model": "Model",
       "aspect_ratio": "Aspect Ratio",
       "resolution": "Resolution",
+      "output_number": "Output Number",
+      "quality": "Quality",
+      "optional": "optional",
+      "prompt_note": "Prompt",
       "select_provider": "Select Provider",
       "select_model": "Select Model",
       "select_aspect_ratio": "Select aspect ratio",
@@ -27,9 +31,24 @@
       "prompt_placeholder": "Describe the details of the image, such as color, shape, texture, etc.",
       "reference_image": "Reference Image",
       "reference_image_placeholder": "Upload reference images, support multiple images",
+      "reference_image_hint": "Click to upload or drag images",
+      "reference_image_format": "PNG · JPG · WebP — up to {maxImages}, {maxSizeMB}MB each",
       "some_images_failed_to_upload": "Some images failed to upload, please delete them and re-upload",
       "prompt_too_long": "Prompt is too long, please delete some content"
     },
+    "settings": {
+      "title": "Generation Settings",
+      "quality_standard": "Standard",
+      "quality_hd": "HD",
+      "quality_ultra": "Ultra"
+    },
+    "featured": {
+      "title": "Featured Inspiration",
+      "description": "Click any template below to auto-fill the prompt",
+      "more_examples": "See 100+ examples",
+      "example_fallback": "Example {index}"
+    },
+    "tip_message": "Tip: more specific descriptions get closer to what you want",
     "generate": "Generate Images",
     "checking_account": "Checking Account...",
     "loading": "Loading...",
@@ -39,6 +58,10 @@
     "credits_remaining": "Remaining {credits} credits",
     "buy_credits": "Buy Credits",
     "progress": "Progress",
+    "progress_pending": "Waiting for the model to start",
+    "progress_processing": "Generating your image...",
+    "progress_success": "Image generation completed",
+    "progress_failed": "Generation failed",
     "generated_images": "Image Preview",
     "ready_to_generate": "Ready to Generate",
     "no_images_generated": "No Images Generated",
@@ -56,6 +79,9 @@
       "downloaded": "Downloaded successfully"
     },
     "errors": {
+      "timed_out": "Image generation timed out. Please try again.",
+      "provider_returned_no_images": "The provider returned no images. Please retry.",
+      "query_task_failed": "Query task failed: {message}",
       "generation_failed": "Failed to generate image",
       "save_showcase_failed": "Failed to save to showcase",
       "download_failed": "Failed to download",
@@ -65,7 +91,8 @@
       "no_reference_image": "Please upload reference images",
       "insufficient_credits": "Insufficient credits. Please top up to keep creating.",
       "provider_not_available": "Provider is not available",
-      "no_providers_configured": "No AI providers configured, please contact administrator"
+      "no_providers_configured": "No AI providers configured, please contact administrator",
+      "download_fetch_failed": "Failed to fetch image"
     }
   }
 }

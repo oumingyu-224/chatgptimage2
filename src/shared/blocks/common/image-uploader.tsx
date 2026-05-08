@@ -24,9 +24,11 @@ interface ImageUploaderProps {
   maxSizeMB?: number;
   title?: string;
   emptyHint?: string;
+  compactMetaHint?: string;
   className?: string;
   defaultPreviews?: string[];
   onChange?: (items: ImageUploaderValue[]) => void;
+  compact?: boolean;
 }
 
 interface UploadItem extends ImageUploaderValue {
@@ -110,9 +112,11 @@ export function ImageUploader({
   maxSizeMB = 10,
   title,
   emptyHint,
+  compactMetaHint,
   className,
   defaultPreviews,
   onChange,
+  compact = false,
 }: ImageUploaderProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isInitializedRef = useRef(false);
@@ -522,9 +526,11 @@ export function ImageUploader({
       {title && (
         <div className="text-foreground flex items-center justify-between text-sm font-medium">
           <div className="flex items-center gap-2">
-            <ImageIcon className="text-primary h-4 w-4" />
+            {!compact ? <ImageIcon className="text-primary h-4 w-4" /> : null}
             <span>{title}</span>
-            <span className="text-primary text-xs">({countLabel})</span>
+            {!compact ? (
+              <span className="text-primary text-xs">({countLabel})</span>
+            ) : null}
           </div>
         </div>
       )}
@@ -532,7 +538,8 @@ export function ImageUploader({
       <div
         className={cn(
           'flex flex-wrap gap-4',
-          allowMultiple ? 'flex-wrap' : 'flex-nowrap'
+          allowMultiple ? 'flex-wrap' : 'flex-nowrap',
+          compact && 'gap-3'
         )}
       >
         {items.map((item) => (
@@ -589,25 +596,50 @@ export function ImageUploader({
         ))}
 
         {items.length < maxCount && (
-          <div className="group border-border bg-muted/50 hover:border-border hover:bg-muted relative overflow-hidden rounded-xl border border-dashed p-1 shadow-sm transition">
+          <div
+            className={cn(
+              'group border-border bg-muted/50 hover:border-border hover:bg-muted relative overflow-hidden rounded-xl border border-dashed p-1 shadow-sm transition',
+              compact &&
+                'landing-input-surface landing-generator-accent-border-hover w-full rounded-2xl p-0 shadow-none'
+            )}
+          >
             <div className="relative overflow-hidden rounded-lg">
               <button
                 type="button"
-                className="flex h-32 w-32 flex-col items-center justify-center gap-2"
+                className={cn(
+                  'flex h-32 w-32 flex-col items-center justify-center gap-2',
+                  compact &&
+                    'landing-input-surface landing-generator-accent-border-hover h-[104px] w-full gap-2 rounded-[15px] border border-dashed px-5 text-center'
+                )}
                 onClick={openFilePicker}
               >
-                <div className="border-border flex h-10 w-10 items-center justify-center rounded-full border border-dashed">
-                  <IconUpload className="h-5 w-5" />
-                </div>
-                <span className="text-xs font-medium">Upload</span>
-                <span className="text-primary text-xs">Max {maxSizeMB}MB</span>
+                {compact ? (
+                  <>
+                    <IconUpload className="landing-muted h-5 w-5" />
+                    <span className="landing-soft-text text-[15px] font-medium">
+                      {emptyHint}
+                    </span>
+                    <span className="landing-muted text-xs">
+                      {compactMetaHint ||
+                        `PNG · JPG · WebP — up to ${maxImages}, ${maxSizeMB}MB each`}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <div className="border-border flex h-10 w-10 items-center justify-center rounded-full border border-dashed">
+                      <IconUpload className="h-5 w-5" />
+                    </div>
+                    <span className="text-xs font-medium">Upload</span>
+                    <span className="text-primary text-xs">Max {maxSizeMB}MB</span>
+                  </>
+                )}
               </button>
             </div>
           </div>
         )}
       </div>
 
-      {!title && (
+      {!title && !compact && (
         <div className="text-muted-foreground text-xs">{emptyHint}</div>
       )}
     </div>

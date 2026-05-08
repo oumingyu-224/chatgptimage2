@@ -2,10 +2,11 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { getThemePage } from '@/core/theme';
 import { ImageGenerator } from '@/shared/blocks/generator';
+import { getCurrentSubscription } from '@/shared/models/subscription';
+import { getLatestShowcases } from '@/shared/models/showcase';
+import { getUserInfo } from '@/shared/models/user';
 import { DynamicPage, Section } from '@/shared/types/blocks/landing';
 import { ShowcasesFlowDynamic } from '@/themes/default/blocks/showcases-flow-dynamic';
-
-import { getLatestShowcases } from '@/shared/models/showcase';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -20,6 +21,15 @@ export default async function LandingPage({
 
   const t = await getTranslations('landing');
   const createT = await getTranslations('pages.create');
+  const pricingT = await getTranslations('pages.pricing');
+
+  let currentSubscription;
+  try {
+    const user = await getUserInfo();
+    if (user) {
+      currentSubscription = await getCurrentSubscription(user.id);
+    }
+  } catch {}
 
   // Fetch showcases data server-side for faster initial render
   const rawShowcases = await getLatestShowcases({
@@ -44,6 +54,7 @@ export default async function LandingPage({
     'features',
     'stats',
     'testimonials',
+    'pricing',
     'subscribe',
     'faq',
     'cta',
@@ -72,10 +83,18 @@ export default async function LandingPage({
       } else if (section === 'generator') {
         acc[section] = {
           component: (
-            <div className="border-border/40 bg-muted/30 py-12" key="generator">
+            <div className="pt-0 pb-12 md:pb-14" key="generator">
               <ImageGenerator srOnlyTitle={createT.raw('generator.title')} />
             </div>
           ),
+        };
+      } else if (section === 'pricing') {
+        acc[section] = {
+          block: 'pricing',
+          data: {
+            pricing: pricingT.raw('pricing'),
+            currentSubscription,
+          },
         };
       } else {
         const sectionData = t.raw(section) as Section;

@@ -30,10 +30,6 @@ export default async function AiImageGeneratorPage({
       hero: {
         title: t.raw('page.title'),
         description: t.raw('page.description'),
-        background_image: {
-          src: '/imgs/bg/tree.jpg',
-          alt: 'hero background',
-        },
       },
       generator: {
         component: <ImageGenerator srOnlyTitle={t.raw('generator.title')} />,
