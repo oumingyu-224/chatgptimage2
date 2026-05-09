@@ -47,6 +47,12 @@ function HeaderTopPromo({
   href?: string;
   target?: string;
 }) {
+  const [closed, setClosed] = useState(false);
+
+  if (closed) {
+    return null;
+  }
+
   return (
     <div className="hidden h-10 bg-[linear-gradient(90deg,#0d7df2_0%,#7b3ff5_50%,#c600ff_100%)] text-white md:block">
       <div className="relative container flex h-full items-center justify-center px-4 text-center">
@@ -70,6 +76,7 @@ function HeaderTopPromo({
           type="button"
           className="absolute right-0 flex size-10 items-center justify-center text-white/90"
           aria-label="Close promo"
+          onClick={() => setClosed(true)}
         >
           <X className="size-4" />
         </button>
@@ -129,7 +136,13 @@ export function Header({ header }: { header: HeaderType }) {
         target={header.topbanner?.target}
       />
 
-      <div className="bg-transparent">
+      <div
+        className={cn(
+          'bg-transparent',
+          isMobileMenuOpen &&
+            'bg-[var(--landing-header-bg)] lg:bg-transparent'
+        )}
+      >
         <div className="container">
           <div className="flex h-16 items-center justify-between gap-6">
             <div className="flex min-w-0 items-center gap-10">
@@ -219,6 +232,7 @@ export function Header({ header }: { header: HeaderType }) {
                   userNav={header.user_nav}
                   showSignUp
                   containerClassName="items-center gap-3 space-y-0"
+                  signedInActionsClassName="items-center gap-3"
                   signButtonSize="sm"
                   signInClassName="landing-input-surface ml-0 h-10 rounded-xl border px-5 text-sm font-medium shadow-none hover:opacity-90"
                   signUpClassName="h-10 rounded-xl bg-[#1773ea] px-5 text-sm font-medium text-white shadow-none hover:bg-[#1569d5]"
@@ -242,7 +256,7 @@ export function Header({ header }: { header: HeaderType }) {
           </div>
 
           {isMobileMenuOpen ? (
-            <div className="landing-divider border-t py-4 lg:hidden">
+            <div className="landing-divider min-h-[calc(100svh-4rem)] border-t bg-[var(--landing-header-bg)] py-4 lg:hidden">
               <Accordion type="single" collapsible className="space-y-1">
                 {navItems.map((item, idx) => (
                   <AccordionItem
@@ -301,7 +315,7 @@ export function Header({ header }: { header: HeaderType }) {
                 ))}
               </Accordion>
 
-              <div className="mt-4 flex items-center justify-between gap-3">
+              <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <LocaleSelector type="button" />
                   {header.show_theme ? <ThemeToggler /> : null}
@@ -311,6 +325,7 @@ export function Header({ header }: { header: HeaderType }) {
                     userNav={header.user_nav}
                     showSignUp
                     containerClassName="items-center gap-2 space-y-0"
+                    signedInActionsClassName="order-3 flex w-full items-start justify-between gap-3"
                     signButtonSize="sm"
                     signInClassName="landing-input-surface ml-0 h-9 rounded-lg border px-4 text-sm font-medium"
                     signUpClassName="h-9 rounded-lg bg-[#1773ea] px-4 text-sm font-medium text-white"
