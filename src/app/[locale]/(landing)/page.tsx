@@ -2,7 +2,10 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { getThemePage } from '@/core/theme';
 import { ImageGenerator } from '@/shared/blocks/generator';
-import { getCurrentSubscription } from '@/shared/models/subscription';
+import {
+  getCurrentSubscription,
+  type Subscription,
+} from '@/shared/models/subscription';
 import { getLatestShowcases } from '@/shared/models/showcase';
 import { getUserInfo } from '@/shared/models/user';
 import { DynamicPage, Section } from '@/shared/types/blocks/landing';
@@ -23,7 +26,7 @@ export default async function LandingPage({
   const createT = await getTranslations('pages.create');
   const pricingT = await getTranslations('pages.pricing');
 
-  let currentSubscription;
+  let currentSubscription: Subscription | undefined;
   try {
     const user = await getUserInfo();
     if (user) {
