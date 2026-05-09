@@ -201,7 +201,7 @@ export function SignUp({
                   value={email}
                 />
                 {emailVerificationEnabled && (
-                  <p className="text-amber-600 text-xs">
+                  <p className="text-[#1773ea] text-xs">
                     {t('email_verification_hint')}
                   </p>
                 )}

@@ -1,7 +1,10 @@
 'use client';
 
+import { Star } from 'lucide-react';
+
 import { LazyImage } from '@/shared/blocks/common';
 import { ScrollAnimation } from '@/shared/components/ui/scroll-animation';
+import { cn } from '@/shared/lib/utils';
 import { Section, SectionItem } from '@/shared/types/blocks/landing';
 
 export function Testimonials({
@@ -11,14 +14,25 @@ export function Testimonials({
   section: Section;
   className?: string;
 }) {
+  const items = section.items ?? [];
+
   const TestimonialCard = ({ item }: { item: SectionItem }) => {
     return (
-      <div className="bg-card/25 ring-foreground/[0.07] flex flex-col justify-end gap-6 rounded-(--radius) border border-transparent p-8 ring-1">
-        <p className='text-foreground self-end text-balance before:mr-1 before:content-["\201C"] after:ml-1 after:content-["\201D"]'>
+      <div className="w-[290px] shrink-0 rounded-[26px] border border-slate-200/80 bg-white p-6 shadow-[0_14px_34px_rgba(15,23,42,0.05)] dark:border-white/6 dark:bg-[#0b0b0f] dark:shadow-none md:w-[308px]">
+        <div className="mb-5 flex items-center gap-1 text-amber-400">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <Star
+              key={index}
+              size={12}
+              className="fill-current stroke-current"
+            />
+          ))}
+        </div>
+        <p className='text-foreground min-h-[96px] text-[13px] leading-6 before:mr-1 before:content-["\201C"] after:ml-1 after:content-["\201D"] md:text-sm'>
           {item.quote || item.description}
         </p>
-        <div className="flex items-center gap-3">
-          <div className="ring-foreground/10 aspect-square size-9 overflow-hidden rounded-lg border border-transparent shadow-md ring-1 shadow-black/15">
+        <div className="mt-6 flex items-center gap-3">
+          <div className="aspect-square size-10 overflow-hidden rounded-full border border-slate-200/80 bg-white shadow-[0_6px_18px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-[#121318] dark:shadow-none">
             <LazyImage
               src={item.image?.src || item.avatar?.src || ''}
               alt={item.image?.alt || item.avatar?.alt || item.name || ''}
@@ -28,9 +42,11 @@ export function Testimonials({
           <h3 className="sr-only">
             {item.name}, {item.role || item.title}
           </h3>
-          <div className="space-y-px">
-            <p className="text-sm font-medium">{item.name} </p>
-            <p className="text-muted-foreground text-xs">
+          <div className="space-y-0.5">
+            <p className="text-foreground text-sm font-semibold">
+              {item.name}
+            </p>
+            <p className="text-muted-foreground text-[11px]">
               {item.role || item.title}
             </p>
           </div>
@@ -42,24 +58,37 @@ export function Testimonials({
   return (
     <section
       id={section.id}
-      className={`py-16 md:py-24 ${section.className} ${className}`}
+      className={cn('py-20 md:py-28', section.className, className)}
     >
-      <div className="container">
+      <div className="container px-3 sm:px-6">
         <ScrollAnimation>
-          <div className="mx-auto max-w-2xl text-center text-balance">
-            <h2 className="text-foreground mb-4 text-3xl font-semibold tracking-tight md:text-4xl">
+          <div className="mx-auto max-w-3xl text-center text-balance">
+            <h2 className="text-foreground mb-4 text-[28px] leading-[1.06] font-semibold tracking-[-0.04em] md:text-[42px]">
               {section.title}
             </h2>
-            <p className="text-muted-foreground mb-6 md:mb-12 lg:mb-16">
+            <p className="text-muted-foreground mx-auto max-w-2xl text-sm leading-6 md:text-[15px] md:leading-7">
               {section.description}
             </p>
           </div>
         </ScrollAnimation>
         <ScrollAnimation delay={0.2}>
-          <div className="border-border/50 relative rounded-(--radius)">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-px lg:*:nth-1:rounded-t-none lg:*:nth-2:rounded-tl-none lg:*:nth-2:rounded-br-none lg:*:nth-3:rounded-l-none lg:*:nth-4:rounded-r-none lg:*:nth-5:rounded-tl-none lg:*:nth-5:rounded-br-none lg:*:nth-6:rounded-b-none">
-              {section.items?.map((item, index) => (
-                <TestimonialCard key={index} item={item} />
+          <div className="relative left-1/2 mt-12 w-screen -translate-x-1/2 overflow-hidden bg-transparent md:mt-16">
+            <style jsx>{`
+              @keyframes testimonials-marquee {
+                from {
+                  transform: translate3d(0, 0, 0);
+                }
+                to {
+                  transform: translate3d(calc(-50% - 0.75rem), 0, 0);
+                }
+              }
+            `}</style>
+            <div className="flex w-max gap-6 will-change-transform [animation-duration:48s] [animation-iteration-count:infinite] [animation-name:testimonials-marquee] [animation-timing-function:linear]">
+              {[...items, ...items].map((item, index) => (
+                <TestimonialCard
+                  key={`${item.name || item.title || 'item'}-${index}`}
+                  item={item}
+                />
               ))}
             </div>
           </div>

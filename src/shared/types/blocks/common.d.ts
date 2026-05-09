@@ -26,6 +26,7 @@ export interface NavItem {
   title?: string;
   text?: string;
   description?: string;
+  hidden?: boolean;
   url?: string;
   target?: string;
   type?: string;
@@ -45,6 +46,15 @@ export interface Nav {
   title?: string;
   items: NavItem[];
   className?: string;
+}
+
+export interface PartnerItem extends NavItem {
+  logo?: Image;
+}
+
+export interface PartnerNav extends Nav {
+  scroll_speed_seconds?: number;
+  items: PartnerItem[];
 }
 
 export interface Crumb extends NavItem {}

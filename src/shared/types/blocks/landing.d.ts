@@ -6,6 +6,7 @@ import {
   Button,
   Nav,
   NavItem,
+  PartnerNav,
   SocialNav,
   UserNav,
 } from './common';
@@ -53,6 +54,7 @@ export interface Footer extends Section {
   id?: string;
   brand?: Brand;
   nav?: Nav;
+  partners?: PartnerNav;
   copyright?: string;
   social?: SocialNav;
   agreement?: AgreementNav;

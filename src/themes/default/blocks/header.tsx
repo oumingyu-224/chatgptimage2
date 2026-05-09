@@ -22,6 +22,7 @@ import { NavItem } from '@/shared/types/blocks/common';
 import { Header as HeaderType } from '@/shared/types/blocks/landing';
 
 function shouldHideItem(item: NavItem) {
+  if (item.hidden) return true;
   const value = `${item.title || ''} ${item.url || ''}`.toLowerCase();
   return value.includes('seedance') || value.includes('topics');
 }

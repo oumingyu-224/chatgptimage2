@@ -45,6 +45,7 @@ export function CTA({
                   <Link
                     href={button.url || ''}
                     target={button.target || '_self'}
+                    className="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-[#1890ff] px-6 text-sm font-medium text-white transition-colors hover:bg-[#1677ff] dark:bg-[#1890ff] dark:text-white dark:hover:bg-[#1677ff]"
                   >
                     {button.icon && <SmartIcon name={button.icon as string} />}
                     <span>{button.title}</span>

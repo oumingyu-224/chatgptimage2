@@ -731,7 +731,7 @@ export function MusicGenerator({ className, srOnlyTitle }: SongGeneratorProps) {
                                     <span>{t('generator.ready_to_play')}</span>
                                   </div>
                                 ) : (
-                                  <div className="flex items-center gap-2 text-yellow-600">
+                                  <div className="flex items-center gap-2 text-[#1773ea]">
                                     <Loader2 className="h-4 w-4 animate-spin" />
                                     <span>
                                       {t('generator.audio_generating')}

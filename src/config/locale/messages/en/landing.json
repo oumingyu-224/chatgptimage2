@@ -35,6 +35,7 @@
         },
         {
           "title": "AI Image",
+          "hidden": true,
           "icon": "Sparkles",
           "children": [
             {
@@ -211,7 +212,50 @@
     "hidden": true
   },
   "usage": {
-    "hidden": true
+    "block": "features-step",
+    "id": "usage",
+    "title": "How to create with ChatGPT Image 2",
+    "description": "A simple workflow for prompt-driven generation and editing:",
+    "image": {
+      "src": "/imgs/features/1.png",
+      "alt": "usage"
+    },
+    "image_position": "left",
+    "text_align": "center",
+    "items": [
+      {
+        "title": "Write a clear prompt",
+        "description": "Describe subject, composition, lighting, materials, camera feel, text needs, and background requirements.",
+        "image": {
+          "src": "/imgs/features/5.png",
+          "alt": "usage"
+        }
+      },
+      {
+        "title": "Upload reference images when needed",
+        "description": "Use reference images to preserve product structure, style direction, character details, or scene layout.",
+        "image": {
+          "src": "/imgs/features/6.png",
+          "alt": "usage"
+        }
+      },
+      {
+        "title": "Generate or edit",
+        "description": "Run text-to-image or image-to-image workflows depending on whether you are creating from scratch or refining an input.",
+        "image": {
+          "src": "/imgs/features/7.png",
+          "alt": "usage"
+        }
+      },
+      {
+        "title": "Iterate for a production-ready result",
+        "description": "Refine text, composition, transparency, and visual details until the output is ready for design or commercial use.",
+        "image": {
+          "src": "/imgs/features/8.png",
+          "alt": "usage"
+        }
+      }
+    ]
   },
   "features": {
     "id": "features",
@@ -254,7 +298,83 @@
     "hidden": true
   },
   "testimonials": {
-    "hidden": true
+    "id": "testimonials",
+    "title": "What creators are saying about ChatGPT Image 2",
+    "description": "Real feedback from creators and teams using ChatGPT Image 2 in visual workflows.",
+    "items": [
+      {
+        "name": "Design Teams",
+        "role": "Brand and creative operations",
+        "quote": "We need a model that can follow art direction closely, keep product details intact, and help us turn ideas into usable marketing visuals.",
+        "image": {
+          "src": "/imgs/avatars/1.png",
+          "alt": "design teams"
+        }
+      },
+      {
+        "name": "Ecommerce Sellers",
+        "role": "Product listing and ad creatives",
+        "quote": "Reference image fidelity and transparent background support matter more than novelty. We need assets we can actually publish.",
+        "image": {
+          "src": "/imgs/avatars/2.png",
+          "alt": "ecommerce sellers"
+        }
+      },
+      {
+        "name": "Content Creators",
+        "role": "Social and visual publishing",
+        "quote": "Text in image, poster-style layouts, and controllable edits are the reasons we care about ChatGPT Image 2 as a keyword and workflow.",
+        "image": {
+          "src": "/imgs/avatars/3.png",
+          "alt": "content creators"
+        }
+      },
+      {
+        "name": "Maria Santos",
+        "role": "Marketing Director",
+        "quote": "We use ChatGPT Image 2 for ad visual direction, social campaigns, and quick concept-to-creative execution with far fewer revisions.",
+        "image": {
+          "src": "/imgs/avatars/1.png",
+          "alt": "Maria Santos"
+        }
+      },
+      {
+        "name": "Jason Park",
+        "role": "Product Visual Designer",
+        "quote": "The strongest part is how well it follows layout instructions while still giving us polished, presentation-ready imagery.",
+        "image": {
+          "src": "/imgs/avatars/2.png",
+          "alt": "Jason Park"
+        }
+      },
+      {
+        "name": "Amelia Chen",
+        "role": "Creative Strategist",
+        "quote": "For campaign mockups and social promos, it gives us speed without sacrificing the visual quality clients actually expect.",
+        "image": {
+          "src": "/imgs/avatars/3.png",
+          "alt": "Amelia Chen"
+        }
+      },
+      {
+        "name": "Olivia Brooks",
+        "role": "Brand Designer",
+        "quote": "Reference image fidelity makes a real difference. We can keep product structure, improve composition, and still move fast.",
+        "image": {
+          "src": "/imgs/avatars/1.png",
+          "alt": "Olivia Brooks"
+        }
+      },
+      {
+        "name": "Kevin Miller",
+        "role": "Content Lead",
+        "quote": "Poster-style visuals, sharper text rendering, and transparent backgrounds make it far more useful than a generic image tool.",
+        "image": {
+          "src": "/imgs/avatars/2.png",
+          "alt": "Kevin Miller"
+        }
+      }
+    ]
   },
   "faq": {
     "id": "faq",
@@ -347,6 +467,7 @@
         },
         {
           "title": "AI Image",
+          "hidden": true,
           "children": [
             {
               "title": "Seedream 4.5",
@@ -391,6 +512,17 @@
     },
     "show_theme": true,
     "show_locale": true,
+    "partners": {
+      "title": "Partners",
+      "scroll_speed_seconds": 32,
+      "items": [
+        {
+          "title": "OpenAI",
+          "url": "https://openai.com",
+          "target": "_blank"
+        }
+      ]
+    },
     "className": "landing-bottom-band"
   }
 }

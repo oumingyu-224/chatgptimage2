@@ -21,5 +21,9 @@ body {
 }
 
 .docs a:not([href^='#']) {
-  color: var(--primary);
+  color: #1773ea;
+}
+
+.docs a:not([href^='#']):hover {
+  color: #1569d5;
 }

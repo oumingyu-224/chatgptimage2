@@ -71,11 +71,19 @@ export function LocaleSelector({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         {type === 'icon' ? (
-          <Button variant="ghost" size="icon" className="h-auto w-auto p-0">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-auto w-auto p-0 hover:bg-sky-500/10 hover:text-[#1773ea]"
+          >
             <Languages size={18} />
           </Button>
         ) : (
-          <Button variant="outline" size="sm" className="hover:bg-primary/10">
+          <Button
+            variant="outline"
+            size="sm"
+            className="hover:border-sky-200 hover:bg-sky-500/10 hover:text-[#1773ea] dark:hover:border-sky-400/20 dark:hover:bg-sky-400/10 dark:hover:text-sky-400"
+          >
             <Globe size={16} />
             {localeNames[currentLocale]}
           </Button>
@@ -86,10 +94,15 @@ export function LocaleSelector({
           <DropdownMenuItem
             key={locale}
             onClick={() => handleSwitchLanguage(locale)}
+            className={
+              locale === currentLocale
+                ? 'bg-[#1773ea] text-white focus:bg-[#1773ea] focus:text-white dark:bg-[#1773ea] dark:text-white'
+                : 'focus:bg-sky-500/10 focus:text-[#1773ea] dark:focus:bg-sky-400/10 dark:focus:text-sky-400'
+            }
           >
             <span>{localeNames[locale]}</span>
             {locale === currentLocale && (
-              <Check size={16} className="text-primary" />
+              <Check size={16} className="text-white" />
             )}
           </DropdownMenuItem>
         ))}

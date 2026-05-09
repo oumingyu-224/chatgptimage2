@@ -27,7 +27,7 @@ export function SocialAvatars({ tip }: { tip: string }) {
           {Array.from({ length: 5 }).map((_, index) => (
             <Star
               key={index}
-              className="size-4 fill-yellow-400 text-yellow-400"
+              className="size-4 fill-sky-500 text-sky-500 dark:fill-sky-400 dark:text-sky-400"
             />
           ))}
         </div>
