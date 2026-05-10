@@ -1,0 +1,30 @@
+{
+  "fields": {
+    "input": "Input",
+    "output": "Output",
+    "prompt": "Prompt",
+    "credits": "Credits",
+    "status": "Status",
+    "created_at": "Time",
+    "action": "Action",
+    "actions": {
+      "download": "Download"
+    }
+  },
+  "status": {
+    "completed": "Completed",
+    "processing": "Processing",
+    "failed": "Failed"
+  },
+  "list": {
+    "title": "My Works",
+    "description": "View the works you generated and saved",
+    "empty": "No works yet",
+    "tabs": {
+      "all": "All",
+      "completed": "Completed",
+      "processing": "Processing",
+      "failed": "Failed"
+    }
+  }
+}

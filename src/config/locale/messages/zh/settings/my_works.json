@@ -1,0 +1,30 @@
+{
+  "fields": {
+    "input": "输入",
+    "output": "输出",
+    "prompt": "提示词",
+    "credits": "积分",
+    "status": "状态",
+    "created_at": "时间",
+    "action": "操作",
+    "actions": {
+      "download": "下载"
+    }
+  },
+  "status": {
+    "completed": "已完成",
+    "processing": "处理中",
+    "failed": "失败"
+  },
+  "list": {
+    "title": "我的作品",
+    "description": "查看你生成并保存的作品",
+    "empty": "暂无作品",
+    "tabs": {
+      "all": "全部",
+      "completed": "已完成",
+      "processing": "处理中",
+      "failed": "失败"
+    }
+  }
+}

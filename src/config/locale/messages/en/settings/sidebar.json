@@ -24,7 +24,7 @@
       },
       {
         "title": "My Works",
-        "url": "/activity",
+        "url": "/settings/my-works",
         "icon": "ImageIcon"
       }
     ]

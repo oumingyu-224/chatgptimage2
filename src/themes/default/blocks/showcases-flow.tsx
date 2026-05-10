@@ -201,7 +201,7 @@ export function ShowcasesFlow({
                       className="inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive rounded-md gap-1.5 has-[>svg]:px-2.5 bg-primary hover:bg-primary/90 text-primary-foreground h-8 w-full border-0 px-1 py-1.5 text-sm font-medium"
                     >
                       <Link
-                        href={`/create?prompt=${(item as any).prompt}`}
+                        href={`/?prompt=${encodeURIComponent((item as any).prompt)}#generator`}
                         target="_self"
                       >
                         <Wand className="mr-2 size-4" />
@@ -304,55 +304,6 @@ export function ShowcasesFlow({
                     alt={filteredItems[selectedIndex].image?.alt ?? ''}
                     className="h-auto max-h-[90vh] w-auto max-w-full object-contain"
                   />
-                  <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6 text-white">
-                    <h3 className="mb-2 text-2xl font-bold">
-                      {filteredItems[selectedIndex].title}
-                    </h3>
-                    {filteredItems[selectedIndex].description && (
-                      <p className="line-clamp-3 text-base text-white/90">
-                        {filteredItems[selectedIndex].description}
-                      </p>
-                    )}
-                    {(filteredItems[selectedIndex] as any).button && (
-                      <div className="mt-4">
-                        <Button
-                          asChild
-                          variant={
-                            (filteredItems[selectedIndex] as any).button
-                              .variant || 'default'
-                          }
-                          size={
-                            (filteredItems[selectedIndex] as any).button.size ||
-                            'default'
-                          }
-                          className="bg-primary hover:bg-primary/90 h-8 border-0 px-3 py-1.5 text-sm font-medium text-white"
-                        >
-                          <Link
-                            href={
-                              (filteredItems[selectedIndex] as any).button
-                                .url || ''
-                            }
-                            target={
-                              (filteredItems[selectedIndex] as any).button
-                                .target || '_self'
-                            }
-                          >
-                            {(filteredItems[selectedIndex] as any).button
-                              .icon && (
-                              <SmartIcon
-                                name={
-                                  (filteredItems[selectedIndex] as any).button
-                                    .icon as string
-                                }
-                                className="text-white"
-                              />
-                            )}
-                            {(filteredItems[selectedIndex] as any).button.title}
-                          </Link>
-                        </Button>
-                      </div>
-                    )}
-                  </div>
                 </div>
               </motion.div>
             </motion.div>

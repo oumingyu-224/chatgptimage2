@@ -73,7 +73,7 @@ export function Testimonials({
         </ScrollAnimation>
         <ScrollAnimation delay={0.2}>
           <div className="relative left-1/2 mt-12 w-screen -translate-x-1/2 overflow-hidden bg-transparent md:mt-16">
-            <style jsx>{`
+            <style jsx global>{`
               @keyframes testimonials-marquee {
                 from {
                   transform: translate3d(0, 0, 0);
@@ -83,7 +83,10 @@ export function Testimonials({
                 }
               }
             `}</style>
-            <div className="flex w-max gap-6 will-change-transform [animation-duration:48s] [animation-iteration-count:infinite] [animation-name:testimonials-marquee] [animation-timing-function:linear]">
+            <div
+              className="flex w-max gap-6 will-change-transform"
+              style={{ animation: 'testimonials-marquee 48s linear infinite' }}
+            >
               {[...items, ...items].map((item, index) => (
                 <TestimonialCard
                   key={`${item.name || item.title || 'item'}-${index}`}

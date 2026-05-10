@@ -73,7 +73,7 @@
         },
         {
           "title": "Activity",
-          "url": "/activity",
+          "url": "/settings/my-works",
           "icon": "Activity"
         }
       ]

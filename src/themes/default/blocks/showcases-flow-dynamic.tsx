@@ -344,12 +344,23 @@ export function ShowcasesFlowDynamic({
               onClick={(e) => e.stopPropagation()}
             >
               <div className="grid h-[min(88vh,860px)] w-full max-w-[1440px] overflow-hidden rounded-[28px] bg-white shadow-[0_28px_80px_rgba(15,23,42,0.26)] md:grid-cols-[minmax(0,1.5fr)_minmax(360px,0.78fr)] dark:bg-[#0f172a]">
-                <div className="relative flex h-full min-h-[320px] items-center justify-center overflow-hidden bg-[#f5f7fb] p-4 dark:bg-[#0b1220] md:p-6">
-                  <img
-                    src={items[selectedIndex].image}
-                    alt={items[selectedIndex].title}
-                    className="block h-full max-h-full w-full max-w-full object-contain"
-                  />
+                <div className="relative h-full min-h-[320px] overflow-hidden bg-white dark:bg-white">
+                  <div className="absolute inset-0 overflow-hidden">
+                    <img
+                      src={items[selectedIndex].image}
+                      alt=""
+                      aria-hidden="true"
+                      className="h-full w-full scale-110 object-cover opacity-55 blur-2xl saturate-115"
+                    />
+                    <div className="absolute inset-0 bg-white/18 dark:bg-white/6" />
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={items[selectedIndex].image}
+                      alt={items[selectedIndex].title}
+                      className="block h-full max-h-full w-full max-w-full object-contain"
+                    />
+                  </div>
                 </div>
 
                 <div className="flex min-h-0 flex-col border-t border-slate-200 bg-white md:border-t-0 md:border-l dark:border-white/10 dark:bg-[#0f172a]">
@@ -368,13 +379,11 @@ export function ShowcasesFlowDynamic({
 
                   <div className="min-h-0 flex-1 overflow-y-auto px-7 pb-6">
                     {items[selectedIndex].prompt ? (
-                      <div className="rounded-[24px] border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-[#111827]">
-                        <p className="text-[17px] leading-9 whitespace-pre-wrap text-slate-700 dark:text-slate-200">
-                          {items[selectedIndex].prompt}
-                        </p>
-                      </div>
+                      <p className="text-[17px] leading-9 whitespace-pre-wrap text-slate-700 dark:text-slate-200">
+                        {items[selectedIndex].prompt}
+                      </p>
                     ) : (
-                      <div className="rounded-[24px] border border-dashed border-slate-200 bg-slate-50 p-5 text-[15px] text-slate-500 dark:border-white/10 dark:bg-[#111827] dark:text-slate-400">
+                      <div className="text-[15px] text-slate-500 dark:text-slate-400">
                         {t('no_prompt')}
                       </div>
                     )}

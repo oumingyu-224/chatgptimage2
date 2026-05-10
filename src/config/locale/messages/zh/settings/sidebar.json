@@ -24,7 +24,7 @@
       },
       {
         "title": "我的作品",
-        "url": "/activity",
+        "url": "/settings/my-works",
         "icon": "ImageIcon"
       }
     ]

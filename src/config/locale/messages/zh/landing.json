@@ -73,7 +73,7 @@
         },
         {
           "title": "活动",
-          "url": "/activity",
+          "url": "/settings/my-works",
           "icon": "Activity"
         }
       ]

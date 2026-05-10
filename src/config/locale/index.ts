@@ -24,6 +24,7 @@ export const localeMessagesPaths = [
   'settings/billing',
   'settings/payments',
   'settings/credits',
+  'settings/my_works',
   'settings/apikeys',
   'admin/sidebar',
   'admin/users',

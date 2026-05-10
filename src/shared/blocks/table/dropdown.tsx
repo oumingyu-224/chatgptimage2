@@ -46,6 +46,7 @@ export function Dropdown({
               <Link
                 href={item.url || ''}
                 target={item.target || '_self'}
+                download={(item as any).download}
                 className="flex w-full items-center gap-2"
               >
                 {item.icon && (

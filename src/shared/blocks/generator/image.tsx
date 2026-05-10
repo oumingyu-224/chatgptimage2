@@ -10,7 +10,6 @@ import {
   Copy,
   ImageIcon,
   Loader2,
-  Search,
   Settings2,
   Sparkles,
   User,
@@ -417,38 +416,24 @@ export function ImageGenerator({
 
   useEffect(() => {
     if (promptKey) {
-      fetch(`/api/prompts/by-title?title=${encodeURIComponent(promptKey)}`)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.success && data.data) {
-            if (data.data.promptDescription) {
-              setPrompt(data.data.promptDescription);
-            }
-            if (data.data.image) {
-              setPreviewImage(data.data.image);
-            }
-            // When promptKey is provided, switch to image-to-image tab
-            setActiveTab('image-to-image');
-            setCostCredits(6);
+      setPrompt(promptKey);
+      setActiveTab('text-to-image');
+      setCostCredits(4);
 
-            // Update model based on available providers for image-to-image
-            if (availableProviders.length > 0) {
-              const availableModel = MODEL_OPTIONS.find(
-                (option) =>
-                  option.scenes.includes('image-to-image') &&
-                  availableProviders.includes(option.provider)
-              );
+      if (availableProviders.length > 0) {
+        const firstProvider = availableProviders[0];
+        setProvider(firstProvider);
 
-              if (availableModel) {
-                setProvider(availableModel.provider);
-                setModel(availableModel.value);
-              }
-            }
-          }
-        })
-        .catch((error) => {
-          console.error('Failed to fetch prompt:', error);
-        });
+        const availableModel = MODEL_OPTIONS.find(
+          (option) =>
+            option.scenes.includes('text-to-image') &&
+            option.provider === firstProvider
+        );
+
+        if (availableModel) {
+          setModel(availableModel.value);
+        }
+      }
     } else {
       // Reset to default values when no promptKey is provided
       setPrompt(
@@ -1496,7 +1481,7 @@ export function ImageGenerator({
                           <div
                             role="button"
                             tabIndex={0}
-                            className="group relative min-h-[320px] flex-1 overflow-hidden rounded-[22px] border border-slate-200 bg-white text-left dark:border-white/10 dark:bg-white"
+                            className="group relative min-h-[320px] flex-1 cursor-zoom-in overflow-hidden rounded-[22px] border border-slate-200 bg-white text-left dark:border-white/10 dark:bg-white"
                             onClick={() => setSelectedShowcaseIndex(activeFeaturedIndex)}
                             onKeyDown={(e) => {
                               if (e.key === 'Enter' || e.key === ' ') {
@@ -1522,11 +1507,6 @@ export function ImageGenerator({
                               />
                             </div>
                             <div className="absolute inset-0 bg-gradient-to-t from-black/62 via-black/10 to-transparent" />
-                            <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-200 group-hover:bg-black/18">
-                              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/45 bg-black/28 text-white opacity-0 backdrop-blur-md transition-all duration-200 group-hover:scale-100 group-hover:opacity-100">
-                                <Search className="h-6 w-6" />
-                              </div>
-                            </div>
                             <div className="absolute inset-y-0 left-0 flex items-center pl-3">
                               <button
                                 type="button"
@@ -1556,7 +1536,7 @@ export function ImageGenerator({
                             </div>
                             <div className="absolute right-0 bottom-0 left-0 p-4 sm:p-5">
                               <div className="max-w-[78%]">
-                                <p className="text-[15px] font-semibold text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.28)] sm:text-[17px]">
+                                <p className="line-clamp-2 text-[15px] font-semibold text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.28)] sm:text-[17px]">
                                   {activeFeaturedItem.title}
                                 </p>
                               </div>
@@ -1722,12 +1702,23 @@ export function ImageGenerator({
               onClick={(e) => e.stopPropagation()}
             >
               <div className="grid h-[min(88vh,860px)] w-full max-w-[1440px] overflow-hidden rounded-[28px] bg-white shadow-[0_28px_80px_rgba(15,23,42,0.26)] md:grid-cols-[minmax(0,1.5fr)_minmax(360px,0.78fr)] dark:bg-[#0f172a]">
-                <div className="relative flex h-full min-h-[320px] items-center justify-center overflow-hidden bg-[#f5f7fb] p-4 dark:bg-[#0b1220] md:p-6">
-                  <img
-                    src={selectedShowcaseItem.image}
-                    alt={selectedShowcaseItem.title}
-                    className="block h-full max-h-full w-full max-w-full object-contain"
-                  />
+                <div className="relative h-full min-h-[320px] overflow-hidden bg-white dark:bg-white">
+                  <div className="absolute inset-0 overflow-hidden">
+                    <img
+                      src={selectedShowcaseItem.image}
+                      alt=""
+                      aria-hidden="true"
+                      className="h-full w-full scale-110 object-cover opacity-55 blur-2xl saturate-115"
+                    />
+                    <div className="absolute inset-0 bg-white/18 dark:bg-white/6" />
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={selectedShowcaseItem.image}
+                      alt={selectedShowcaseItem.title}
+                      className="block h-full max-h-full w-full max-w-full object-contain"
+                    />
+                  </div>
                 </div>
 
                 <div className="flex min-h-0 flex-col border-t border-slate-200 bg-white md:border-t-0 md:border-l dark:border-white/10 dark:bg-[#0f172a]">
@@ -1746,13 +1737,11 @@ export function ImageGenerator({
 
                   <div className="min-h-0 flex-1 overflow-y-auto px-7 pb-6">
                     {selectedShowcaseItem.prompt ? (
-                      <div className="rounded-[24px] border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-[#111827]">
-                        <p className="text-[17px] leading-9 whitespace-pre-wrap text-slate-700 dark:text-slate-200">
-                          {selectedShowcaseItem.prompt}
-                        </p>
-                      </div>
+                      <p className="text-[17px] leading-9 whitespace-pre-wrap text-slate-700 dark:text-slate-200">
+                        {selectedShowcaseItem.prompt}
+                      </p>
                     ) : (
-                      <div className="rounded-[24px] border border-dashed border-slate-200 bg-slate-50 p-5 text-[15px] text-slate-500 dark:border-white/10 dark:bg-[#111827] dark:text-slate-400">
+                      <div className="text-[15px] text-slate-500 dark:text-slate-400">
                         {t('errors.no_prompt')}
                       </div>
                     )}
