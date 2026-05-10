@@ -29,6 +29,7 @@ export interface NavItem {
   hidden?: boolean;
   url?: string;
   target?: string;
+  download?: boolean;
   type?: string;
   icon_url?: string;
   icon?: string | ReactNode;
