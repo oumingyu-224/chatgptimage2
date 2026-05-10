@@ -189,12 +189,13 @@ export default async function PaymentsPage({
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="profile-settings-panel space-y-8">
       <TableCard
         title={t('list.title')}
         description={t('list.description')}
         tabs={tabs}
         table={table}
+        className="profile-settings-card"
       />
     </div>
   );

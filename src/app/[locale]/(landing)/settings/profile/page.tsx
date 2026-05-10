@@ -72,11 +72,12 @@ export default async function ProfilePage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="profile-settings-panel space-y-8">
       <FormCard
         title={t('edit.title')}
         description={t('edit.description')}
         form={form}
+        className="landing-panel profile-settings-card border shadow-sm"
       />
     </div>
   );

@@ -45,8 +45,8 @@ export function ConsoleLayout({
             item.is_active ||
             pathname.endsWith(item.url as string) ||
             item.url?.endsWith(pathname)
-              ? 'bg-secondary text-secondary-foreground font-medium'
-              : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+              ? 'border border-sky-200 bg-sky-500/10 font-medium text-[#1773ea] dark:border-sky-400/20 dark:bg-sky-400/10 dark:text-sky-400'
+              : 'text-muted-foreground hover:border hover:border-sky-200 hover:bg-sky-500/10 hover:text-[#1773ea] dark:hover:border-sky-400/20 dark:hover:bg-sky-400/10 dark:hover:text-sky-400'
           }`}
         >
           <SmartIcon name={item.icon as string} size={16} />

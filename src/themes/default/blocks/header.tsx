@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown, Menu, Sparkles, X } from 'lucide-react';
 
 import { Link, usePathname } from '@/core/i18n/navigation';
@@ -20,6 +20,8 @@ import {
 import { cn } from '@/shared/lib/utils';
 import { NavItem } from '@/shared/types/blocks/common';
 import { Header as HeaderType } from '@/shared/types/blocks/landing';
+
+const HEADER_TOP_PROMO_SESSION_KEY = 'header-top-promo-dismissed';
 
 function shouldHideItem(item: NavItem) {
   if (item.hidden) return true;
@@ -49,6 +51,23 @@ function HeaderTopPromo({
 }) {
   const [closed, setClosed] = useState(false);
 
+  useLayoutEffect(() => {
+    try {
+      setClosed(
+        window.sessionStorage.getItem(HEADER_TOP_PROMO_SESSION_KEY) === '1'
+      );
+    } catch {
+      setClosed(false);
+    }
+  }, []);
+
+  const handleClose = () => {
+    try {
+      window.sessionStorage.setItem(HEADER_TOP_PROMO_SESSION_KEY, '1');
+    } catch {}
+    setClosed(true);
+  };
+
   if (closed) {
     return null;
   }
@@ -76,7 +95,7 @@ function HeaderTopPromo({
           type="button"
           className="absolute right-0 flex size-10 items-center justify-center text-white/90"
           aria-label="Close promo"
-          onClick={() => setClosed(true)}
+          onClick={handleClose}
         >
           <X className="size-4" />
         </button>

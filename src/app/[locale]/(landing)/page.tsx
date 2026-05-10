@@ -16,10 +16,13 @@ export const revalidate = 0;
 
 export default async function LandingPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ prompt?: string }>;
 }) {
   const { locale } = await params;
+  const { prompt: promptKey } = await searchParams;
   setRequestLocale(locale);
 
   const t = await getTranslations('landing');
@@ -78,7 +81,6 @@ export default async function LandingPage({
               description={sectionData.description}
               excludeTags="hairstyles"
               sortOrder="desc"
-              hideCreateButton={true}
               initialItems={initialShowcases}
             />
           ),
@@ -87,7 +89,10 @@ export default async function LandingPage({
         acc[section] = {
           component: (
             <div className="pt-0 pb-12 md:pb-14" key="generator">
-              <ImageGenerator srOnlyTitle={createT.raw('generator.title')} />
+              <ImageGenerator
+                srOnlyTitle={createT.raw('generator.title')}
+                promptKey={promptKey}
+              />
             </div>
           ),
         };

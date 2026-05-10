@@ -229,12 +229,12 @@ export default async function BillingPage({
   }
 
   return (
-    <div className="space-y-8">
+    <div className="profile-settings-panel space-y-8">
       <PanelCard
         label={currentSubscription?.status}
         title={t('view.title')}
         buttons={buttons}
-        className="max-w-md"
+        className="profile-settings-card max-w-md"
       >
         <div className="text-primary text-3xl font-bold">
           {currentSubscription?.planName || t('view.no_subscription')}
@@ -262,7 +262,12 @@ export default async function BillingPage({
           </>
         ) : null}
       </PanelCard>
-      <TableCard title={t('list.title')} tabs={tabs} table={table} />
+      <TableCard
+        title={t('list.title')}
+        tabs={tabs}
+        table={table}
+        className="profile-settings-card"
+      />
     </div>
   );
 }

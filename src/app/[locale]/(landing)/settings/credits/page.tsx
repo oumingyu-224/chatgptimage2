@@ -118,7 +118,7 @@ export default async function CreditsPage({
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="profile-settings-panel space-y-8">
       <PanelCard
         title={t('view.title')}
         buttons={[
@@ -129,13 +129,18 @@ export default async function CreditsPage({
             icon: 'Coins',
           },
         ]}
-        className="max-w-md"
+        className="profile-settings-card max-w-md"
       >
-        <div className="text-primary text-3xl font-bold">
+        <div className="text-3xl font-bold text-[#d68b22] dark:text-[#f2ba5b]">
           {remainingCredits}
         </div>
       </PanelCard>
-      <TableCard title={t('list.title')} tabs={tabs} table={table} />
+      <TableCard
+        title={t('list.title')}
+        tabs={tabs}
+        table={table}
+        className="profile-settings-card"
+      />
     </div>
   );
 }

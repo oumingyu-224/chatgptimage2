@@ -32,6 +32,7 @@ export default async function CreatePage({
     sections: {
       "features": {
         "block": "custom-features",
+        sr_only_title: t.raw('page.title'),
         title: t.raw('page.title'),
         description: t.raw('page.description'),
       },

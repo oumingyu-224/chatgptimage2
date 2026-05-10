@@ -150,6 +150,113 @@
   color: var(--landing-generator-selected-badge-text);
 }
 
+.profile-settings-panel {
+  --primary: #1773ea;
+  --primary-foreground: #ffffff;
+  --ring: #1773ea;
+}
+
+.profile-settings-panel .profile-settings-card {
+  background-color: var(--landing-panel-bg);
+  border-color: var(--landing-divider);
+}
+
+.profile-settings-panel .profile-settings-card [data-slot='card-content'] {
+  background-color: var(--landing-panel-inner-bg);
+}
+
+.profile-settings-panel .profile-settings-card input,
+.profile-settings-panel .profile-settings-card select,
+.profile-settings-panel .profile-settings-card textarea,
+.profile-settings-panel .profile-settings-card [data-slot='select-trigger'] {
+  background-color: var(--landing-input-bg);
+  border-color: var(--landing-input-border);
+  color: var(--landing-input-text);
+}
+
+.profile-settings-panel .profile-settings-card [data-slot='button'] {
+  --tw-shadow: none;
+}
+
+.profile-settings-panel .profile-settings-card [data-slot='card-header'],
+.profile-settings-panel .profile-settings-card [data-slot='card-content'],
+.profile-settings-panel .profile-settings-card [data-slot='card-footer'] {
+  background-color: var(--landing-panel-inner-bg);
+}
+
+.profile-settings-panel .profile-settings-card [data-slot='card-title'] {
+  color: #1773ea;
+}
+
+.profile-settings-panel .profile-settings-card [data-slot='card-description'],
+.profile-settings-panel .profile-settings-card .text-muted-foreground {
+  color: var(--landing-soft-text);
+}
+
+.profile-settings-panel .profile-settings-card [data-slot='card-footer'] {
+  border-top: 1px solid var(--landing-divider);
+}
+
+.profile-settings-panel .profile-settings-card [role='tablist'] {
+  background-color: rgb(14 165 233 / 0.08);
+}
+
+.profile-settings-panel .profile-settings-card [role='tab'] {
+  color: var(--landing-soft-text);
+}
+
+.profile-settings-panel
+  .profile-settings-card
+  [role='tab'][data-state='active'] {
+  background-color: var(--landing-panel-inner-bg);
+  color: #1773ea;
+}
+
+.profile-settings-panel .profile-settings-card [data-slot='table-head'],
+.profile-settings-panel .profile-settings-card [data-slot='table-cell'] {
+  color: var(--foreground);
+}
+
+.profile-settings-panel .profile-settings-card [data-slot='table-row']:hover {
+  background-color: rgb(14 165 233 / 0.08);
+}
+
+.profile-settings-panel .profile-settings-card [data-slot='badge'] {
+  color: var(--foreground);
+}
+
+.profile-settings-panel .profile-settings-card .group.border-border.bg-muted\/50,
+.profile-settings-panel
+  .profile-settings-card
+  .group.border-border.bg-muted\/50.hover\:border-border.hover\:bg-muted {
+  background-color: var(--landing-panel-inner-bg);
+  border-color: var(--landing-input-border);
+}
+
+.profile-settings-panel
+  .profile-settings-card
+  .group.border-border.bg-muted\/50:hover,
+.profile-settings-panel
+  .profile-settings-card
+  .group.border-border.bg-muted\/50.hover\:border-border.hover\:bg-muted:hover,
+.profile-settings-panel
+  .profile-settings-card
+  .landing-input-surface.landing-generator-accent-border-hover:hover {
+  background-color: rgb(14 165 233 / 0.1);
+  border-color: rgb(191 219 254);
+  color: #1773ea;
+}
+
+.profile-settings-panel .profile-settings-card .group.border-border.border-dashed p,
+.profile-settings-panel
+  .profile-settings-card
+  .group.border-border.bg-muted\/50:hover span,
+.profile-settings-panel
+  .profile-settings-card
+  .group.border-border.bg-muted\/50:hover svg {
+  color: #1773ea;
+}
+
 .landing-bottom-band {
   background: var(--landing-bottom-band-bg);
   background-repeat: no-repeat;

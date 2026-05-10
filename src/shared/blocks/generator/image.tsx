@@ -10,6 +10,7 @@ import {
   Copy,
   ImageIcon,
   Loader2,
+  Search,
   Settings2,
   Sparkles,
   User,

@@ -23,9 +23,9 @@
         "icon": "Coins"
       },
       {
-        "title": "API Keys",
-        "url": "/settings/apikeys",
-        "icon": "RiKeyLine"
+        "title": "My Works",
+        "url": "/activity",
+        "icon": "ImageIcon"
       }
     ]
   },
