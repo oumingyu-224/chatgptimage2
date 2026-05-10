@@ -46,7 +46,11 @@
       "title": "灵感推荐",
       "description": "点击下方模板可自动填充提示词",
       "more_examples": "查看更多案例",
-      "example_fallback": "示例 {index}"
+      "example_fallback": "示例 {index}",
+      "copy_prompt": "复制提示词",
+      "copied_prompt": "已复制提示词",
+      "copy_failed": "复制失败",
+      "try_now": "尝试一下"
     },
     "tip_message": "提示：描述越具体，结果越接近你的预期",
     "generate": "生成图片",

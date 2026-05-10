@@ -4,15 +4,21 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   CreditCard,
   Download,
+  ChevronLeft,
+  ChevronRight,
+  Check,
+  Copy,
   ImageIcon,
   Loader2,
   Settings2,
   Sparkles,
   User,
   Wand,
+  X,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { Link } from '@/core/i18n/navigation';
 import { AIMediaType, AITaskStatus } from '@/extensions/ai/types';
@@ -46,6 +52,7 @@ import {
 } from '@/shared/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 import { Textarea } from '@/shared/components/ui/textarea';
+import { GENERATOR_FEATURED_SHOWCASES } from '@/shared/constants/generator-featured-showcases';
 import { useAppContext } from '@/shared/contexts/app';
 import { cn } from '@/shared/lib/utils';
 
@@ -66,6 +73,15 @@ interface GeneratedImage {
   model?: string;
   prompt?: string;
 }
+
+type FeaturedShowcaseItem = {
+  id: string;
+  title: string;
+  description?: string;
+  prompt?: string;
+  image: string;
+  tags?: string;
+};
 
 interface BackendTask {
   id: string;
@@ -303,6 +319,11 @@ export function ImageGenerator({
   const [availableProviders, setAvailableProviders] = useState<string[]>([]);
   const [isLoadingProviders, setIsLoadingProviders] = useState(true);
   const hasLoadedCreditsRef = useRef(false);
+  const [activeFeaturedIndex, setActiveFeaturedIndex] = useState(0);
+  const [selectedShowcaseIndex, setSelectedShowcaseIndex] = useState<number | null>(
+    null
+  );
+  const [copiedShowcaseId, setCopiedShowcaseId] = useState<string | null>(null);
 
   // Showcase dialog state
   const [showShowcaseDialog, setShowShowcaseDialog] = useState(false);
@@ -315,6 +336,17 @@ export function ImageGenerator({
 
   const { user, isCheckSign, setIsShowSignModal, fetchUserCredits } =
     useAppContext();
+
+  const featuredShowcases = GENERATOR_FEATURED_SHOWCASES;
+  const activeFeaturedItem =
+    featuredShowcases[activeFeaturedIndex] ?? featuredShowcases[0] ?? null;
+  const selectedShowcaseItem =
+    selectedShowcaseIndex !== null
+      ? featuredShowcases[selectedShowcaseIndex] ?? null
+      : null;
+  const visibleFeaturedShowcases = useMemo(() => {
+    return featuredShowcases.slice(0, 4);
+  }, [featuredShowcases]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -449,19 +481,65 @@ export function ImageGenerator({
   const remainingCredits = user?.credits?.remainingCredits ?? 0;
   const isPromptTooLong = promptLength > MAX_PROMPT_LENGTH;
   const isTextToImageMode = activeTab === 'text-to-image';
-  const featuredExamples = generatedImages.length
-    ? generatedImages
-    : previewImage
-      ? [
-          {
-            id: 'preview-image',
-            url: previewImage,
-            prompt,
-          } as GeneratedImage,
-        ]
-      : [];
   const promptNote = t('form.prompt_note');
   const optionalLabel = t('form.optional');
+
+  const getTryPromptHref = useCallback((prompt?: string) => {
+    return prompt ? `/?prompt=${encodeURIComponent(prompt)}#generator` : '/#generator';
+  }, []);
+
+  const handlePreviousFeatured = useCallback(() => {
+    setActiveFeaturedIndex((prev) =>
+      prev === 0 ? featuredShowcases.length - 1 : prev - 1
+    );
+  }, [featuredShowcases.length]);
+
+  const handleNextFeatured = useCallback(() => {
+    setActiveFeaturedIndex((prev) =>
+      prev === featuredShowcases.length - 1 ? 0 : prev + 1
+    );
+  }, [featuredShowcases.length]);
+
+  const copyShowcasePrompt = useCallback(
+    async (item?: FeaturedShowcaseItem | null) => {
+      if (!item?.prompt) {
+        toast.error(t('errors.no_prompt'));
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(item.prompt);
+        setCopiedShowcaseId(item.id);
+        toast.success(t('featured.copied_prompt'));
+        window.setTimeout(() => {
+          setCopiedShowcaseId((current) => (current === item.id ? null : current));
+        }, 1600);
+      } catch (error) {
+        toast.error(t('featured.copy_failed'));
+      }
+    },
+    [t]
+  );
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedShowcaseIndex === null) return;
+      if (e.key === 'Escape') setSelectedShowcaseIndex(null);
+      if (e.key === 'ArrowLeft') {
+        setSelectedShowcaseIndex((prev) =>
+          prev !== null ? (prev === 0 ? featuredShowcases.length - 1 : prev - 1) : null
+        );
+      }
+      if (e.key === 'ArrowRight') {
+        setSelectedShowcaseIndex((prev) =>
+          prev !== null ? (prev === featuredShowcases.length - 1 ? 0 : prev + 1) : null
+        );
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [featuredShowcases.length, selectedShowcaseIndex]);
 
   const handleTabChange = (value: string) => {
     const tab = value as ImageGeneratorTab;
@@ -1375,100 +1453,166 @@ export function ImageGenerator({
                             {t('featured.description')}
                           </p>
                         </div>
-                        <button
-                          type="button"
+                        <Link
+                          href="/showcases"
                           className="hidden self-start pt-1 text-[12px] font-semibold text-[#d570ff] md:inline-flex"
                         >
                           {t('featured.more_examples')} →
-                        </button>
+                        </Link>
                       </div>
                     </div>
 
-                    <div className="landing-generator-accent-surface mt-3 flex min-h-0 min-w-0 flex-1 overflow-hidden rounded-[18px] border">
-                      {featuredExamples[0]?.url ? (
-                        <div className="relative h-full min-h-[320px] w-full">
+                    <div className="mt-3 flex min-h-0 min-w-0 flex-1 overflow-hidden rounded-[18px]">
+                      {generatedImages.length > 0 ? (
+                        <div className="relative h-full min-h-[320px] w-full overflow-hidden rounded-[18px]">
                           <LazyImage
-                            src={featuredExamples[0].url}
-                            alt={
-                              featuredExamples[0].prompt ||
-                              'Featured inspiration'
-                            }
+                            src={generatedImages[0].url}
+                            alt={generatedImages[0].prompt || 'Generated image'}
                             className="h-full w-full object-cover"
                           />
 
-                          {generatedImages.length > 0 && (
-                            <div className="absolute right-2.5 bottom-2.5 flex gap-1.5">
-                              {generatedImages.map((image) => (
-                                <Button
-                                  key={image.id}
-                                  size="sm"
-                                  variant="secondary"
-                                  className="h-6 rounded-full border border-black/5 bg-black/55 px-2 text-[10px] text-white shadow-none backdrop-blur-sm"
-                                  onClick={() => handleDownloadImage(image)}
-                                  disabled={downloadingImageId === image.id}
-                                >
-                                  {downloadingImageId === image.id ? (
-                                    <Loader2 className="h-3 w-3 animate-spin" />
-                                  ) : (
-                                    <Download className="h-3 w-3" />
-                                  )}
-                                </Button>
-                              ))}
+                          <div className="absolute right-2.5 bottom-2.5 flex gap-1.5">
+                            {generatedImages.map((image) => (
+                              <Button
+                                key={image.id}
+                                size="sm"
+                                variant="secondary"
+                                className="h-6 rounded-full border border-black/5 bg-black/55 px-2 text-[10px] text-white shadow-none backdrop-blur-sm"
+                                onClick={() => handleDownloadImage(image)}
+                                disabled={downloadingImageId === image.id}
+                              >
+                                {downloadingImageId === image.id ? (
+                                  <Loader2 className="h-3 w-3 animate-spin" />
+                                ) : (
+                                  <Download className="h-3 w-3" />
+                                )}
+                              </Button>
+                            ))}
+                          </div>
+                        </div>
+                      ) : activeFeaturedItem ? (
+                        <div className="flex h-full w-full flex-col">
+                          <div
+                            role="button"
+                            tabIndex={0}
+                            className="group relative min-h-[320px] flex-1 overflow-hidden rounded-[22px] border border-slate-200 bg-white text-left dark:border-white/10 dark:bg-white"
+                            onClick={() => setSelectedShowcaseIndex(activeFeaturedIndex)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                setSelectedShowcaseIndex(activeFeaturedIndex);
+                              }
+                            }}
+                          >
+                            <div className="absolute inset-0 overflow-hidden rounded-[inherit]">
+                              <img
+                                src={activeFeaturedItem.image}
+                                alt=""
+                                aria-hidden="true"
+                                className="h-full w-full scale-110 object-cover opacity-55 blur-2xl saturate-115"
+                              />
+                              <div className="absolute inset-0 bg-white/18 dark:bg-white/6" />
                             </div>
-                          )}
+                            <div className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-[inherit]">
+                              <img
+                                src={activeFeaturedItem.image}
+                                alt={activeFeaturedItem.title}
+                                className="block h-full max-h-full w-full max-w-full object-contain"
+                              />
+                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/62 via-black/10 to-transparent" />
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-200 group-hover:bg-black/18">
+                              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/45 bg-black/28 text-white opacity-0 backdrop-blur-md transition-all duration-200 group-hover:scale-100 group-hover:opacity-100">
+                                <Search className="h-6 w-6" />
+                              </div>
+                            </div>
+                            <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                              <button
+                                type="button"
+                                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/22 text-white/92 opacity-0 backdrop-blur-md transition-all duration-200 group-hover:opacity-100 hover:bg-black/34"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handlePreviousFeatured();
+                                }}
+                              >
+                                <ChevronLeft className="size-5" />
+                              </button>
+                            </div>
+                            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                              <button
+                                type="button"
+                                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/22 text-white/92 opacity-0 backdrop-blur-md transition-all duration-200 group-hover:opacity-100 hover:bg-black/34"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleNextFeatured();
+                                }}
+                              >
+                                <ChevronRight className="size-5" />
+                              </button>
+                            </div>
+                            <div className="absolute right-3 bottom-3 rounded-full border border-white/28 bg-black/30 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-md">
+                              {activeFeaturedIndex + 1}/{featuredShowcases.length}
+                            </div>
+                            <div className="absolute right-0 bottom-0 left-0 p-4 sm:p-5">
+                              <div className="max-w-[78%]">
+                                <p className="text-[15px] font-semibold text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.28)] sm:text-[17px]">
+                                  {activeFeaturedItem.title}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="mt-3 grid shrink-0 grid-cols-4 gap-2.5">
+                            {visibleFeaturedShowcases.map((item) => {
+                              const index = featuredShowcases.findIndex(
+                                (showcase) => showcase.id === item.id
+                              );
+                              const isActive = index === activeFeaturedIndex;
+
+                              return (
+                                <button
+                                  key={item.id}
+                                  type="button"
+                                  className="space-y-1.5 text-left"
+                                  onClick={() => {
+                                    setActiveFeaturedIndex(index);
+                                  }}
+                                >
+                                  <div
+                                    className={cn(
+                                      'relative aspect-square overflow-hidden rounded-[14px] border border-transparent bg-white p-0 transition-all dark:bg-white',
+                                      isActive
+                                        ? 'border-[#1773ea] shadow-[0_0_0_2px_rgba(23,115,234,0.18)]'
+                                        : 'hover:border-[#1773ea]'
+                                    )}
+                                  >
+                                    <img
+                                      src={item.image}
+                                      alt={item.title}
+                                      className="h-full w-full rounded-[inherit] object-cover object-top"
+                                    />
+                                    {isActive ? (
+                                      <div className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#1773ea] text-white shadow-[0_6px_18px_rgba(23,115,234,0.35)]">
+                                        <Check className="h-3 w-3" />
+                                      </div>
+                                    ) : null}
+                                  </div>
+                                  <p className="landing-body line-clamp-1 px-0.5 text-center text-[10px] leading-4 sm:text-[11px]">
+                                    {item.title}
+                                  </p>
+                                </button>
+                              );
+                            })}
+                          </div>
                         </div>
                       ) : (
                         <div className="flex h-full min-h-[320px] w-full items-center justify-center">
                           <div className="landing-muted text-center">
                             <ImageIcon className="mx-auto mb-3 h-8 w-8" />
-                            <p>
-                              {isGenerating
-                                ? t('ready_to_generate')
-                                : t('no_images_generated')}
-                            </p>
+                            <p>{t('no_images_generated')}</p>
                           </div>
                         </div>
                       )}
-                    </div>
-
-                    <div className="mt-3 grid shrink-0 grid-cols-4 gap-2.5">
-                      {featuredExamples.slice(0, 4).map((image, index) => (
-                        <button
-                          key={image.id}
-                          type="button"
-                          className="space-y-1.5 text-left"
-                          onClick={() =>
-                            image.prompt && setPrompt(image.prompt)
-                          }
-                        >
-                          <div className="landing-generator-preview h-[112px] overflow-hidden rounded-[12px] border sm:h-[120px]">
-                            <LazyImage
-                              src={image.url}
-                              alt={
-                                image.prompt ||
-                                t('featured.example_fallback', {
-                                  index: index + 1,
-                                })
-                              }
-                              className="h-full w-full object-cover"
-                            />
-                          </div>
-                          <p className="landing-body line-clamp-1 px-0.5 text-[9px] leading-4 sm:text-[10px]">
-                            {image.prompt ||
-                              t('featured.example_fallback', {
-                                index: index + 1,
-                              })}
-                          </p>
-                        </button>
-                      ))}
-
-                      {featuredExamples.length === 0 &&
-                        Array.from({ length: 4 }).map((_, index) => (
-                          <div key={index} className="space-y-1.5">
-                            <div className="landing-generator-preview h-[112px] rounded-[12px] border sm:h-[120px]" />
-                            <div className="h-3 rounded bg-[#edf0f5]" />
-                          </div>
-                        ))}
                     </div>
                   </div>
                 </div>
@@ -1518,6 +1662,138 @@ export function ImageGenerator({
           </div>
         </DialogContent>
       </Dialog>
+
+      <AnimatePresence>
+        {selectedShowcaseIndex !== null && selectedShowcaseItem && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-md md:p-8"
+            onClick={() => setSelectedShowcaseIndex(null)}
+          >
+            <button
+              className="absolute top-4 right-4 z-50 rounded-full bg-black/10 p-1 text-white/70 transition-colors hover:bg-black/20 hover:text-white dark:bg-white/10 dark:hover:bg-white/20"
+              onClick={() => setSelectedShowcaseIndex(null)}
+            >
+              <X className="size-8" />
+            </button>
+
+            <button
+              className="absolute top-1/2 left-4 z-50 -translate-y-1/2 rounded-full bg-white/85 p-2 text-slate-500 shadow-lg transition-colors hover:bg-white hover:text-[#1773ea] dark:bg-[#111827]/85 dark:text-slate-300 dark:hover:bg-[#111827] dark:hover:text-sky-300"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedShowcaseIndex((prev) =>
+                  prev !== null
+                    ? prev === 0
+                      ? featuredShowcases.length - 1
+                      : prev - 1
+                    : null
+                );
+              }}
+            >
+              <ChevronLeft className="size-8 md:size-12" />
+            </button>
+
+            <button
+              className="absolute top-1/2 right-4 z-50 -translate-y-1/2 rounded-full bg-white/85 p-2 text-slate-500 shadow-lg transition-colors hover:bg-white hover:text-[#1773ea] dark:bg-[#111827]/85 dark:text-slate-300 dark:hover:bg-[#111827] dark:hover:text-sky-300"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedShowcaseIndex((prev) =>
+                  prev !== null
+                    ? prev === featuredShowcases.length - 1
+                      ? 0
+                      : prev + 1
+                    : null
+                );
+              }}
+            >
+              <ChevronRight className="size-8 md:size-12" />
+            </button>
+
+            <motion.div
+              key={selectedShowcaseItem.id}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="relative flex h-full w-full items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="grid h-[min(88vh,860px)] w-full max-w-[1440px] overflow-hidden rounded-[28px] bg-white shadow-[0_28px_80px_rgba(15,23,42,0.26)] md:grid-cols-[minmax(0,1.5fr)_minmax(360px,0.78fr)] dark:bg-[#0f172a]">
+                <div className="relative flex h-full min-h-[320px] items-center justify-center overflow-hidden bg-[#f5f7fb] p-4 dark:bg-[#0b1220] md:p-6">
+                  <img
+                    src={selectedShowcaseItem.image}
+                    alt={selectedShowcaseItem.title}
+                    className="block h-full max-h-full w-full max-w-full object-contain"
+                  />
+                </div>
+
+                <div className="flex min-h-0 flex-col border-t border-slate-200 bg-white md:border-t-0 md:border-l dark:border-white/10 dark:bg-[#0f172a]">
+                  <div className="flex items-start gap-4 px-7 pt-7 pb-5">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">
+                        {selectedShowcaseItem.title}
+                      </h3>
+                      {selectedShowcaseItem.description ? (
+                        <p className="mt-4 text-base leading-8 whitespace-pre-wrap text-slate-600 dark:text-slate-300">
+                          {selectedShowcaseItem.description}
+                        </p>
+                      ) : null}
+                    </div>
+                  </div>
+
+                  <div className="min-h-0 flex-1 overflow-y-auto px-7 pb-6">
+                    {selectedShowcaseItem.prompt ? (
+                      <div className="rounded-[24px] border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-[#111827]">
+                        <p className="text-[17px] leading-9 whitespace-pre-wrap text-slate-700 dark:text-slate-200">
+                          {selectedShowcaseItem.prompt}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="rounded-[24px] border border-dashed border-slate-200 bg-slate-50 p-5 text-[15px] text-slate-500 dark:border-white/10 dark:bg-[#111827] dark:text-slate-400">
+                        {t('errors.no_prompt')}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="border-t border-slate-200 px-7 py-5 dark:border-white/10">
+                    <div className="flex flex-col gap-3 sm:flex-row">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => copyShowcasePrompt(selectedShowcaseItem)}
+                        disabled={!selectedShowcaseItem.prompt}
+                        className="h-13 flex-1 rounded-2xl border-slate-200 bg-white text-base font-medium text-slate-700 hover:border-sky-200 hover:bg-sky-500/10 hover:text-[#1773ea] dark:border-white/10 dark:bg-transparent dark:text-slate-200 dark:hover:border-sky-400/20 dark:hover:bg-sky-400/10 dark:hover:text-sky-300"
+                      >
+                        {copiedShowcaseId === selectedShowcaseItem.id ? (
+                          <Check className="size-5" />
+                        ) : (
+                          <Copy className="size-5" />
+                        )}
+                        {t('featured.copy_prompt')}
+                      </Button>
+
+                      <Button
+                        asChild
+                        className="h-13 flex-1 rounded-2xl bg-[#1773ea] text-base font-semibold text-white hover:bg-[#1569d5] dark:bg-[#1773ea] dark:text-white dark:hover:bg-[#1569d5]"
+                      >
+                        <Link
+                          href={getTryPromptHref(selectedShowcaseItem.prompt)}
+                          target="_self"
+                        >
+                          <Wand className="size-5" />
+                          {t('featured.try_now')}
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

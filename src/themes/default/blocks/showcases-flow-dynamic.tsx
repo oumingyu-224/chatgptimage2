@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Wand, X } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, Copy, Wand, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { toast } from 'sonner';
 
 import { Link } from '@/core/i18n/navigation';
 import { LazyImage } from '@/shared/blocks/common';
@@ -18,6 +19,10 @@ export type ShowcaseItem = {
   image: string;
   createdAt: string | Date;
 };
+
+function getPromptPreview(prompt?: string | null) {
+  return prompt?.replace(/\s+/g, ' ').trim() ?? '';
+}
 
 export function ShowcasesFlowDynamic({
   id,
@@ -56,6 +61,7 @@ export function ShowcasesFlowDynamic({
   const [showLoading, setShowLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   // Track if this is the initial mount to possibly skip fetching
   const isInitialMount = useState(true);
@@ -144,6 +150,41 @@ export function ShowcasesFlowDynamic({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedIndex, handlePrevious, handleNext]);
 
+  const selectedItem =
+    selectedIndex !== null && items[selectedIndex] ? items[selectedIndex] : null;
+
+  const getTryPromptHref = useCallback((prompt?: string | null) => {
+    return prompt ? `/?prompt=${encodeURIComponent(prompt)}#generator` : '/#generator';
+  }, []);
+
+  const copyPrompt = useCallback(
+    async (prompt?: string | null, itemId?: string) => {
+      if (!prompt || !itemId) {
+        toast.error(t('no_prompt'));
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(prompt);
+        setCopiedId(itemId);
+        toast.success(t('copied_prompt'));
+        window.setTimeout(() => {
+          setCopiedId((current) => (current === itemId ? null : current));
+        }, 1600);
+      } catch (error) {
+        toast.error(t('copy_failed'));
+      }
+    },
+    [t]
+  );
+
+  const handleCopyPrompt = useCallback(async () => {
+    if (!selectedItem) return;
+    await copyPrompt(selectedItem.prompt, selectedItem.id);
+  }, [copyPrompt, selectedItem]);
+
+  const tryPromptHref = getTryPromptHref(selectedItem?.prompt);
+
   return (
     <section id={id} className={cn('pb-24 md:pb-36', className)}>
       {(title || description) && (
@@ -202,28 +243,45 @@ export function ShowcasesFlowDynamic({
                 className="h-auto w-full transition-transform duration-300 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
               />
-              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <h3 className="mb-3 translate-y-4 text-base font-semibold text-white transition-transform duration-300 group-hover:translate-y-0">
-                  {item.title}
-                </h3>
-                {!hideCreateButton && (
-                  <div
-                    className="translate-y-4 transition-transform delay-75 duration-300 group-hover:translate-y-0"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Button
-                      asChild
-                      variant="default"
-                      size="sm"
-                      className="inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive rounded-md gap-1.5 has-[>svg]:px-2.5 bg-primary hover:bg-primary/90 text-primary-foreground h-8 w-full border-0 px-1 py-1.5 text-sm font-medium"
+              <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/28 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 px-3 pb-3 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100">
+                <div className="translate-y-4 transition-transform duration-300 group-hover:translate-y-0">
+                  <p className="line-clamp-2 text-[13px] leading-6 text-white/96 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
+                    {getPromptPreview(item.prompt) || item.title}
+                  </p>
+                  {!hideCreateButton && (
+                    <div
+                      className="mt-3 flex gap-2"
+                      onClick={(e) => e.stopPropagation()}
                     >
-                      <Link href={`/create?prompt=${item.title}`} target="_self">
-                        <Wand className="mr-2 size-4" />
-                        {t('create_similar')}
-                      </Link>
-                    </Button>
-                  </div>
-                )}
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        disabled={!item.prompt}
+                        onClick={() => copyPrompt(item.prompt, item.id)}
+                        className="h-9 flex-1 rounded-xl border-white/22 bg-black/18 text-[13px] font-medium text-white backdrop-blur-md hover:border-white/34 hover:bg-black/28 hover:text-white dark:border-white/22 dark:bg-black/18 dark:text-white dark:hover:border-white/34 dark:hover:bg-black/28"
+                      >
+                        {copiedId === item.id ? (
+                          <Check className="size-4" />
+                        ) : (
+                          <Copy className="size-4" />
+                        )}
+                        {t('copy_prompt')}
+                      </Button>
+                      <Button
+                        asChild
+                        size="sm"
+                        className="h-9 flex-1 rounded-xl bg-[#1773ea] px-3 text-[13px] font-semibold text-white shadow-[0_8px_20px_rgba(23,115,234,0.35)] hover:bg-[#1569d5] dark:bg-[#1773ea] dark:text-white dark:hover:bg-[#1569d5]"
+                      >
+                        <Link href={getTryPromptHref(item.prompt)} target="_self">
+                          <Wand className="size-4" />
+                          {t('try_now')}
+                        </Link>
+                      </Button>
+                    </div>
+                  )}
+                </div>
               </div>
             </motion.div>
           ))}
@@ -246,18 +304,18 @@ export function ShowcasesFlowDynamic({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm md:p-8"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-md md:p-8"
             onClick={() => setSelectedIndex(null)}
           >
             <button
-              className="absolute top-4 right-4 z-50 text-white/70 transition-colors hover:text-white"
+              className="absolute top-4 right-4 z-50 rounded-full bg-black/10 p-1 text-white/70 transition-colors hover:bg-black/20 hover:text-white dark:bg-white/10 dark:hover:bg-white/20"
               onClick={() => setSelectedIndex(null)}
             >
               <X className="size-8" />
             </button>
 
             <button
-              className="absolute top-1/2 left-4 z-50 -translate-y-1/2 rounded-full bg-black/20 p-2 text-white/70 transition-colors hover:bg-black/40 hover:text-white"
+              className="absolute top-1/2 left-4 z-50 -translate-y-1/2 rounded-full bg-white/85 p-2 text-slate-500 shadow-lg transition-colors hover:bg-white hover:text-[#1773ea] dark:bg-[#111827]/85 dark:text-slate-300 dark:hover:bg-[#111827] dark:hover:text-sky-300"
               onClick={(e) => {
                 e.stopPropagation();
                 handlePrevious();
@@ -267,7 +325,7 @@ export function ShowcasesFlowDynamic({
             </button>
 
             <button
-              className="absolute top-1/2 right-4 z-50 -translate-y-1/2 rounded-full bg-black/20 p-2 text-white/70 transition-colors hover:bg-black/40 hover:text-white"
+              className="absolute top-1/2 right-4 z-50 -translate-y-1/2 rounded-full bg-white/85 p-2 text-slate-500 shadow-lg transition-colors hover:bg-white hover:text-[#1773ea] dark:bg-[#111827]/85 dark:text-slate-300 dark:hover:bg-[#111827] dark:hover:text-sky-300"
               onClick={(e) => {
                 e.stopPropagation();
                 handleNext();
@@ -285,26 +343,71 @@ export function ShowcasesFlowDynamic({
               className="relative flex h-full w-full items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative max-h-full max-w-full overflow-hidden rounded-lg">
-                <LazyImage
-                  src={items[selectedIndex].image}
-                  alt={items[selectedIndex].title}
-                  className="h-auto max-h-[90vh] w-auto max-w-full object-contain"
-                />
-                <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6 text-white">
-                  <h3 className="mb-2 text-2xl font-bold">
-                    {items[selectedIndex].title}
-                  </h3>
-                  {showDescription && items[selectedIndex].description && (
-                    <p className="mb-2 line-clamp-3 text-base text-white/90">
-                      {items[selectedIndex].description}
-                    </p>
-                  )}
-                  {items[selectedIndex].prompt && (
-                    <p className="line-clamp-3 text-base text-white/90">
-                      {items[selectedIndex].prompt}
-                    </p>
-                  )}
+              <div className="grid h-[min(88vh,860px)] w-full max-w-[1440px] overflow-hidden rounded-[28px] bg-white shadow-[0_28px_80px_rgba(15,23,42,0.26)] md:grid-cols-[minmax(0,1.5fr)_minmax(360px,0.78fr)] dark:bg-[#0f172a]">
+                <div className="relative flex h-full min-h-[320px] items-center justify-center overflow-hidden bg-[#f5f7fb] p-4 dark:bg-[#0b1220] md:p-6">
+                  <img
+                    src={items[selectedIndex].image}
+                    alt={items[selectedIndex].title}
+                    className="block h-full max-h-full w-full max-w-full object-contain"
+                  />
+                </div>
+
+                <div className="flex min-h-0 flex-col border-t border-slate-200 bg-white md:border-t-0 md:border-l dark:border-white/10 dark:bg-[#0f172a]">
+                  <div className="flex items-start gap-4 px-7 pt-7 pb-5">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">
+                        {items[selectedIndex].title}
+                      </h3>
+                      {showDescription && items[selectedIndex].description ? (
+                        <p className="mt-4 text-base leading-8 whitespace-pre-wrap text-slate-600 dark:text-slate-300">
+                          {items[selectedIndex].description}
+                        </p>
+                      ) : null}
+                    </div>
+                  </div>
+
+                  <div className="min-h-0 flex-1 overflow-y-auto px-7 pb-6">
+                    {items[selectedIndex].prompt ? (
+                      <div className="rounded-[24px] border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-[#111827]">
+                        <p className="text-[17px] leading-9 whitespace-pre-wrap text-slate-700 dark:text-slate-200">
+                          {items[selectedIndex].prompt}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="rounded-[24px] border border-dashed border-slate-200 bg-slate-50 p-5 text-[15px] text-slate-500 dark:border-white/10 dark:bg-[#111827] dark:text-slate-400">
+                        {t('no_prompt')}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="border-t border-slate-200 px-7 py-5 dark:border-white/10">
+                    <div className="flex flex-col gap-3 sm:flex-row">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleCopyPrompt}
+                        disabled={!selectedItem?.prompt}
+                        className="h-13 flex-1 rounded-2xl border-slate-200 bg-white text-base font-medium text-slate-700 hover:border-sky-200 hover:bg-sky-500/10 hover:text-[#1773ea] dark:border-white/10 dark:bg-transparent dark:text-slate-200 dark:hover:border-sky-400/20 dark:hover:bg-sky-400/10 dark:hover:text-sky-300"
+                      >
+                        {copiedId === selectedItem?.id ? (
+                          <Check className="size-5" />
+                        ) : (
+                          <Copy className="size-5" />
+                        )}
+                        {t('copy_prompt')}
+                      </Button>
+
+                      <Button
+                        asChild
+                        className="h-13 flex-1 rounded-2xl bg-[#1773ea] text-base font-semibold text-white hover:bg-[#1569d5] dark:bg-[#1773ea] dark:text-white dark:hover:bg-[#1569d5]"
+                      >
+                        <Link href={tryPromptHref} target="_self">
+                          <Wand className="size-5" />
+                          {t('try_now')}
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>

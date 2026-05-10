@@ -1,10 +1,15 @@
 {
   "metadata": {
-    "title": "ChatGPT Image 2 提示词与案例",
-    "description": "查看使用 ChatGPT Image 2 生成的提示词案例与图像示例。"
+    "title": "ChatGPT Image 2 案例展示",
+    "description": "查看由 ChatGPT Image 2 驱动的代表性生成与编辑案例。"
   },
   "ui": {
     "create_similar": "创建相似",
+    "copy_prompt": "复制提示",
+    "copied_prompt": "已复制提示词",
+    "copy_failed": "复制失败",
+    "try_now": "尝试一下",
+    "no_prompt": "当前案例暂无可复制的提示词。",
     "loading": "加载中...",
     "no_showcases": "暂无案例",
     "load_more": "加载更多"
@@ -12,8 +17,8 @@
   "showcases-flow": {
     "id": "showcases",
     "sr_only_title": "案例展示",
-    "title": "ChatGPT Image 2 提示词",
-    "description": "由 ChatGPT Image 2 驱动的代表性生成与编辑案例",
+    "title": "ChatGPT Image 2 案例展示",
+    "description": "由 ChatGPT Image 2 驱动的代表性生成与编辑案例。",
     "items": [
       {
         "title": "垂直鱼眼自拍",

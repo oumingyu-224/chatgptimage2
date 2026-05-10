@@ -23,11 +23,13 @@ export default async function ShowcasesPage({
   const showcasesData = t.raw('showcases-flow');
 
   return (
-    <ShowcasesFlowDynamic 
-      title={showcasesData.title}
-      description={showcasesData.description}
-      containerClassName="py-14"
-      usePrompts={true}
-    />
+    <>
+      <h1 className="sr-only">{showcasesData.title}</h1>
+      <ShowcasesFlowDynamic
+        title={showcasesData.title}
+        description={showcasesData.description}
+        containerClassName="py-14"
+      />
+    </>
   );
 }

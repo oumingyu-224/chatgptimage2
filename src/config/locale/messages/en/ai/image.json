@@ -45,8 +45,12 @@
     "featured": {
       "title": "Featured Inspiration",
       "description": "Click any template below to auto-fill the prompt",
-      "more_examples": "See 100+ examples",
-      "example_fallback": "Example {index}"
+      "more_examples": "View More Showcases",
+      "example_fallback": "Example {index}",
+      "copy_prompt": "Copy Prompt",
+      "copied_prompt": "Prompt copied",
+      "copy_failed": "Copy failed",
+      "try_now": "Try It"
     },
     "tip_message": "Tip: more specific descriptions get closer to what you want",
     "generate": "Generate Images",

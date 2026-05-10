@@ -1,10 +1,15 @@
 {
   "metadata": {
-    "title": "ChatGPT Image 2 Prompts & Showcases",
-    "description": "Explore ChatGPT Image 2 prompts, editing examples, and showcase images to learn how to create posters, product visuals, and polished commercial assets."
+    "title": "ChatGPT Image 2 Showcases",
+    "description": "Explore representative generation and editing showcases powered by ChatGPT Image 2."
   },
   "ui": {
     "create_similar": "Create Similar",
+    "copy_prompt": "Copy Prompt",
+    "copied_prompt": "Prompt copied",
+    "copy_failed": "Copy failed",
+    "try_now": "Try It",
+    "no_prompt": "This showcase does not have a prompt to copy.",
     "loading": "Loading...",
     "no_showcases": "No showcases yet",
     "load_more": "Load More"
@@ -12,8 +17,8 @@
   "showcases-flow": {
     "id": "showcases",
     "sr_only_title": "Showcases",
-    "title": "ChatGPT Image 2 Prompts",
-    "description": "Representative generation and editing examples powered by ChatGPT Image 2",
+    "title": "ChatGPT Image 2 Showcases",
+    "description": "Representative generation and editing showcases powered by ChatGPT Image 2.",
     "items": [
       {
         "title": "Vertical fisheye selfie",
