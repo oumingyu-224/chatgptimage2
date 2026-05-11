@@ -1,12 +1,12 @@
 import { getTranslations } from 'next-intl/server';
 
 import { AITaskStatus } from '@/extensions/ai';
-import { Empty, LazyImage } from '@/shared/blocks/common';
-import { TableCard } from '@/shared/blocks/table';
+import { Empty } from '@/shared/blocks/common';
 import { getAITasks, getAITasksCount, type AITask } from '@/shared/models/ai_task';
 import { getUserInfo } from '@/shared/models/user';
-import { type Table } from '@/shared/types/blocks/table';
-import { type Button, type Tab } from '@/shared/types/blocks/common';
+import { type Tab } from '@/shared/types/blocks/common';
+
+import { MyWorksClient } from './my-works-client';
 
 function parseTaskInfo(taskInfo?: string | null) {
   if (!taskInfo) return null;
@@ -38,14 +38,61 @@ function getInputImageUrl(task: AITask) {
   return '';
 }
 
+function getTaskOptions(task: AITask) {
+  return parseTaskOptions(task.options) || {};
+}
+
 function getOutputImageUrl(task: AITask) {
   const taskInfo = parseTaskInfo(task.taskInfo);
+  const taskResult = parseTaskInfo(task.taskResult);
 
-  if (taskInfo?.images?.length > 0) {
-    return taskInfo.images[0]?.imageUrl || '';
+  return extractImageUrls(taskInfo)[0] || extractImageUrls(taskResult)[0] || '';
+}
+
+function extractImageUrls(result: any): string[] {
+  if (!result) {
+    return [];
   }
 
-  return '';
+  if (typeof result.resultJson === 'string') {
+    const nestedResult = parseTaskInfo(result.resultJson);
+    const nestedUrls = extractImageUrls(nestedResult);
+    if (nestedUrls.length > 0) {
+      return nestedUrls;
+    }
+  }
+
+  const output =
+    result.output ?? result.images ?? result.data ?? result.resultUrls ?? result;
+
+  if (typeof output === 'string') {
+    return [output];
+  }
+
+  if (Array.isArray(output)) {
+    return output
+      .flatMap((item) => {
+        if (!item) return [];
+        if (typeof item === 'string') return [item];
+        if (typeof item === 'object') {
+          const candidate =
+            item.url ?? item.uri ?? item.image ?? item.src ?? item.imageUrl;
+          return typeof candidate === 'string' ? [candidate] : [];
+        }
+        return [];
+      })
+      .filter(Boolean);
+  }
+
+  if (typeof output === 'object') {
+    const candidate =
+      output.url ?? output.uri ?? output.image ?? output.src ?? output.imageUrl;
+    if (typeof candidate === 'string') {
+      return [candidate];
+    }
+  }
+
+  return [];
 }
 
 function getStatusLabel(status: string, t: Awaited<ReturnType<typeof getTranslations>>) {
@@ -57,21 +104,75 @@ function getStatusLabel(status: string, t: Awaited<ReturnType<typeof getTranslat
   return status;
 }
 
+function getStatusClassName(status: string) {
+  if (status === AITaskStatus.SUCCESS) {
+    return 'text-emerald-600 dark:text-emerald-400';
+  }
+  if (status === AITaskStatus.PROCESSING || status === AITaskStatus.PENDING) {
+    return 'text-amber-600 dark:text-amber-400';
+  }
+  if (status === AITaskStatus.FAILED) {
+    return 'text-red-600 dark:text-red-400';
+  }
+  return 'text-muted-foreground';
+}
+
+function getImageSize(task: AITask) {
+  const options = getTaskOptions(task);
+  const taskInfo = parseTaskInfo(task.taskInfo);
+  const taskResult = parseTaskInfo(task.taskResult);
+
+  return (
+    options.resolution ||
+    options.size ||
+    taskInfo?.size ||
+    taskInfo?.resolution ||
+    taskResult?.size ||
+    taskResult?.resolution ||
+    options.aspect_ratio ||
+    '-'
+  );
+}
+
+function getImageQuality(task: AITask) {
+  const options = getTaskOptions(task);
+  const taskInfo = parseTaskInfo(task.taskInfo);
+  const taskResult = parseTaskInfo(task.taskResult);
+
+  return (
+    options.quality_style ||
+    options.quality ||
+    taskInfo?.quality ||
+    taskResult?.quality ||
+    '-'
+  );
+}
+
+function getQualityLabel(
+  quality: string,
+  t: Awaited<ReturnType<typeof getTranslations>>
+) {
+  if (quality === 'standard') return t('quality.standard');
+  if (quality === 'hd') return t('quality.hd');
+  if (quality === 'ultra') return t('quality.ultra');
+  return quality;
+}
+
 export default async function MyWorksPage({
   searchParams,
 }: {
   searchParams: Promise<{ page?: number; pageSize?: number; status?: string }>;
 }) {
   const { page: pageNum, pageSize, status } = await searchParams;
-  const page = pageNum || 1;
-  const limit = pageSize || 20;
+  const page = Number(pageNum) || 1;
+  const limit = Number(pageSize) || 20;
   const taskStatus =
     !status || status === 'all'
       ? undefined
       : status === 'completed'
         ? AITaskStatus.SUCCESS
         : status === 'processing'
-          ? AITaskStatus.PROCESSING
+          ? [AITaskStatus.PENDING, AITaskStatus.PROCESSING]
           : status === 'failed'
             ? AITaskStatus.FAILED
             : undefined;
@@ -89,111 +190,22 @@ export default async function MyWorksPage({
     page,
     limit,
   });
+  const rows = tasks.map((task) => ({
+    ...task,
+    inputImageUrl: getInputImageUrl(task),
+    outputImageUrl: getOutputImageUrl(task),
+    quality: getQualityLabel(getImageQuality(task), t),
+    size: getImageSize(task),
+    statusLabel: getStatusLabel(task.status, t),
+    statusClassName: getStatusClassName(task.status),
+    downloadSuccessMessage: t('messages.download_success'),
+    downloadFailedMessage: t('messages.download_failed'),
+  }));
   const total = await getAITasksCount({
     userId: user.id,
     mediaType: 'image',
     status: taskStatus,
   });
-
-  const table: Table = {
-    title: t('list.title'),
-    columns: [
-      {
-        title: t('fields.input'),
-        callback: (item: AITask) => {
-          const inputImage = getInputImageUrl(item);
-
-          if (!inputImage) {
-            return <span className="text-slate-400">-</span>;
-          }
-
-          return (
-            <LazyImage
-              src={inputImage}
-              alt="Input"
-              width={72}
-              height={72}
-              style={{ width: '72px', height: '72px' }}
-              className="overflow-hidden rounded-md object-cover"
-            />
-          );
-        },
-      },
-      {
-        title: t('fields.output'),
-        callback: (item: AITask) => {
-          const outputImage = getOutputImageUrl(item);
-
-          if (!outputImage) {
-            return <span className="text-slate-400">-</span>;
-          }
-
-          return (
-            <LazyImage
-              src={outputImage}
-              alt="Output"
-              width={72}
-              height={72}
-              style={{ width: '72px', height: '72px' }}
-              className="overflow-hidden rounded-md object-cover"
-            />
-          );
-        },
-      },
-      {
-        name: 'prompt',
-        title: t('fields.prompt'),
-        type: 'copy',
-        className: 'max-w-[360px] truncate',
-      },
-      {
-        name: 'costCredits',
-        title: t('fields.credits'),
-        callback: (item: AITask) => (
-          <div className="text-primary font-medium">{item.costCredits}</div>
-        ),
-      },
-      {
-        name: 'status',
-        title: t('fields.status'),
-        type: 'label',
-        metadata: { variant: 'outline' },
-        callback: (item: AITask) => getStatusLabel(item.status, t),
-      },
-      {
-        name: 'createdAt',
-        title: t('fields.created_at'),
-        type: 'time',
-      },
-      {
-        name: 'action',
-        title: t('fields.action'),
-        type: 'dropdown',
-        callback: (item: AITask) => {
-          const outputImage = getOutputImageUrl(item);
-          const items: Button[] = [];
-
-          if (outputImage) {
-            items.push({
-              title: t('fields.actions.download'),
-              url: `/api/proxy/file?url=${encodeURIComponent(outputImage)}`,
-              download: true as any,
-              icon: 'Download',
-            });
-          }
-
-          return items;
-        },
-      },
-    ],
-    data: tasks,
-    emptyMessage: t('list.empty'),
-    pagination: {
-      total,
-      page,
-      limit,
-    },
-  };
 
   const tabs: Tab[] = [
     {
@@ -224,12 +236,29 @@ export default async function MyWorksPage({
 
   return (
     <div className="profile-settings-panel space-y-8">
-      <TableCard
+      <MyWorksClient
         title={t('list.title')}
         description={t('list.description')}
         tabs={tabs}
-        table={table}
-        className="profile-settings-card"
+        rows={rows}
+        emptyMessage={t('list.empty')}
+        pagination={{
+          total,
+          page,
+          limit,
+        }}
+        detailTitle={t('detail.title')}
+        fields={{
+          input: t('fields.input'),
+          prompt: t('fields.prompt'),
+          output: t('fields.output'),
+          model: t('fields.model'),
+          quality: t('fields.quality'),
+          size: t('fields.size'),
+          credits: t('fields.credits'),
+          status: t('fields.status'),
+          createdAt: t('fields.created_at'),
+        }}
       />
     </div>
   );

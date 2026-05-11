@@ -11,6 +11,7 @@ import {
   ImageIcon,
   Loader2,
   Lock,
+  RefreshCw,
   Settings2,
   Sparkles,
   User,
@@ -1534,30 +1535,55 @@ export function ImageGenerator({
 
                     <div className="mt-3 flex min-h-0 min-w-0 flex-1 overflow-hidden rounded-[18px]">
                       {generatedImages.length > 0 ? (
-                        <div className="relative h-full min-h-[320px] w-full overflow-hidden rounded-[18px]">
-                          <LazyImage
-                            src={generatedImages[0].url}
-                            alt={generatedImages[0].prompt || 'Generated image'}
-                            className="h-full w-full object-cover"
-                          />
+                        <div className="flex h-full min-h-[420px] w-full flex-col overflow-hidden rounded-[22px] border-2 border-emerald-400 bg-white p-4 shadow-[0_18px_50px_rgba(16,185,129,0.14)] dark:bg-white">
+                          <div className="mb-3 flex items-center gap-2 text-[15px] font-semibold text-slate-900">
+                            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                              <Sparkles className="h-4 w-4" />
+                            </span>
+                            {t('result.ready')}
+                          </div>
 
-                          <div className="absolute right-2.5 bottom-2.5 flex gap-1.5">
-                            {generatedImages.map((image) => (
-                              <Button
-                                key={image.id}
-                                size="sm"
-                                variant="secondary"
-                                className="h-6 rounded-full border border-black/5 bg-black/55 px-2 text-[10px] text-white shadow-none backdrop-blur-sm"
-                                onClick={() => handleDownloadImage(image)}
-                                disabled={downloadingImageId === image.id}
-                              >
-                                {downloadingImageId === image.id ? (
-                                  <Loader2 className="h-3 w-3 animate-spin" />
-                                ) : (
-                                  <Download className="h-3 w-3" />
-                                )}
-                              </Button>
-                            ))}
+                          <div className="relative min-h-0 flex-1 overflow-hidden rounded-[18px] bg-white">
+                            <img
+                              src={generatedImages[0].url}
+                              alt=""
+                              aria-hidden="true"
+                              className="absolute inset-0 h-full w-full scale-110 object-cover opacity-45 blur-2xl saturate-110"
+                            />
+                            <div className="absolute inset-0 bg-white/35" />
+                            <div className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-[inherit]">
+                              <img
+                                src={generatedImages[0].url}
+                                alt={generatedImages[0].prompt || 'Generated image'}
+                                className="block h-full max-h-full w-full max-w-full object-contain"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="mt-4 flex shrink-0 items-center justify-center gap-3">
+                            <Button
+                              size="sm"
+                              className="h-9 rounded-full bg-[#0874e8] px-6 text-white shadow-[0_8px_24px_rgba(8,116,232,0.28)] hover:bg-[#0767cf]"
+                              onClick={() => handleDownloadImage(generatedImages[0])}
+                              disabled={downloadingImageId === generatedImages[0].id}
+                            >
+                              {downloadingImageId === generatedImages[0].id ? (
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                              ) : (
+                                <Download className="mr-2 h-4 w-4" />
+                              )}
+                              {t('result.download')}
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="h-9 rounded-full border-slate-200 bg-white px-6 text-slate-900 shadow-none hover:bg-slate-50"
+                              onClick={handleGenerate}
+                              disabled={isGenerating}
+                            >
+                              <RefreshCw className="mr-2 h-4 w-4" />
+                              {t('result.retry')}
+                            </Button>
                           </div>
                         </div>
                       ) : activeFeaturedItem ? (

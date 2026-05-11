@@ -5,6 +5,9 @@
     "prompt": "提示词",
     "credits": "积分",
     "status": "状态",
+    "model": "模型",
+    "quality": "质量",
+    "size": "尺寸",
     "created_at": "时间",
     "action": "操作",
     "actions": {
@@ -15,6 +18,19 @@
     "completed": "已完成",
     "processing": "处理中",
     "failed": "失败"
+  },
+  "quality": {
+    "standard": "标准",
+    "hd": "高清",
+    "ultra": "超清"
+  },
+  "messages": {
+    "download_success": "下载成功",
+    "download_failed": "下载失败",
+    "download_fetch_failed": "获取图片失败"
+  },
+  "detail": {
+    "title": "生成细节"
   },
   "list": {
     "title": "我的作品",

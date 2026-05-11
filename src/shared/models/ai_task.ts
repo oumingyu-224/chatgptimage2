@@ -1,4 +1,4 @@
-import { and, count, desc, eq, sql } from 'drizzle-orm';
+import { and, count, desc, eq, inArray, sql } from 'drizzle-orm';
 
 import { db } from '@/core/db';
 import { aiTask, credit } from '@/config/db/schema';
@@ -112,7 +112,7 @@ export async function getAITasksCount({
   provider,
 }: {
   userId?: string;
-  status?: string;
+  status?: string | string[];
   mediaType?: string;
   provider?: string;
 }): Promise<number> {
@@ -124,7 +124,11 @@ export async function getAITasksCount({
         userId ? eq(aiTask.userId, userId) : undefined,
         mediaType ? eq(aiTask.mediaType, mediaType) : undefined,
         provider ? eq(aiTask.provider, provider) : undefined,
-        status ? eq(aiTask.status, status) : undefined
+        Array.isArray(status)
+          ? inArray(aiTask.status, status)
+          : status
+            ? eq(aiTask.status, status)
+            : undefined
       )
     );
 
@@ -141,7 +145,7 @@ export async function getAITasks({
   getUser = false,
 }: {
   userId?: string;
-  status?: string;
+  status?: string | string[];
   mediaType?: string;
   provider?: string;
   page?: number;
@@ -156,7 +160,11 @@ export async function getAITasks({
         userId ? eq(aiTask.userId, userId) : undefined,
         mediaType ? eq(aiTask.mediaType, mediaType) : undefined,
         provider ? eq(aiTask.provider, provider) : undefined,
-        status ? eq(aiTask.status, status) : undefined
+        Array.isArray(status)
+          ? inArray(aiTask.status, status)
+          : status
+            ? eq(aiTask.status, status)
+            : undefined
       )
     )
     .orderBy(desc(aiTask.createdAt))

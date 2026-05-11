@@ -71,6 +71,11 @@
     "ready_to_generate": "准备生成",
     "no_images_generated": "没有生成图片",
     "ready_for_generating": "准备生成",
+    "result": {
+      "ready": "已就绪",
+      "download": "下载",
+      "retry": "再试一次"
+    },
     "showcase_dialog": {
       "title": "是否允许用于案例展示？",
       "description": "您的作品可以帮助其他人了解如何使用 AI 生成图片。",

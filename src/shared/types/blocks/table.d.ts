@@ -24,4 +24,6 @@ export interface Table {
   emptyMessage?: string;
   pagination?: Pagination;
   actions?: Button[];
+  rowClassName?: string;
+  onRowClick?: (item: any) => void;
 }

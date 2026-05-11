@@ -71,6 +71,11 @@
     "ready_to_generate": "Ready to Generate",
     "no_images_generated": "No Images Generated",
     "ready_for_generating": "Ready for Generating",
+    "result": {
+      "ready": "Ready",
+      "download": "Download",
+      "retry": "Try Again"
+    },
     "showcase_dialog": {
       "title": "Allow for Showcase Display?",
       "description": "Your work can help others learn how to use AI for image generation.",

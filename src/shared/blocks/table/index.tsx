@@ -25,11 +25,15 @@ export function Table({
   data,
   emptyMessage,
   pagination,
+  rowClassName,
+  onRowClick,
 }: {
   columns?: TableColumn[];
   data?: any[];
   emptyMessage?: string;
   pagination?: Pagination;
+  rowClassName?: string;
+  onRowClick?: (item: any) => void;
 }) {
   if (!columns) {
     columns = [];
@@ -52,7 +56,11 @@ export function Table({
       <TableBody>
         {data && data.length > 0 ? (
           data.map((item: any, idx: number) => (
-            <TableRow key={idx} className="h-16">
+            <TableRow
+              key={idx}
+              className={rowClassName || 'h-16'}
+              onClick={onRowClick ? () => onRowClick(item) : undefined}
+            >
               {columns &&
                 columns.map((column: TableColumn, iidx: number) => {
                   const value = item[column.name as keyof typeof item];

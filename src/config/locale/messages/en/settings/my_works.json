@@ -5,6 +5,9 @@
     "prompt": "Prompt",
     "credits": "Credits",
     "status": "Status",
+    "model": "Model",
+    "quality": "Quality",
+    "size": "Size",
     "created_at": "Time",
     "action": "Action",
     "actions": {
@@ -15,6 +18,19 @@
     "completed": "Completed",
     "processing": "Processing",
     "failed": "Failed"
+  },
+  "quality": {
+    "standard": "Standard",
+    "hd": "HD",
+    "ultra": "Ultra"
+  },
+  "messages": {
+    "download_success": "Download completed",
+    "download_failed": "Failed to download image",
+    "download_fetch_failed": "Failed to fetch image"
+  },
+  "detail": {
+    "title": "Generation Details"
   },
   "list": {
     "title": "My Works",
