@@ -32,7 +32,8 @@
         "features": [
           "500 AI image credits",
           "Valid for 1 year",
-          "Access ChatGPT Image 2 generation and editing workflows"
+          "Access ChatGPT Image 2 generation and editing workflows",
+          "Supports 1K, 2K, and 4K output"
         ],
         "interval": "one-time",
         "amount": 2999,
@@ -45,7 +46,9 @@
             "amount": 9999,
             "price": "¥99.99",
             "original_price": "¥1999",
-            "payment_providers": ["stripe"]
+            "payment_providers": [
+              "stripe"
+            ]
           }
         ],
         "unit": "",
@@ -70,7 +73,8 @@
         "features": [
           "2000 AI image credits",
           "Valid for 1 year",
-          "Access ChatGPT Image 2 generation and editing workflows"
+          "Access ChatGPT Image 2 generation and editing workflows",
+          "Supports 1K, 2K, and 4K output"
         ],
         "interval": "one-time",
         "amount": 9999,
@@ -83,7 +87,9 @@
             "amount": 34900,
             "price": "¥349.00",
             "original_price": "¥699.00",
-            "payment_providers": ["stripe"]
+            "payment_providers": [
+              "stripe"
+            ]
           }
         ],
         "unit": "",
@@ -107,7 +113,8 @@
         "features": [
           "7000 AI image credits",
           "Valid for 1 year",
-          "Access ChatGPT Image 2 generation and editing workflows"
+          "Access ChatGPT Image 2 generation and editing workflows",
+          "Supports 1K, 2K, and 4K output"
         ],
         "interval": "one-time",
         "amount": 23000,
@@ -120,7 +127,10 @@
             "amount": 80000,
             "price": "¥800.00",
             "original_price": "¥1600.00",
-            "payment_providers": ["stripe", "creem"]
+            "payment_providers": [
+              "stripe",
+              "creem"
+            ]
           }
         ],
         "unit": "",
@@ -146,7 +156,8 @@
           "ChatGPT Image 2 workflows",
           "Standard generation speed",
           "Standard support",
-          "Commercial usage support"
+          "Commercial usage support",
+          "Supports 1K, 2K, and 4K output"
         ],
         "interval": "month",
         "amount": 1499,
@@ -178,7 +189,8 @@
           "ChatGPT Image 2 workflows",
           "Priority processing",
           "Better fit for regular commercial production",
-          "Priority support"
+          "Priority support",
+          "Supports 1K, 2K, and 4K output"
         ],
         "interval": "month",
         "amount": 3999,
@@ -209,7 +221,8 @@
           "Fastest processing speed",
           "Best for larger editing and asset production workloads",
           "Permanent image storage",
-          "Dedicated account support"
+          "Dedicated account support",
+          "Supports 1K, 2K, and 4K output"
         ],
         "interval": "month",
         "amount": 11999,
@@ -240,7 +253,8 @@
           "ChatGPT Image 2 workflows",
           "Standard generation speed",
           "Standard support",
-          "Commercial usage support"
+          "Commercial usage support",
+          "Supports 1K, 2K, and 4K output"
         ],
         "interval": "year",
         "amount": 12600,
@@ -271,7 +285,8 @@
           "19200 AI image credits per year",
           "Priority processing",
           "Better fit for regular commercial production",
-          "Priority support"
+          "Priority support",
+          "Supports 1K, 2K, and 4K output"
         ],
         "interval": "year",
         "amount": 23994,
@@ -302,7 +317,8 @@
           "Fastest processing speed",
           "Best for large-scale editing and commercial asset production",
           "Permanent image storage",
-          "Dedicated account support"
+          "Dedicated account support",
+          "Supports 1K, 2K, and 4K output"
         ],
         "interval": "year",
         "amount": 71400,

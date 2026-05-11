@@ -142,9 +142,11 @@ export function SignUser({
   const userDisplayEmail = user?.email || '';
   const currentCredits = user?.credits?.remainingCredits || 0;
   const creditsDisplay = formatCredits(currentCredits);
-  const activityItem = userNav?.items?.find((item) => item.url === '/activity');
-  const myWorksHref = activityItem?.url || '/activity';
-  const myWorksTarget = activityItem?.target || '_self';
+  const myWorksItem = userNav?.items?.find(
+    (item) => item.url === '/settings/my-works'
+  );
+  const myWorksHref = myWorksItem?.url || '/settings/my-works';
+  const myWorksTarget = myWorksItem?.target || '_self';
   const myWorksLabel = t('my_works_title');
 
   useEffect(() => {

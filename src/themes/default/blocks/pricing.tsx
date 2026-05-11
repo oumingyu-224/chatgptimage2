@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Check, Lightbulb, Loader2, SendHorizonal, Zap } from 'lucide-react';
+import { Check, Loader2 } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 
@@ -80,10 +80,14 @@ export function Pricing({
   pricing,
   className,
   currentSubscription,
+  hideHeader = false,
+  compact = false,
 }: {
   pricing: PricingType;
   className?: string;
   currentSubscription?: Subscription;
+  hideHeader?: boolean;
+  compact?: boolean;
 }) {
   const locale = useLocale();
   const t = useTranslations('pages.pricing.messages');
@@ -337,23 +341,34 @@ export function Pricing({
   return (
     <section
       id={pricing.id}
-      className={cn('py-24 md:py-36', pricing.className, className)}
+      className={cn(
+        compact ? 'py-0 md:py-0' : 'py-24 md:py-36',
+        pricing.className,
+        className
+      )}
     >
-      <div className="mx-auto mb-12 px-4 text-center md:px-8">
-        {pricing.sr_only_title && (
-          <h1 className="sr-only">{pricing.sr_only_title}</h1>
-        )}
-        <h2 className="landing-title mb-6 text-3xl font-bold text-pretty lg:text-4xl">
-          {pricing.title}
-        </h2>
-        <p className="landing-body mx-auto mb-4 max-w-xl lg:max-w-none lg:text-lg">
-          {pricing.description}
-        </p>
-      </div>
+      {!hideHeader && (
+        <div className="mx-auto mb-12 px-4 text-center md:px-8">
+          {pricing.sr_only_title && (
+            <h1 className="sr-only">{pricing.sr_only_title}</h1>
+          )}
+          <h2 className="landing-title mb-6 text-3xl font-bold text-pretty lg:text-4xl">
+            {pricing.title}
+          </h2>
+          <p className="landing-body mx-auto mb-4 max-w-xl lg:max-w-none lg:text-lg">
+            {pricing.description}
+          </p>
+        </div>
+      )}
 
-      <div className="container">
+      <div className={compact ? 'w-full px-0' : 'container'}>
         {pricing.groups && pricing.groups.length > 0 && (
-          <div className="mx-auto mt-8 mb-16 flex w-full justify-center md:max-w-lg">
+          <div
+            className={cn(
+              'mx-auto flex w-full justify-center md:max-w-lg',
+              compact ? 'mt-0 mb-3' : 'mt-8 mb-16'
+            )}
+          >
             <Tabs value={group} onValueChange={setGroup}>
               <TabsList className="landing-input-surface h-auto rounded-full border p-1">
                 {pricing.groups.map((item, i) => {
@@ -377,7 +392,12 @@ export function Pricing({
           </div>
         )}
 
-        <div className="mx-auto mt-0 grid w-full gap-6 lg:grid-cols-3">
+        <div
+          className={cn(
+            'mx-auto mt-0 grid w-full lg:grid-cols-3',
+            compact ? 'gap-4' : 'gap-6'
+          )}
+        >
           {pricing.items?.map((item: PricingItem, idx) => {
             if (item.group && item.group !== group) {
               return null;
@@ -413,7 +433,7 @@ export function Pricing({
                   </span>
                 )}
 
-                <CardHeader className="p-6 pb-4">
+                <CardHeader className={cn(compact ? 'p-4 pb-3' : 'p-6 pb-4')}>
                   <CardTitle className="font-medium">
                     <h3 className="landing-strong text-sm font-medium">
                       {item.title}
@@ -494,7 +514,8 @@ export function Pricing({
                       onClick={() => handlePayment(item)}
                       disabled={isLoading}
                       className={cn(
-                        'mt-4 h-10 w-full rounded-xl px-4 py-2 text-sm font-medium text-white disabled:opacity-50',
+                        'h-10 w-full rounded-xl px-4 py-2 text-sm font-medium text-white disabled:opacity-50',
+                        compact ? 'mt-3' : 'mt-4',
                         'bg-[#1773ea] hover:bg-[#1569d5]'
                       )}
                     >
@@ -518,7 +539,11 @@ export function Pricing({
                   )}
                 </CardHeader>
 
-                <CardContent className="space-y-4 px-6 pb-6">
+                <CardContent
+                  className={cn(
+                    compact ? 'space-y-2 px-4 pb-4' : 'space-y-4 px-6 pb-6'
+                  )}
+                >
                   <hr className="landing-divider border-dashed" />
 
                   {item.features_title && (
@@ -526,7 +551,12 @@ export function Pricing({
                       {item.features_title}
                     </p>
                   )}
-                  <ul className="landing-body list-outside space-y-3 text-sm">
+                  <ul
+                    className={cn(
+                      'landing-body list-outside text-sm',
+                      compact ? 'space-y-2' : 'space-y-3'
+                    )}
+                  >
                     {item.features?.map((item, index) => (
                       <li key={index} className="flex items-center gap-2">
                         <Check className="size-3 text-[#1773ea]" />

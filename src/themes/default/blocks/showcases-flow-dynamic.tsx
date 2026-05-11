@@ -183,7 +183,11 @@ export function ShowcasesFlowDynamic({
     await copyPrompt(selectedItem.prompt, selectedItem.id);
   }, [copyPrompt, selectedItem]);
 
-  const tryPromptHref = getTryPromptHref(selectedItem?.prompt);
+  const handleTryPrompt = useCallback(() => {
+    const href = getTryPromptHref(selectedItem?.prompt);
+    setSelectedIndex(null);
+    window.location.href = href;
+  }, [getTryPromptHref, selectedItem?.prompt]);
 
   return (
     <section id={id} className={cn('pb-24 md:pb-36', className)}>
@@ -407,13 +411,12 @@ export function ShowcasesFlowDynamic({
                       </Button>
 
                       <Button
-                        asChild
+                        type="button"
+                        onClick={handleTryPrompt}
                         className="h-13 flex-1 rounded-2xl bg-[#1773ea] text-base font-semibold text-white hover:bg-[#1569d5] dark:bg-[#1773ea] dark:text-white dark:hover:bg-[#1569d5]"
                       >
-                        <Link href={tryPromptHref} target="_self">
-                          <Wand className="size-5" />
-                          {t('try_now')}
-                        </Link>
+                        <Wand className="size-5" />
+                        {t('try_now')}
                       </Button>
                     </div>
                   </div>

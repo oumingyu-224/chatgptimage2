@@ -7,6 +7,7 @@ import { user } from '@/config/db/schema';
 
 import { Permission, Role } from '../services/rbac';
 import { getRemainingCredits } from './credit';
+import type { Subscription } from './subscription';
 
 export interface UserCredits {
   remainingCredits: number;
@@ -16,6 +17,7 @@ export interface UserCredits {
 export type User = typeof user.$inferSelect & {
   isAdmin?: boolean;
   credits?: UserCredits;
+  currentSubscription?: Subscription | null;
   roles?: Role[];
   permissions?: Permission[];
 };

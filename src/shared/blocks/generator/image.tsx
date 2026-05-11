@@ -10,18 +10,22 @@ import {
   Copy,
   ImageIcon,
   Loader2,
+  Lock,
   Settings2,
   Sparkles,
   User,
   Wand,
   X,
 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import { AnimatePresence, motion } from 'framer-motion';
 
+import enPricingMessages from '@/config/locale/messages/en/pages/pricing.json';
+import zhPricingMessages from '@/config/locale/messages/zh/pages/pricing.json';
 import { Link } from '@/core/i18n/navigation';
 import { AIMediaType, AITaskStatus } from '@/extensions/ai/types';
+import { Pricing as PricingBlock } from '@/themes/default/blocks/pricing';
 import {
   ImageUploader,
   ImageUploaderValue,
@@ -55,6 +59,7 @@ import { Textarea } from '@/shared/components/ui/textarea';
 import { GENERATOR_FEATURED_SHOWCASES } from '@/shared/constants/generator-featured-showcases';
 import { useAppContext } from '@/shared/contexts/app';
 import { cn } from '@/shared/lib/utils';
+import { Pricing as PricingData } from '@/shared/types/blocks/pricing';
 
 interface ImageGeneratorProps {
   allowMultipleImages?: boolean;
@@ -100,6 +105,18 @@ const GENERATION_TIMEOUT = 180000;
 const MAX_PROMPT_LENGTH = 2000;
 
 const MODEL_OPTIONS = [
+  {
+    value: 'gpt-image-2-image-to-image',
+    label: 'GPT Image 2',
+    provider: 'kie',
+    scenes: ['image-to-image'],
+  },
+  {
+    value: 'gpt-image-2-text-to-image',
+    label: 'GPT Image 2',
+    provider: 'kie',
+    scenes: ['text-to-image'],
+  },
   {
     value: 'flux-2/pro-image-to-image',
     label: 'Flux Klein',
@@ -212,6 +229,32 @@ const QUALITY_OPTIONS = [
   { value: 'ultra', labelKey: 'settings.quality_ultra', badge: '4K' },
 ];
 
+function getImageBaseCredits(hasReferenceImages: boolean) {
+  return hasReferenceImages ? 6 : 4;
+}
+
+function getQualityMultiplier(qualityStyle: string) {
+  if (qualityStyle === 'hd') return 2;
+  if (qualityStyle === 'ultra') return 4;
+  return 1;
+}
+
+function calculateImageCredits({
+  hasReferenceImages,
+  qualityStyle,
+  outputCount,
+}: {
+  hasReferenceImages: boolean;
+  qualityStyle: string;
+  outputCount: string;
+}) {
+  const baseCredits = getImageBaseCredits(hasReferenceImages);
+  const qualityMultiplier = getQualityMultiplier(qualityStyle);
+  const quantityMultiplier = Math.max(1, Number.parseInt(outputCount, 10) || 1);
+
+  return baseCredits * qualityMultiplier * quantityMultiplier;
+}
+
 function parseTaskResult(taskResult: string | null): any {
   if (!taskResult) {
     return null;
@@ -275,24 +318,19 @@ export function ImageGenerator({
   promptKey,
   defaultModel,
 }: ImageGeneratorProps) {
+  const locale = useLocale();
   const t = useTranslations('ai.image.generator');
 
   const [activeTab, setActiveTab] =
     useState<ImageGeneratorTab>('text-to-image');
 
-  const [costCredits, setCostCredits] = useState<number>(4);
   const [provider, setProvider] = useState(PROVIDER_OPTIONS[0]?.value ?? '');
   const [model, setModel] = useState(MODEL_OPTIONS[0]?.value ?? '');
   const [aspectRatio, setAspectRatio] = useState<string>('16:9'); // 默认宽高比
   const [resolution, setResolution] = useState<string>('2K'); // 默认分辨率（大写 K）
   const [qualityStyle, setQualityStyle] = useState<string>('standard');
   const [outputCountStyle, setOutputCountStyle] = useState<string>('1');
-  // Set default values only when no promptKey is provided
-  const [prompt, setPrompt] = useState(
-    promptKey
-      ? ''
-      : 'Hyperrealistic supermarket blister pack on clean olive green surface. No shadows. Inside: bright pink 3D letters spelling "FLUX.2" pressing against stretched plastic film, creating realistic deformation and reflective highlights. Bottom left corner: barcode sticker with text "GENERATE NOW" and "PLAYGROUND". Plastic shows tension wrinkles and realistic shine where stretched by the volumetric letters.'
-  );
+  const [prompt, setPrompt] = useState('');
   const [previewImage, setPreviewImage] = useState<string>(
     promptKey
       ? ''
@@ -324,6 +362,7 @@ export function ImageGenerator({
     null
   );
   const [copiedShowcaseId, setCopiedShowcaseId] = useState<string | null>(null);
+  const [showPricingDialog, setShowPricingDialog] = useState(false);
 
   // Showcase dialog state
   const [showShowcaseDialog, setShowShowcaseDialog] = useState(false);
@@ -338,6 +377,13 @@ export function ImageGenerator({
     useAppContext();
 
   const featuredShowcases = GENERATOR_FEATURED_SHOWCASES;
+  const pricingConfig = useMemo(
+    () =>
+      (locale.startsWith('zh')
+        ? zhPricingMessages.pricing
+        : enPricingMessages.pricing) as PricingData,
+    [locale]
+  );
   const activeFeaturedItem =
     featuredShowcases[activeFeaturedIndex] ?? featuredShowcases[0] ?? null;
   const selectedShowcaseItem =
@@ -418,7 +464,6 @@ export function ImageGenerator({
     if (promptKey) {
       setPrompt(promptKey);
       setActiveTab('text-to-image');
-      setCostCredits(4);
 
       if (availableProviders.length > 0) {
         const firstProvider = availableProviders[0];
@@ -435,15 +480,11 @@ export function ImageGenerator({
         }
       }
     } else {
-      // Reset to default values when no promptKey is provided
-      setPrompt(
-        'Change the man into the outfit shown in picture two, full-body photo.'
-      );
+      setPrompt('');
       setPreviewImage(
         'https://kie.ai/cdn-cgi/image/width=1920,quality=85,fit=scale-down,format=webp/https://static.aiquickdraw.com/tools/example/1767778245494_Yf0asfLH.png'
       );
       setActiveTab('text-to-image');
-      setCostCredits(4);
 
       // Reset to default provider and model for text-to-image
       if (availableProviders.length > 0) {
@@ -465,14 +506,35 @@ export function ImageGenerator({
 
   const promptLength = prompt.trim().length;
   const remainingCredits = user?.credits?.remainingCredits ?? 0;
+  const hasActiveSubscription = !!user?.currentSubscription;
   const isPromptTooLong = promptLength > MAX_PROMPT_LENGTH;
   const isTextToImageMode = activeTab === 'text-to-image';
+  const hasReferenceImages = referenceImageUrls.length > 0;
+  const costCredits = useMemo(
+    () =>
+      calculateImageCredits({
+        hasReferenceImages,
+        qualityStyle,
+        outputCount: outputCountStyle,
+      }),
+    [hasReferenceImages, qualityStyle, outputCountStyle]
+  );
   const promptNote = t('form.prompt_note');
   const optionalLabel = t('form.optional');
 
-  const getTryPromptHref = useCallback((prompt?: string) => {
-    return prompt ? `/?prompt=${encodeURIComponent(prompt)}#generator` : '/#generator';
+  const focusPromptInput = useCallback(() => {
+    const promptInput = document.getElementById('image-prompt');
+    promptInput?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    window.setTimeout(() => promptInput?.focus(), 320);
   }, []);
+
+  const handleTryShowcasePrompt = useCallback(() => {
+    if (selectedShowcaseItem?.prompt) {
+      setPrompt(selectedShowcaseItem.prompt);
+    }
+    setSelectedShowcaseIndex(null);
+    window.setTimeout(focusPromptInput, 80);
+  }, [focusPromptInput, selectedShowcaseItem?.prompt]);
 
   const handlePreviousFeatured = useCallback(() => {
     setActiveFeaturedIndex((prev) =>
@@ -505,6 +567,21 @@ export function ImageGenerator({
       }
     },
     [t]
+  );
+
+  const handleQualitySelect = useCallback(
+    (value: string, badge: string) => {
+      if (badge === '4K' && !hasActiveSubscription) {
+        setShowPricingDialog(true);
+        return;
+      }
+
+      setQualityStyle(value);
+      if (badge === '2K') setResolution('2K');
+      if (badge === '1K') setResolution('1K');
+      if (badge === '4K') setResolution('4K');
+    },
+    [hasActiveSubscription]
   );
 
   useEffect(() => {
@@ -544,11 +621,6 @@ export function ImageGenerator({
       setModel('');
     }
 
-    if (tab === 'text-to-image') {
-      setCostCredits(4);
-    } else {
-      setCostCredits(6);
-    }
   };
 
   const handleProviderChange = (value: string) => {
@@ -914,6 +986,11 @@ export function ImageGenerator({
       return;
     }
 
+    if (qualityStyle === 'ultra' && !hasActiveSubscription) {
+      setShowPricingDialog(true);
+      return;
+    }
+
     if (remainingCredits < costCredits) {
       toast.error('Insufficient credits. Please top up to keep creating.');
       return;
@@ -944,9 +1021,12 @@ export function ImageGenerator({
     try {
       const options: any = {};
 
-      if (!isTextToImageMode) {
+      if (hasReferenceImages) {
         options.image_input = referenceImageUrls;
       }
+
+      options.quality_style = qualityStyle;
+      options.output_count = outputCountStyle;
 
       // 添加宽高比参数
       if (aspectRatio) {
@@ -965,7 +1045,7 @@ export function ImageGenerator({
         },
         body: JSON.stringify({
           mediaType: AIMediaType.IMAGE,
-          scene: isTextToImageMode ? 'text-to-image' : 'image-to-image',
+          scene: hasReferenceImages ? 'image-to-image' : 'text-to-image',
           provider,
           model,
           prompt: trimmedPrompt,
@@ -1153,6 +1233,7 @@ export function ImageGenerator({
                       </div>
 
                       <div className="space-y-4">
+                        {/*
                         <div className="grid gap-3 sm:grid-cols-[90px_minmax(0,1fr)] sm:items-center">
                           <Label className="landing-soft-text text-[13px] font-medium">
                             {t('form.output_number')}
@@ -1178,6 +1259,7 @@ export function ImageGenerator({
                             })}
                           </div>
                         </div>
+                        */}
 
                         <div className="grid gap-3 sm:grid-cols-[90px_minmax(0,1fr)] sm:items-center">
                           <Label className="landing-soft-text text-[13px] font-medium">
@@ -1190,13 +1272,12 @@ export function ImageGenerator({
                                 <button
                                   key={option.value}
                                   type="button"
-                                  onClick={() => {
-                                    setQualityStyle(option.value);
-                                    if (option.badge === '2K')
-                                      setResolution('2K');
-                                    if (option.badge === '1K')
-                                      setResolution('1K');
-                                  }}
+                                  onClick={() =>
+                                    handleQualitySelect(
+                                      option.value,
+                                      option.badge
+                                    )
+                                  }
                                   className={cn(
                                     'landing-generator-accent-border-hover flex h-10 items-center justify-center gap-1 rounded-xl border px-3 text-[13px] font-medium transition-colors',
                                     active
@@ -1205,6 +1286,10 @@ export function ImageGenerator({
                                   )}
                                 >
                                   <span>{t(option.labelKey)}</span>
+                                  {option.badge === '4K' &&
+                                    !hasActiveSubscription && (
+                                      <Lock className="h-3.5 w-3.5 text-[#ff9b21]" />
+                                    )}
                                   <span
                                     className={cn(
                                       'rounded-full px-1.5 py-0.5 text-[10px] font-semibold',
@@ -1394,15 +1479,14 @@ export function ImageGenerator({
                               })}
                             </span>
                           </div>
-                          <Link href="/pricing">
-                            <Button
-                              variant="outline"
-                              className="landing-input-surface h-11 w-full rounded-[14px] text-[14px] hover:opacity-90"
-                            >
-                              <CreditCard className="mr-2 h-4 w-4" />
-                              {t('buy_credits')}
-                            </Button>
-                          </Link>
+                          <Button
+                            variant="outline"
+                            className="landing-input-surface h-11 w-full rounded-[14px] text-[14px] hover:opacity-90"
+                            onClick={() => setShowPricingDialog(true)}
+                          >
+                            <CreditCard className="mr-2 h-4 w-4" />
+                            {t('buy_credits')}
+                          </Button>
                         </div>
                       )}
 
@@ -1603,6 +1687,28 @@ export function ImageGenerator({
         </div>
       </div>
 
+      <Dialog open={showPricingDialog} onOpenChange={setShowPricingDialog}>
+        <DialogContent
+          className="!w-[min(calc(100vw-2rem),1180px)] !max-w-none overflow-visible rounded-2xl p-5 pt-0"
+          overlayClassName="bg-black/25 backdrop-blur-sm"
+        >
+          <DialogHeader className="pt-4 text-left">
+            <DialogTitle className="text-xl font-bold">
+              {t('pricing_dialog_title')}
+            </DialogTitle>
+            <DialogDescription className="sr-only">
+              {pricingConfig.description}
+            </DialogDescription>
+          </DialogHeader>
+          <PricingBlock
+            pricing={pricingConfig}
+            className="pt-2"
+            hideHeader
+            compact
+          />
+        </DialogContent>
+      </Dialog>
+
       {/* Showcase Display Dialog */}
       <Dialog open={showShowcaseDialog} onOpenChange={setShowShowcaseDialog}>
         <DialogContent className="sm:max-w-md">
@@ -1727,11 +1833,6 @@ export function ImageGenerator({
                       <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">
                         {selectedShowcaseItem.title}
                       </h3>
-                      {selectedShowcaseItem.description ? (
-                        <p className="mt-4 text-base leading-8 whitespace-pre-wrap text-slate-600 dark:text-slate-300">
-                          {selectedShowcaseItem.description}
-                        </p>
-                      ) : null}
                     </div>
                   </div>
 
@@ -1765,16 +1866,12 @@ export function ImageGenerator({
                       </Button>
 
                       <Button
-                        asChild
+                        type="button"
+                        onClick={handleTryShowcasePrompt}
                         className="h-13 flex-1 rounded-2xl bg-[#1773ea] text-base font-semibold text-white hover:bg-[#1569d5] dark:bg-[#1773ea] dark:text-white dark:hover:bg-[#1569d5]"
                       >
-                        <Link
-                          href={getTryPromptHref(selectedShowcaseItem.prompt)}
-                          target="_self"
-                        >
-                          <Wand className="size-5" />
-                          {t('featured.try_now')}
-                        </Link>
+                        <Wand className="size-5" />
+                        {t('featured.try_now')}
                       </Button>
                     </div>
                   </div>

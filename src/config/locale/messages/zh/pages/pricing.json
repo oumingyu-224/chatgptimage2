@@ -32,7 +32,8 @@
         "features": [
           "500 个 AI 图像积分",
           "有效期 1 年",
-          "可用于 ChatGPT Image 2 的生成与编辑工作流"
+          "可用于 ChatGPT Image 2 的生成与编辑工作流",
+          "支持 1K、2K 和 4K 输出"
         ],
         "interval": "one-time",
         "amount": 2999,
@@ -45,7 +46,9 @@
             "amount": 9999,
             "price": "¥99.99",
             "original_price": "¥1999",
-            "payment_providers": ["stripe"]
+            "payment_providers": [
+              "stripe"
+            ]
           }
         ],
         "unit": "",
@@ -70,7 +73,8 @@
         "features": [
           "2000 个 AI 图像积分",
           "有效期 1 年",
-          "可用于 ChatGPT Image 2 的生成与编辑工作流"
+          "可用于 ChatGPT Image 2 的生成与编辑工作流",
+          "支持 1K、2K 和 4K 输出"
         ],
         "interval": "one-time",
         "amount": 9999,
@@ -83,7 +87,9 @@
             "amount": 34900,
             "price": "¥349.00",
             "original_price": "¥699.00",
-            "payment_providers": ["stripe"]
+            "payment_providers": [
+              "stripe"
+            ]
           }
         ],
         "unit": "",
@@ -107,7 +113,8 @@
         "features": [
           "7000 个 AI 图像积分",
           "有效期 1 年",
-          "可用于 ChatGPT Image 2 的生成与编辑工作流"
+          "可用于 ChatGPT Image 2 的生成与编辑工作流",
+          "支持 1K、2K 和 4K 输出"
         ],
         "interval": "one-time",
         "amount": 23000,
@@ -120,7 +127,10 @@
             "amount": 80000,
             "price": "¥800.00",
             "original_price": "¥1600.00",
-            "payment_providers": ["stripe", "creem"]
+            "payment_providers": [
+              "stripe",
+              "creem"
+            ]
           }
         ],
         "unit": "",
@@ -146,7 +156,8 @@
           "ChatGPT Image 2 工作流",
           "标准生成速度",
           "标准客服支持",
-          "支持商业使用"
+          "支持商业使用",
+          "支持 1K、2K 和 4K 输出"
         ],
         "interval": "month",
         "amount": 1499,
@@ -178,7 +189,8 @@
           "ChatGPT Image 2 工作流",
           "优先处理速度",
           "更适合常规商业生产",
-          "优先客服支持"
+          "优先客服支持",
+          "支持 1K、2K 和 4K 输出"
         ],
         "interval": "month",
         "amount": 3999,
@@ -209,7 +221,8 @@
           "最快处理速度",
           "更适合大量编辑和素材生产",
           "永久图像存储",
-          "专属客户支持"
+          "专属客户支持",
+          "支持 1K、2K 和 4K 输出"
         ],
         "interval": "month",
         "amount": 11999,
@@ -240,7 +253,8 @@
           "ChatGPT Image 2 工作流",
           "标准生成速度",
           "标准客服支持",
-          "支持商业使用"
+          "支持商业使用",
+          "支持 1K、2K 和 4K 输出"
         ],
         "interval": "year",
         "amount": 12600,
@@ -271,7 +285,8 @@
           "每年 19200 个 AI 图像积分",
           "优先处理速度",
           "更适合常规商业生产",
-          "优先客服支持"
+          "优先客服支持",
+          "支持 1K、2K 和 4K 输出"
         ],
         "interval": "year",
         "amount": 23994,
@@ -302,7 +317,8 @@
           "最快处理速度",
           "更适合大规模编辑和商用素材生产",
           "永久图像存储",
-          "专属客户支持"
+          "专属客户支持",
+          "支持 1K、2K 和 4K 输出"
         ],
         "interval": "year",
         "amount": 71400,

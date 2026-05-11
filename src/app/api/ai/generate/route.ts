@@ -7,6 +7,29 @@ import { getRemainingCredits } from '@/shared/models/credit';
 import { getUserInfo } from '@/shared/models/user';
 import { getAIService } from '@/shared/services/ai';
 
+function getImageBaseCredits(hasReferenceImages: boolean) {
+  return hasReferenceImages ? 6 : 4;
+}
+
+function getQualityMultiplier(qualityStyle?: string) {
+  if (qualityStyle === 'hd') return 2;
+  if (qualityStyle === 'ultra') return 4;
+  return 1;
+}
+
+function calculateImageCredits(options: any) {
+  const hasReferenceImages =
+    Array.isArray(options?.image_input) && options.image_input.length > 0;
+  const baseCredits = getImageBaseCredits(hasReferenceImages);
+  const qualityMultiplier = getQualityMultiplier(options?.quality_style);
+  const quantityMultiplier = Math.max(
+    1,
+    Number.parseInt(options?.output_count || '1', 10) || 1
+  );
+
+  return baseCredits * qualityMultiplier * quantityMultiplier;
+}
+
 export async function POST(request: Request) {
   try {
     let { provider, mediaType, model, prompt, options, scene } =
@@ -43,14 +66,11 @@ export async function POST(request: Request) {
     let costCredits = 4;
 
     if (mediaType === AIMediaType.IMAGE) {
-      // generate image
-      if (scene === 'image-to-image') {
-        costCredits = 6;
-      } else if (scene === 'text-to-image') {
-        costCredits = 4;
-      } else {
-        throw new Error('invalid scene');
-      }
+      costCredits = calculateImageCredits(options);
+      scene =
+        Array.isArray(options?.image_input) && options.image_input.length > 0
+          ? 'image-to-image'
+          : 'text-to-image';
     } else if (mediaType === AIMediaType.VIDEO) {
       // generate video
       if (scene === 'text-to-video') {

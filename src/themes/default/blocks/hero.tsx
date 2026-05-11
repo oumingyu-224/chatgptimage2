@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import type { MouseEvent } from 'react';
 
 import { Link } from '@/core/i18n/navigation';
 import { LazyImage } from '@/shared/blocks/common';
@@ -44,6 +45,22 @@ export function Hero({
   if (highlightText) {
     texts = section.title?.split(highlightText, 2);
   }
+
+  const focusPromptInput = () => {
+    const promptInput = document.getElementById('image-prompt');
+    promptInput?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    window.setTimeout(() => promptInput?.focus(), 320);
+  };
+
+  const handlePrimaryButtonClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (
+      primaryButton?.url?.includes('#generator') ||
+      primaryButton?.url === '/create'
+    ) {
+      event.preventDefault();
+      focusPromptInput();
+    }
+  };
 
   return (
     <>
@@ -117,6 +134,7 @@ export function Hero({
               <Link
                 href={primaryButton.url ?? ''}
                 target={primaryButton.target ?? '_self'}
+                onClick={handlePrimaryButtonClick}
                 className="group relative inline-flex rounded-full bg-[#dcd6e3] p-px shadow-[0_10px_26px_rgba(24,39,75,0.07)] transition-[transform,box-shadow] duration-200 hover:-translate-y-px hover:shadow-[0_14px_30px_rgba(24,39,75,0.10)]"
               >
                 <span className="absolute inset-0 rounded-full bg-[linear-gradient(90deg,#7a5cff_0%,#d34dff_48%,#ff9f67_100%)] opacity-0 transition-opacity duration-200 group-hover:opacity-100" />

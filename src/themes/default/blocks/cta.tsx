@@ -1,5 +1,7 @@
 'use client';
 
+import type { MouseEvent } from 'react';
+
 import { Link } from '@/core/i18n/navigation';
 import { SmartIcon } from '@/shared/blocks/common/smart-icon';
 import { Button } from '@/shared/components/ui/button';
@@ -14,6 +16,22 @@ export function CTA({
   section: Section;
   className?: string;
 }) {
+  const focusPromptInput = () => {
+    const promptInput = document.getElementById('image-prompt');
+    promptInput?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    window.setTimeout(() => promptInput?.focus(), 320);
+  };
+
+  const handleButtonClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+    url?: string
+  ) => {
+    if (url?.includes('#generator') || url === '/create') {
+      event.preventDefault();
+      focusPromptInput();
+    }
+  };
+
   return (
     <section
       id={section.id}
@@ -45,6 +63,7 @@ export function CTA({
                   <Link
                     href={button.url || ''}
                     target={button.target || '_self'}
+                    onClick={(event) => handleButtonClick(event, button.url)}
                     className="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-[#1890ff] px-6 text-sm font-medium text-white transition-colors hover:bg-[#1677ff] dark:bg-[#1890ff] dark:text-white dark:hover:bg-[#1677ff]"
                   >
                     {button.icon && <SmartIcon name={button.icon as string} />}
