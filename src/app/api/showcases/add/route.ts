@@ -4,6 +4,7 @@ import { getUuid } from '@/shared/lib/hash';
 import { extractHairstyleTags } from '@/shared/lib/tags';
 import { addShowcase, NewShowcase } from '@/shared/models/showcase';
 import { getUserInfo } from '@/shared/models/user';
+import { hasRole, ROLES } from '@/shared/services/rbac';
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,6 +13,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { code: 401, message: 'Unauthorized' },
         { status: 401 }
+      );
+    }
+
+    const isSuperAdmin = await hasRole(user.id, ROLES.SUPER_ADMIN);
+    if (!isSuperAdmin) {
+      return NextResponse.json(
+        { code: 403, message: 'Forbidden' },
+        { status: 403 }
       );
     }
 

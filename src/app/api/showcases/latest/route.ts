@@ -8,7 +8,10 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const limit = parseInt(searchParams.get('limit') || '20', 10);
+    const limit = Math.min(
+      50,
+      Math.max(1, parseInt(searchParams.get('limit') || '20', 10))
+    );
     const tags = searchParams.get('tags') || undefined;
     const excludeTags = searchParams.get('excludeTags') || undefined;
     const searchTerm = searchParams.get('searchTerm') || undefined;

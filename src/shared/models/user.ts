@@ -68,6 +68,19 @@ export async function getUsersCount({ email }: { email?: string }) {
   return result?.count || 0;
 }
 
+export async function getUsersCountByIp(ip: string) {
+  if (!ip) {
+    return 0;
+  }
+
+  const [result] = await db()
+    .select({ count: count() })
+    .from(user)
+    .where(eq(user.ip, ip));
+
+  return result?.count || 0;
+}
+
 export async function getUserByUserIds(userIds: string[]) {
   const result = await db()
     .select()

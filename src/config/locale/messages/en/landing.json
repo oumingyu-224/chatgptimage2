@@ -493,7 +493,7 @@
         {
           "title": "Email",
           "icon": "Mail",
-          "url": "mailto:ai-image@chatgptimage2.app",
+          "url": "mailto:ai-image-generator@chatgptimage2.app",
           "target": "_self"
         }
       ]

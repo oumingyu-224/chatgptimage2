@@ -25,6 +25,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import enPricingMessages from '@/config/locale/messages/en/pages/pricing.json';
 import zhPricingMessages from '@/config/locale/messages/zh/pages/pricing.json';
 import { Link } from '@/core/i18n/navigation';
+import { ROLES } from '@/shared/services/rbac';
 import { AIMediaType, AITaskStatus } from '@/extensions/ai/types';
 import { Pricing as PricingBlock } from '@/themes/default/blocks/pricing';
 import {
@@ -364,18 +365,6 @@ export function ImageGenerator({
   );
   const [copiedShowcaseId, setCopiedShowcaseId] = useState<string | null>(null);
   const [showPricingDialog, setShowPricingDialog] = useState(false);
-  const [moderationDialogMessage, setModerationDialogMessage] = useState<
-    string | null
-  >(null);
-
-  // Showcase dialog state
-  const [showShowcaseDialog, setShowShowcaseDialog] = useState(false);
-  const [pendingShowcaseData, setPendingShowcaseData] = useState<{
-    imageUrl: string;
-    taskId: string;
-    prompt: string;
-  } | null>(null);
-  const [dontAskAgain, setDontAskAgain] = useState(false);
 
   const { user, isCheckSign, setIsShowSignModal, fetchUserCredits } =
     useAppContext();
@@ -525,6 +514,10 @@ export function ImageGenerator({
   );
   const promptNote = t('form.prompt_note');
   const optionalLabel = t('form.optional');
+  const canSaveShowcase = useMemo(
+    () => user?.roles?.some((role) => role.name === ROLES.SUPER_ADMIN) ?? false,
+    [user?.roles]
+  );
 
   const focusPromptInput = useCallback(() => {
     const promptInput = document.getElementById('image-prompt');
@@ -771,28 +764,6 @@ export function ImageGenerator({
     [prompt, promptKey, t]
   );
 
-  // Handle showcase dialog actions
-  const handleShowcaseDialogAction = useCallback(
-    async (allow: boolean, dontAsk?: boolean) => {
-      if (dontAsk) {
-        setDontAskAgain(true);
-      }
-
-      setShowShowcaseDialog(false);
-
-      if (allow && pendingShowcaseData) {
-        await saveShowcase(
-          pendingShowcaseData.imageUrl,
-          pendingShowcaseData.taskId,
-          pendingShowcaseData.prompt
-        );
-      }
-
-      setPendingShowcaseData(null);
-    },
-    [pendingShowcaseData, saveShowcase]
-  );
-
   const pollTaskStatus = useCallback(
     async (id: string) => {
       try {
@@ -871,25 +842,16 @@ export function ImageGenerator({
             }));
             setGeneratedImages(images);
 
-            // Show showcase dialog instead of auto-saving
             if (
+              canSaveShowcase &&
               images.length > 0 &&
-              !savedTaskIdsRef.current.has(task.id) &&
-              !dontAskAgain
+              !savedTaskIdsRef.current.has(task.id)
             ) {
-              setPendingShowcaseData({
-                imageUrl: images[0].url,
-                taskId: task.id,
-                prompt: task.prompt ?? prompt,
-              });
-              setShowShowcaseDialog(true);
-            } else if (
-              images.length > 0 &&
-              !savedTaskIdsRef.current.has(task.id) &&
-              dontAskAgain
-            ) {
-              // If don't ask again is enabled, skip saving
-              console.log('Skipping showcase dialog due to user preference');
+              await saveShowcase(
+                images[0].url,
+                task.id,
+                task.prompt ?? prompt
+              );
             }
             toast.success(t('success.generated_successfully'));
           }
@@ -922,7 +884,15 @@ export function ImageGenerator({
         return true;
       }
     },
-    [generationStartTime, resetTaskState, fetchUserCredits, saveShowcase]
+    [
+      generationStartTime,
+      resetTaskState,
+      fetchUserCredits,
+      saveShowcase,
+      canSaveShowcase,
+      prompt,
+      t,
+    ]
   );
 
   useEffect(() => {
@@ -1064,7 +1034,7 @@ export function ImageGenerator({
       const { code, message, data } = await resp.json();
       if (code !== 0) {
         if (message === 'NSFW_PROMPT_BLOCKED') {
-          setModerationDialogMessage(t('moderation_dialog.description'));
+          toast.error(t('errors.prompt_blocked'));
           resetTaskState();
           return;
         }
@@ -1073,16 +1043,12 @@ export function ImageGenerator({
           message === 'NSFW_MODERATION_CONFIG_MISSING' ||
           message === 'NSFW_MODERATION_FAILED'
         ) {
-          setModerationDialogMessage(t('moderation_dialog.service_unavailable'));
+          toast.error(t('errors.moderation_unavailable'));
           resetTaskState();
           return;
         }
 
         throw new Error(message || 'Failed to create an image task');
-      }
-
-      if (data?.promptModerationDebugSuccess) {
-        toast.success('DeepSeek 调用成功');
       }
 
       const newTaskId = data?.id;
@@ -1107,25 +1073,12 @@ export function ImageGenerator({
           resetTaskState();
           await fetchUserCredits();
 
-          // Show showcase dialog for immediate success case
           if (
+            canSaveShowcase &&
             images.length > 0 &&
-            !savedTaskIdsRef.current.has(newTaskId) &&
-            !dontAskAgain
+            !savedTaskIdsRef.current.has(newTaskId)
           ) {
-            setPendingShowcaseData({
-              imageUrl: images[0].url,
-              taskId: newTaskId,
-              prompt: trimmedPrompt,
-            });
-            setShowShowcaseDialog(true);
-          } else if (
-            images.length > 0 &&
-            !savedTaskIdsRef.current.has(newTaskId) &&
-            dontAskAgain
-          ) {
-            // If don't ask again is enabled, skip saving
-            console.log('Skipping showcase dialog due to user preference');
+            await saveShowcase(images[0].url, newTaskId, trimmedPrompt);
           }
           toast.success(t('success.generated_successfully'));
           return;
@@ -1738,27 +1691,6 @@ export function ImageGenerator({
         </div>
       </div>
 
-      <Dialog
-        open={!!moderationDialogMessage}
-        onOpenChange={(open) => {
-          if (!open) {
-            setModerationDialogMessage(null);
-          }
-        }}
-      >
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>{t('moderation_dialog.title')}</DialogTitle>
-            <DialogDescription>{moderationDialogMessage}</DialogDescription>
-          </DialogHeader>
-          <div className="flex justify-end">
-            <Button onClick={() => setModerationDialogMessage(null)}>
-              {t('moderation_dialog.confirm')}
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
-
       <Dialog open={showPricingDialog} onOpenChange={setShowPricingDialog}>
         <DialogContent
           className="!w-[min(calc(100vw-2rem),1180px)] !max-w-none overflow-visible rounded-2xl p-5 pt-0"
@@ -1778,47 +1710,6 @@ export function ImageGenerator({
             hideHeader
             compact
           />
-        </DialogContent>
-      </Dialog>
-
-      {/* Showcase Display Dialog */}
-      <Dialog open={showShowcaseDialog} onOpenChange={setShowShowcaseDialog}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>{t('showcase_dialog.title')}</DialogTitle>
-            <DialogDescription>
-              {t('showcase_dialog.description')}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
-            <Button
-              variant="default"
-              onClick={() => handleShowcaseDialogAction(true)}
-              className="flex-1"
-            >
-              {t('showcase_dialog.allow')}
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => handleShowcaseDialogAction(false)}
-              className="flex-1"
-            >
-              {t('showcase_dialog.deny')}
-            </Button>
-          </div>
-          <div className="flex items-center justify-center">
-            <label className="flex cursor-pointer items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={dontAskAgain}
-                onChange={(e) => setDontAskAgain(e.target.checked)}
-                className="h-4 w-4 rounded border-gray-300"
-              />
-              <span className="text-muted-foreground">
-                {t('showcase_dialog.dont_ask_again')}
-              </span>
-            </label>
-          </div>
         </DialogContent>
       </Dialog>
 

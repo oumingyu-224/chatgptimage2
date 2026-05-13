@@ -98,8 +98,6 @@ export async function POST(request: Request) {
 
     const trimmedPrompt = typeof prompt === 'string' ? prompt.trim() : '';
 
-    let promptModerationDebugSuccess = false;
-
     if (mediaType === AIMediaType.IMAGE && trimmedPrompt) {
       const configs = await getAllConfigs();
 
@@ -108,8 +106,6 @@ export async function POST(request: Request) {
           prompt: trimmedPrompt,
           configs,
         });
-
-        promptModerationDebugSuccess = true;
 
         if (!moderation.allowed) {
           return respErr(PROMPT_MODERATION_ERRORS.BLOCKED);
@@ -159,10 +155,7 @@ export async function POST(request: Request) {
     };
     await createAITask(newAITask);
 
-    return respData({
-      ...newAITask,
-      promptModerationDebugSuccess,
-    });
+    return respData(newAITask);
   } catch (e: any) {
     console.log('generate failed', e);
     return respErr(e.message);

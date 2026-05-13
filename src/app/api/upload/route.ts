@@ -1,8 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
+
+import { getUserInfo } from '@/shared/models/user';
 import { getStorageService } from '@/shared/services/storage';
+
+const MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
+const ALLOWED_IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
+const EXTENSIONS: Record<string, string> = {
+  'image/jpeg': 'jpg',
+  'image/png': 'png',
+  'image/webp': 'webp',
+};
 
 export async function POST(request: NextRequest) {
   try {
+    const user = await getUserInfo();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const formData = await request.formData();
     const file = formData.get('file') as File;
 
@@ -13,13 +28,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (!ALLOWED_IMAGE_TYPES.has(file.type)) {
+      return NextResponse.json(
+        { error: 'Unsupported file type' },
+        { status: 400 }
+      );
+    }
+
+    if (file.size > MAX_UPLOAD_SIZE) {
+      return NextResponse.json({ error: 'File too large' }, { status: 400 });
+    }
+
     const storageService = await getStorageService();
 
     const now = new Date();
     const dateFolder = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
     const timestamp = Date.now();
     const randomStr = Math.random().toString(36).substring(2, 8);
-    const ext = file.name.split('.').pop();
+    const ext = EXTENSIONS[file.type];
     const key = `${dateFolder}/${timestamp}-${randomStr}.${ext}`;
 
     const arrayBuffer = await file.arrayBuffer();
@@ -45,9 +71,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Upload error:', error);
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Upload failed' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
   }
 }

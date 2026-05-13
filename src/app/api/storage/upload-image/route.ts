@@ -1,6 +1,11 @@
 import { md5 } from '@/shared/lib/hash';
 import { respData, respErr } from '@/shared/lib/resp';
+import { getUserInfo } from '@/shared/models/user';
 import { getStorageService } from '@/shared/services/storage';
+
+const MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
+const MAX_UPLOAD_FILES = 9;
+const ALLOWED_IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
 
 const extFromMime = (mimeType: string) => {
   const map: Record<string, string> = {
@@ -8,40 +13,39 @@ const extFromMime = (mimeType: string) => {
     'image/jpg': 'jpg',
     'image/png': 'png',
     'image/webp': 'webp',
-    'image/gif': 'gif',
-    'image/svg+xml': 'svg',
-    'image/avif': 'avif',
-    'image/heic': 'heic',
-    'image/heif': 'heif',
   };
   return map[mimeType] || '';
 };
 
 export async function POST(req: Request) {
   try {
+    const user = await getUserInfo();
+    if (!user) {
+      return respErr('no auth, please sign in');
+    }
+
     const formData = await req.formData();
     const files = formData.getAll('files') as File[];
 
-    console.log('[API] Received files:', files.length);
-    files.forEach((file, i) => {
-      console.log(`[API] File ${i}:`, {
-        name: file.name,
-        type: file.type,
-        size: file.size,
-      });
-    });
-
     if (!files || files.length === 0) {
       return respErr('No files provided');
+    }
+
+    if (files.length > MAX_UPLOAD_FILES) {
+      return respErr('Too many files');
     }
 
     const storageService = await getStorageService();
     const uploadResults = [];
 
     for (const file of files) {
-      // Validate file type
-      if (!file.type.startsWith('image/')) {
-        return respErr(`File ${file.name} is not an image`);
+      // Validate file type and size
+      if (!ALLOWED_IMAGE_TYPES.has(file.type)) {
+        return respErr(`File ${file.name} is not a supported image`);
+      }
+
+      if (file.size > MAX_UPLOAD_SIZE) {
+        return respErr(`File ${file.name} is too large`);
       }
 
       // Convert file to buffer
@@ -77,11 +81,8 @@ export async function POST(req: Request) {
       });
 
       if (!result.success) {
-        console.error('[API] Upload failed:', result.error);
         return respErr(result.error || 'Upload failed');
       }
-
-      console.log('[API] Upload success:', result.url);
 
       uploadResults.push({
         url: result.url,
@@ -90,11 +91,6 @@ export async function POST(req: Request) {
         deduped: false,
       });
     }
-
-    console.log(
-      '[API] All uploads complete. Returning URLs:',
-      uploadResults.map((r) => r.url)
-    );
 
     return respData({
       urls: uploadResults.map((r) => r.url),

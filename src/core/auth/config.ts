@@ -14,6 +14,7 @@ import {
 import { getUuid } from '@/shared/lib/hash';
 import { getClientIp } from '@/shared/lib/ip';
 import { grantCreditsForNewUser } from '@/shared/models/credit';
+import { getUsersCountByIp } from '@/shared/models/user';
 import { getEmailService } from '@/shared/services/email';
 import { grantRoleForNewUser } from '@/shared/services/rbac';
 
@@ -116,8 +117,11 @@ export async function getAuthOptions(configs: Record<string, string>) {
           },
           after: async (user: any) => {
             try {
-              // 新用户注册后授予积分和角色
-              await grantCreditsForNewUser(user.id);
+              // 新用户注册后授予角色；同 IP 前 5 个账号才授予初始积分
+              const ipRegisteredCount = await getUsersCountByIp(user.ip || '');
+              if (ipRegisteredCount <= 5) {
+                await grantCreditsForNewUser(user.id);
+              }
               await grantRoleForNewUser(user.id);
             } catch (error) {
               console.error('新用户权益分配失败:', error);
