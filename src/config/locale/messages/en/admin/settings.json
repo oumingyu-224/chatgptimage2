@@ -25,7 +25,8 @@
     "crisp": "Crisp",
     "credit": "Credit",
     "appinfo": "App Info",
-    "user_role": "User Role"
+    "user_role": "User Role",
+    "prompt_moderation": "Prompt Moderation"
   },
   "edit": {
     "title": "Settings",
@@ -44,7 +45,8 @@
       "analytics": "Analytics",
       "ads": "Ads",
       "affiliate": "Affiliate",
-      "customer_service": "Customer Service"
+      "customer_service": "Customer Service",
+      "safety": "Safety"
     },
     "buttons": {
       "submit": "Save"

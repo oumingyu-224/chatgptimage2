@@ -20,7 +20,7 @@ import { type Tab } from '@/shared/types/blocks/common';
 import { type Pagination } from '@/shared/types/blocks/common';
 import { type Table } from '@/shared/types/blocks/table';
 
-import { downloadMyWorkImage } from './download-button';
+import { MyWorkDownloadButton, downloadMyWorkImage } from './download-button';
 
 export type MyWorkRow = {
   id: string;
@@ -104,6 +104,8 @@ export function MyWorksClient({
     credits: string;
     status: string;
     createdAt: string;
+    action: string;
+    download: string;
   };
 }) {
   const locale = useLocale();
@@ -202,6 +204,28 @@ export function MyWorksClient({
         title: fields.createdAt,
         type: 'time',
         className: 'w-[132px]',
+      },
+      {
+        name: 'action',
+        title: fields.action,
+        className: 'w-[96px]',
+        callback: (item: MyWorkRow) => {
+          if (!item.outputImageUrl) {
+            return <span className="text-slate-400">-</span>;
+          }
+
+          return (
+            <div onClick={(event) => event.stopPropagation()}>
+              <MyWorkDownloadButton
+                imageUrl={item.outputImageUrl}
+                fileName={`${item.id}.png`}
+                title={fields.download}
+                successMessage={item.downloadSuccessMessage}
+                failedMessage={item.downloadFailedMessage}
+              />
+            </div>
+          );
+        },
       },
     ],
     data: rows,

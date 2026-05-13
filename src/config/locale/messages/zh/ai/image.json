@@ -102,7 +102,15 @@
       "insufficient_credits": "积分不足，请充值后继续创作",
       "provider_not_available": "当前服务商不可用",
       "no_providers_configured": "未配置 AI 服务商，请联系管理员",
-      "download_fetch_failed": "获取图片失败"
+      "download_fetch_failed": "获取图片失败",
+      "prompt_blocked": "提示词未通过安全检查，请修改后再试",
+      "moderation_unavailable": "内容审核服务暂不可用，请稍后再试"
+    },
+    "moderation_dialog": {
+      "title": "提示词未通过安全检查",
+      "description": "请修改提示词后再试。",
+      "service_unavailable": "内容审核服务暂不可用，请稍后再试。",
+      "confirm": "知道了"
     }
   }
 }

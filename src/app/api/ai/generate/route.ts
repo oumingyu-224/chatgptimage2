@@ -3,9 +3,15 @@ import { AIMediaType } from '@/extensions/ai';
 import { getUuid } from '@/shared/lib/hash';
 import { respData, respErr } from '@/shared/lib/resp';
 import { createAITask, NewAITask } from '@/shared/models/ai_task';
+import { getAllConfigs } from '@/shared/models/config';
 import { getRemainingCredits } from '@/shared/models/credit';
 import { getUserInfo } from '@/shared/models/user';
 import { getAIService } from '@/shared/services/ai';
+import {
+  isPromptModerationEnabled,
+  moderatePrompt,
+  PROMPT_MODERATION_ERRORS,
+} from '@/shared/services/moderation';
 
 function getImageBaseCredits(hasReferenceImages: boolean) {
   return hasReferenceImages ? 6 : 4;
@@ -90,6 +96,27 @@ export async function POST(request: Request) {
       throw new Error('invalid mediaType');
     }
 
+    const trimmedPrompt = typeof prompt === 'string' ? prompt.trim() : '';
+
+    let promptModerationDebugSuccess = false;
+
+    if (mediaType === AIMediaType.IMAGE && trimmedPrompt) {
+      const configs = await getAllConfigs();
+
+      if (isPromptModerationEnabled(configs)) {
+        const moderation = await moderatePrompt({
+          prompt: trimmedPrompt,
+          configs,
+        });
+
+        promptModerationDebugSuccess = true;
+
+        if (!moderation.allowed) {
+          return respErr(PROMPT_MODERATION_ERRORS.BLOCKED);
+        }
+      }
+    }
+
     // check credits
     const remainingCredits = await getRemainingCredits(user.id);
     if (remainingCredits < costCredits) {
@@ -132,7 +159,10 @@ export async function POST(request: Request) {
     };
     await createAITask(newAITask);
 
-    return respData(newAITask);
+    return respData({
+      ...newAITask,
+      promptModerationDebugSuccess,
+    });
   } catch (e: any) {
     console.log('generate failed', e);
     return respErr(e.message);

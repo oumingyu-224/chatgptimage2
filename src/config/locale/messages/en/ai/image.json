@@ -102,7 +102,15 @@
       "insufficient_credits": "Insufficient credits. Please top up to keep creating.",
       "provider_not_available": "Provider is not available",
       "no_providers_configured": "No AI providers configured, please contact administrator",
-      "download_fetch_failed": "Failed to fetch image"
+      "download_fetch_failed": "Failed to fetch image",
+      "prompt_blocked": "Prompt did not pass safety review. Please revise it and try again.",
+      "moderation_unavailable": "Content safety review is temporarily unavailable. Please try again later."
+    },
+    "moderation_dialog": {
+      "title": "Prompt did not pass safety review",
+      "description": "Please revise your prompt and try again.",
+      "service_unavailable": "Content safety review is temporarily unavailable. Please try again later.",
+      "confirm": "Got it"
     }
   }
 }

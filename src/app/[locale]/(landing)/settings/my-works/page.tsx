@@ -258,6 +258,8 @@ export default async function MyWorksPage({
           credits: t('fields.credits'),
           status: t('fields.status'),
           createdAt: t('fields.created_at'),
+          action: t('fields.action'),
+          download: t('fields.actions.download'),
         }}
       />
     </div>

@@ -364,6 +364,9 @@ export function ImageGenerator({
   );
   const [copiedShowcaseId, setCopiedShowcaseId] = useState<string | null>(null);
   const [showPricingDialog, setShowPricingDialog] = useState(false);
+  const [moderationDialogMessage, setModerationDialogMessage] = useState<
+    string | null
+  >(null);
 
   // Showcase dialog state
   const [showShowcaseDialog, setShowShowcaseDialog] = useState(false);
@@ -1060,7 +1063,26 @@ export function ImageGenerator({
 
       const { code, message, data } = await resp.json();
       if (code !== 0) {
+        if (message === 'NSFW_PROMPT_BLOCKED') {
+          setModerationDialogMessage(t('moderation_dialog.description'));
+          resetTaskState();
+          return;
+        }
+
+        if (
+          message === 'NSFW_MODERATION_CONFIG_MISSING' ||
+          message === 'NSFW_MODERATION_FAILED'
+        ) {
+          setModerationDialogMessage(t('moderation_dialog.service_unavailable'));
+          resetTaskState();
+          return;
+        }
+
         throw new Error(message || 'Failed to create an image task');
+      }
+
+      if (data?.promptModerationDebugSuccess) {
+        toast.success('DeepSeek 调用成功');
       }
 
       const newTaskId = data?.id;
@@ -1715,6 +1737,27 @@ export function ImageGenerator({
           </div>
         </div>
       </div>
+
+      <Dialog
+        open={!!moderationDialogMessage}
+        onOpenChange={(open) => {
+          if (!open) {
+            setModerationDialogMessage(null);
+          }
+        }}
+      >
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>{t('moderation_dialog.title')}</DialogTitle>
+            <DialogDescription>{moderationDialogMessage}</DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end">
+            <Button onClick={() => setModerationDialogMessage(null)}>
+              {t('moderation_dialog.confirm')}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={showPricingDialog} onOpenChange={setShowPricingDialog}>
         <DialogContent

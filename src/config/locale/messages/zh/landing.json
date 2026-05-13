@@ -19,7 +19,7 @@
     "nav": {
       "items": [
         {
-          "title": "创建1",
+          "title": "创建",
           "url": "/create",
           "icon": "Zap"
         },
