@@ -1,3 +1,5 @@
+import 'server-only';
+
 import { betterAuth, BetterAuthOptions } from 'better-auth';
 
 import { getAllConfigs } from '@/shared/models/config';

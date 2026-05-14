@@ -1,5 +1,6 @@
 import { EmailManager, ResendProvider } from '@/extensions/email';
-import { Configs, getAllConfigs } from '@/shared/models/config';
+import { getAllConfigs } from '@/shared/models/config';
+import type { Configs } from '@/shared/types/config';
 
 /**
  * get email service with configs

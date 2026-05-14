@@ -3,7 +3,8 @@ import { and, count, desc, eq, inArray, sql } from 'drizzle-orm';
 import { db } from '@/core/db';
 import { aiTask, credit } from '@/config/db/schema';
 import { AITaskStatus } from '@/extensions/ai';
-import { appendUserToResult, User } from '@/shared/models/user';
+import { appendUserToResult } from '@/shared/models/user';
+import type { User } from '@/shared/models/user';
 
 import { consumeCredits, CreditStatus } from './credit';
 

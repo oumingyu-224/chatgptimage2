@@ -1,4 +1,4 @@
-import { type Configs } from '@/shared/models/config';
+import type { Configs } from '@/shared/types/config';
 
 import {
   moderatePromptWithDeepSeek,

@@ -6,7 +6,8 @@ import {
   PlausibleAnalyticsProvider,
   VercelAnalyticsProvider,
 } from '@/extensions/analytics';
-import { Configs, getAllConfigs } from '@/shared/models/config';
+import { getAllConfigs } from '@/shared/models/config';
+import type { Configs } from '@/shared/types/config';
 
 /**
  * get analytics manager with configs

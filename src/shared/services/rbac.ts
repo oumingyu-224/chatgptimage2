@@ -5,7 +5,7 @@ import { db } from '@/core/db';
 import { permission, role, rolePermission, userRole } from '@/config/db/schema';
 import { getUuid } from '@/shared/lib/hash';
 import { getAllConfigs } from '@/shared/models/config';
-import { User } from '@/shared/models/user';
+import type { User } from '@/shared/models/user';
 
 // Types
 export type Role = typeof role.$inferSelect;
@@ -25,13 +25,7 @@ export type UpdateRolePermission = Partial<
 >;
 export type UpdateUserRole = Partial<Omit<UserRole, 'id' | 'createdAt'>>;
 
-// Role constants
-export const ROLES = {
-  SUPER_ADMIN: 'super_admin',
-  ADMIN: 'admin',
-  EDITOR: 'editor',
-  VIEWER: 'viewer',
-} as const;
+export { ROLES } from '@/shared/constants/rbac';
 
 export enum RoleStatus {
   ACTIVE = 'active',

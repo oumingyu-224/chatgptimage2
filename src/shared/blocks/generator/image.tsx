@@ -25,7 +25,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import enPricingMessages from '@/config/locale/messages/en/pages/pricing.json';
 import zhPricingMessages from '@/config/locale/messages/zh/pages/pricing.json';
 import { Link } from '@/core/i18n/navigation';
-import { ROLES } from '@/shared/services/rbac';
+import { ROLES } from '@/shared/constants/rbac';
 import { AIMediaType, AITaskStatus } from '@/extensions/ai/types';
 import { Pricing as PricingBlock } from '@/themes/default/blocks/pricing';
 import {

@@ -10,7 +10,8 @@ import {
   PaymentType,
 } from '@/extensions/payment/types';
 import { getSnowId, getUuid } from '@/shared/lib/hash';
-import { Configs, getAllConfigs } from '@/shared/models/config';
+import { getAllConfigs } from '@/shared/models/config';
+import type { Configs } from '@/shared/types/config';
 
 import {
   calculateCreditExpirationTime,

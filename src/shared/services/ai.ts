@@ -5,7 +5,8 @@ import {
   KieProvider,
   ReplicateProvider,
 } from '@/extensions/ai';
-import { Configs, getAllConfigs } from '@/shared/models/config';
+import { getAllConfigs } from '@/shared/models/config';
+import type { Configs } from '@/shared/types/config';
 
 /**
  * get ai manager with configs

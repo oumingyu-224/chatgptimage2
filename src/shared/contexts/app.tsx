@@ -13,7 +13,7 @@ import {
 
 import { getAuthClient } from '@/core/auth/client';
 import { envConfigs } from '@/config';
-import { User } from '@/shared/models/user';
+import type { User } from '@/shared/models/user';
 
 export interface ContextValue {
   user: User | null;

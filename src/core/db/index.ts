@@ -1,3 +1,5 @@
+import 'server-only';
+
 import { envConfigs } from '@/config';
 
 import { closeMysqlDb, getMysqlDb } from './mysql';

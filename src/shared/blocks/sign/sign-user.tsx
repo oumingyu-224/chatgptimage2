@@ -30,7 +30,7 @@ import {
 } from '@/shared/components/ui/dropdown-menu';
 import { useAppContext } from '@/shared/contexts/app';
 import { cn } from '@/shared/lib/utils';
-import { User as UserType } from '@/shared/models/user';
+import type { User as UserType } from '@/shared/models/user';
 import { UserNav } from '@/shared/types/blocks/common';
 import { SignModal } from './sign-modal';
 
