@@ -366,7 +366,7 @@ export function Pricing({
           <div
             className={cn(
               'mx-auto flex w-full justify-center md:max-w-lg',
-              compact ? 'mt-0 mb-3' : 'mt-8 mb-16'
+              compact ? 'mt-0 mb-3 justify-start overflow-x-auto px-0 sm:justify-center sm:overflow-visible' : 'mt-8 mb-16'
             )}
           >
             <Tabs value={group} onValueChange={setGroup}>
@@ -394,8 +394,8 @@ export function Pricing({
 
         <div
           className={cn(
-            'mx-auto mt-0 grid w-full lg:grid-cols-3',
-            compact ? 'gap-4' : 'gap-6'
+            'mx-auto mt-0 grid w-full',
+            compact ? 'grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3' : 'gap-6 lg:grid-cols-3'
           )}
         >
           {pricing.items?.map((item: PricingItem, idx) => {
@@ -422,7 +422,7 @@ export function Pricing({
               <Card
                 key={idx}
                 className={cn(
-                  'landing-panel relative mx-auto w-full rounded-[24px] border shadow-none',
+                  'landing-panel relative mx-auto w-full rounded-[22px] border shadow-none',
                   item.is_featured &&
                     'border-[#1773ea] shadow-[0_0_0_1px_rgba(23,115,234,0.28),0_18px_42px_rgba(23,115,234,0.14)]'
                 )}
@@ -433,14 +433,14 @@ export function Pricing({
                   </span>
                 )}
 
-                <CardHeader className={cn(compact ? 'p-4 pb-3' : 'p-6 pb-4')}>
+                <CardHeader className={cn(compact ? 'p-4 pb-3 sm:p-4 sm:pb-3' : 'p-6 pb-4')}>
                   <CardTitle className="font-medium">
                     <h3 className="landing-strong text-sm font-medium">
                       {item.title}
                     </h3>
                   </CardTitle>
 
-                  <div className="my-3 flex items-baseline gap-2">
+                  <div className="my-3 flex flex-wrap items-baseline gap-2">
                     {displayedItem.original_price && (
                       <span className="landing-muted text-sm line-through">
                         {displayedItem.original_price}

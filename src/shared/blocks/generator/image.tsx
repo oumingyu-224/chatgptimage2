@@ -1693,10 +1693,10 @@ export function ImageGenerator({
 
       <Dialog open={showPricingDialog} onOpenChange={setShowPricingDialog}>
         <DialogContent
-          className="!w-[min(calc(100vw-2rem),1180px)] !max-w-none overflow-visible rounded-2xl p-5 pt-0"
+          className="fixed right-0 bottom-0 left-0 top-auto max-h-[85svh] !w-full !max-w-none translate-x-0 translate-y-0 overflow-hidden rounded-t-[26px] rounded-b-none border-x-0 border-b-0 p-0 sm:top-[50%] sm:left-[50%] sm:bottom-auto sm:!w-[min(calc(100vw-2rem),1180px)] sm:translate-x-[-50%] sm:translate-y-[-50%] sm:overflow-visible sm:rounded-2xl sm:border sm:p-5 sm:pt-0"
           overlayClassName="bg-black/25 backdrop-blur-sm"
         >
-          <DialogHeader className="pt-4 text-left">
+          <DialogHeader className="sticky top-0 z-10 border-b bg-background/95 px-5 pt-4 pb-3 text-left backdrop-blur sm:static sm:border-b-0 sm:bg-transparent sm:px-0 sm:pb-0">
             <DialogTitle className="text-xl font-bold">
               {t('pricing_dialog_title')}
             </DialogTitle>
@@ -1704,12 +1704,14 @@ export function ImageGenerator({
               {pricingConfig.description}
             </DialogDescription>
           </DialogHeader>
-          <PricingBlock
-            pricing={pricingConfig}
-            className="pt-2"
-            hideHeader
-            compact
-          />
+          <div className="max-h-[calc(85svh-60px)] overflow-y-auto px-4 pb-5 pt-3 sm:max-h-none sm:overflow-visible sm:px-0 sm:pb-0 sm:pt-0">
+            <PricingBlock
+              pricing={pricingConfig}
+              className="pt-0 sm:pt-2"
+              hideHeader
+              compact
+            />
+          </div>
         </DialogContent>
       </Dialog>
 
