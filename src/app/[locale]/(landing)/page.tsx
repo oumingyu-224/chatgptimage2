@@ -97,10 +97,11 @@ export default async function LandingPage({
           ),
         };
       } else if (section === 'pricing') {
+        const { sr_only_title, ...pricing } = pricingT.raw('pricing');
         acc[section] = {
           block: 'pricing',
           data: {
-            pricing: pricingT.raw('pricing'),
+            pricing,
             currentSubscription,
           },
         };
