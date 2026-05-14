@@ -2,6 +2,8 @@ import 'server-only';
 
 import { revalidateTag, unstable_cache } from 'next/cache';
 
+import type { Configs } from '@/shared/types/config';
+
 import { db } from '@/core/db';
 import { envConfigs } from '@/config';
 import { config } from '@/config/db/schema';
@@ -14,7 +16,7 @@ export type Config = typeof config.$inferSelect;
 export type NewConfig = typeof config.$inferInsert;
 export type UpdateConfig = Partial<Omit<NewConfig, 'name'>>;
 
-export type { Configs } from '@/shared/types/config';
+export type { Configs };
 
 export const CACHE_TAG_CONFIGS = 'configs';
 
