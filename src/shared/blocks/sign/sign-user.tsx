@@ -82,6 +82,7 @@ export function SignUser({
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuWidth, setMenuWidth] = useState(320);
+  const [signModalInitialMode, setSignModalInitialMode] = useState<'sign-in' | 'sign-up'>('sign-in');
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -462,24 +463,34 @@ export function SignUser({
             size={signButtonSize}
             type="button"
             className={cn(
-              'border-foreground/10 ml-4 cursor-pointer ring-0',
+              'ml-4 cursor-pointer border border-sky-200 bg-[#1773ea] text-white ring-0 hover:bg-[#0f63d8] dark:border-sky-400/20 dark:bg-[#1773ea] dark:hover:bg-[#0f63d8]',
               isScrolled && 'lg:hidden',
               signInClassName
             )}
-            onClick={() => setIsShowSignModal(true)}
+            onClick={() => {
+              setSignModalInitialMode('sign-in');
+              setIsShowSignModal(true);
+            }}
           >
             {t('sign_in_title')}
           </Button>
           {showSignUp ? (
             <Button
-              asChild
               size={signButtonSize}
-              className={cn(signUpClassName)}
+              type="button"
+              className={cn(
+                'cursor-pointer border border-sky-200 bg-[#1773ea] text-white hover:bg-[#0f63d8] dark:border-sky-400/20 dark:bg-[#1773ea] dark:hover:bg-[#0f63d8]',
+                signUpClassName
+              )}
+              onClick={() => {
+                setSignModalInitialMode('sign-up');
+                setIsShowSignModal(true);
+              }}
             >
-              <Link href="/sign-up">{t('sign_up_title')}</Link>
+              {t('sign_up_title')}
             </Button>
           ) : null}
-          <SignModal callbackUrl={pathname || '/'} />
+          <SignModal callbackUrl={pathname || '/'} initialMode={signModalInitialMode} />
         </div>
       )}
     </>

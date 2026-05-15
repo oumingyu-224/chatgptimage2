@@ -26,17 +26,23 @@ import { useMediaQuery } from '@/shared/hooks/use-media-query';
 import { SignInForm } from './sign-in-form';
 import { SignUpForm } from './sign-up-form';
 
-export function SignModal({ callbackUrl = '/' }: { callbackUrl?: string }) {
+export function SignModal({
+  callbackUrl = '/',
+  initialMode = 'sign-in',
+}: {
+  callbackUrl?: string;
+  initialMode?: 'sign-in' | 'sign-up';
+}) {
   const t = useTranslations('common.sign');
   const { isShowSignModal, setIsShowSignModal } = useAppContext();
-  const [mode, setMode] = useState<'sign-in' | 'sign-up'>('sign-in');
+  const [mode, setMode] = useState<'sign-in' | 'sign-up'>(initialMode);
 
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const handleOpenChange = (open: boolean) => {
     setIsShowSignModal(open);
     if (!open) {
-      setMode('sign-in');
+      setMode(initialMode);
     }
   };
 
