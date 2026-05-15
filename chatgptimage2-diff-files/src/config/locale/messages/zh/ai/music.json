@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "title": "AI 音乐生成器",
+    "description": "使用 AI 音乐模型生成音乐，支持音乐到音乐和文本到音乐。"
+  },
+  "page": {
+    "title": "AI 音乐生成器",
+    "description": "使用 AI 音乐模型生成音乐，支持音乐到音乐和文本到音乐。"
+  },
+  "generator": {
+    "title": "音乐生成器",
+    "prompt": "提示词",
+    "prompt_placeholder": "罗密欧与朱丽叶的爱情故事",
+    "generate": "生成音乐",
+    "loading": "加载中...",
+    "generating": "生成中...",
+    "sign_in_to_generate": "登录生成音乐",
+    "credits_cost": "消耗 {credits} 积分",
+    "credits_remaining": "剩余 {credits} 积分",
+    "buy_credits": "购买积分",
+    "generation_progress": "生成进度",
+    "time_cost": "这可能需要 2-3 分钟...",
+    "generated_song": "已生成歌曲",
+    "ready_to_play": "准备播放",
+    "audio_generating": "音频生成中...",
+    "generating_song": "正在生成歌曲...",
+    "waiting_generation": "请稍候，我们正在创建您的杰作",
+    "no_song_generated": "没有生成歌曲",
+    "downloading": "下载中...",
+    "download_success": "下载成功",
+    "download_failed": "下载失败",
+    "errors": {
+      "insufficient_credits": "积分不足，请充值后继续生成。",
+      "invalid_model_config": "服务商或模型配置不正确。",
+      "title_style_required": "请输入标题和风格。",
+      "lyrics_required": "请输入歌词。",
+      "prompt_required": "请输入提示词后再生成。",
+      "user_facing": {
+        "auth_required": "请先登录。",
+        "insufficient_credits": "积分不足，请充值后继续生成。",
+        "task_limit": "当前进行中的任务过多，请等待已有任务完成后再试。",
+        "model_unavailable": "当前所选模型暂不可用，请更换模型或稍后再试。",
+        "safety_blocked": "该请求因可能触发安全规则而未能完成，请调整提示词后重试。",
+        "service_busy": "当前生成服务较忙，请稍后再试。",
+        "timeout": "音乐生成超时，请重试。",
+        "no_result": "本次生成未返回可用音频，请重试。",
+        "invalid_input": "该请求暂时无法处理，请调整提示词或输入内容后重试。",
+        "generic": "音乐生成失败，请重试。"
+      }
+    },
+    "form": {
+      "custom_mode": "自定义模式",
+      "title": "标题",
+      "title_placeholder": "寂静之声",
+      "style": "音乐风格",
+      "style_placeholder": "独立, 电子, 合成器, 120bpm, 失真",
+      "instrumental": "纯乐器",
+      "prompt": "提示词",
+      "prompt_placeholder": "一首关于爱情的乡村民谣",
+      "model": "模型",
+      "lyrics": "歌词",
+      "lyrics_placeholder": "写自己的歌词，两段（8行）最佳结果"
+    }
+  }
+}

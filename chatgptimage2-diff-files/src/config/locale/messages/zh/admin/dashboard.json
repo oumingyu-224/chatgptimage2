@@ -1,0 +1,44 @@
+{
+  "title": "Dashboard 看板",
+  "description": "查看注册、订阅支付、生图任务与失败趋势。",
+  "crumbs": {
+    "admin": "管理后台",
+    "dashboard": "Dashboard"
+  },
+  "ranges": {
+    "today": "今天",
+    "7d": "最近7天",
+    "30d": "最近30天"
+  },
+  "summary": {
+    "new_users": "新增注册用户",
+    "subscription_payments": "订阅支付笔数",
+    "revenue": "支付金额",
+    "image_tasks": "生图任务数",
+    "image_failures": "生图失败数"
+  },
+  "charts": {
+    "users": {
+      "title": "注册用户趋势",
+      "description": "按天查看新注册用户变化。",
+      "series": "注册用户"
+    },
+    "subscriptions": {
+      "title": "订阅支付趋势",
+      "description": "按天查看订阅支付笔数变化。",
+      "series": "订阅支付"
+    },
+    "tasks": {
+      "title": "生图任务趋势",
+      "description": "按天查看总任务、成功与失败数量。",
+      "series_total": "总任务",
+      "series_success": "成功",
+      "series_failed": "失败"
+    },
+    "failures": {
+      "title": "生图失败趋势",
+      "description": "按天查看失败任务，并附在用供应商。",
+      "no_providers": "当前范围内无失败供应商"
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "fields": {
+    "task_id": "Task ID",
+    "provider_task_id": "Provider Task ID",
+    "media_type": "Media Type",
+    "provider": "Provider",
+    "model": "Model",
+    "prompt": "Prompt",
+    "options": "Options",
+    "task_info": "Task Info",
+    "queue_debug": "Queue Debug",
+    "user": "User",
+    "status": "Status",
+    "cost_credits": "Cost Credits",
+    "result": "Result",
+    "created_at": "Created At",
+    "action": "Action",
+    "scene": "Scene",
+    "generation_chain": "Generation Chain",
+    "failed_detail": "Failure Detail"
+  },
+  "list": {
+    "title": "AI Tasks",
+    "crumbs": {
+      "admin": "Admin",
+      "ai-tasks": "AI Tasks"
+    },
+    "tabs": {
+      "all": "All",
+      "music": "Music",
+      "image": "Image",
+      "video": "Video",
+      "audio": "Audio",
+      "text": "Text"
+    },
+    "filters": {
+      "status": {
+        "title": "Status",
+        "options": {
+          "all": "All",
+          "queued": "Queued",
+          "pending": "Pending",
+          "processing": "Processing",
+          "success": "Success",
+          "failed": "Failed",
+          "canceled": "Canceled"
+        }
+      }
+    },
+    "search": {
+      "keyword": {
+        "title": "Task Search",
+        "placeholder": "Task ID / Provider Task ID / User ID / Provider / Model"
+      }
+    },
+    "buttons": {
+      "view": "View Task",
+      "refresh": "Refresh Task"
+    },
+    "empty_message": "No tasks found"
+  },
+  "charts": {
+    "channel_usage": "Channel Usage vs Final Failure",
+    "attempt_failures": "Channel Attempt Failures",
+    "total_calls": "Calls",
+    "final_failed": "Final Failed",
+    "attempt_failed": "Attempt Failed"
+  },
+  "board": {
+    "title": "AI Image Dashboard",
+    "description": "View channel usage and failures across different time ranges.",
+    "crumbs": {
+      "ai-image-dashboard": "AI Image Dashboard",
+      "ai-image-tasks": "AI Image Tasks",
+      "ai-image-failed-tasks": "AI Image Failed Tasks"
+    },
+    "image_tasks": {
+      "title": "AI Image Tasks",
+      "description": "View all AI image generation tasks."
+    },
+    "failed_tasks": {
+      "title": "AI Image Failed Tasks",
+      "description": "View failed AI image generation tasks."
+    },
+    "ranges": {
+      "today": "Today",
+      "7d": "Last 7 Days",
+      "30d": "Last 30 Days"
+    },
+    "empty": {
+      "title": "No data in this range",
+      "description": "Try another time range."
+    }
+  }
+}

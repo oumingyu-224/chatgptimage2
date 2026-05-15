@@ -1,0 +1,55 @@
+{
+  "fields": {
+    "title": "标题",
+    "media_type": "类型",
+    "provider": "提供商",
+    "model": "模型",
+    "prompt": "提示词",
+    "options": "选项",
+    "status": "状态",
+    "result": "结果",
+    "cost_credits": "消耗积分",
+    "created_at": "创建时间",
+    "action": "操作"
+  },
+  "list": {
+    "title": "我的作品",
+    "tabs": {
+      "all": "全部",
+      "music": "音乐",
+      "image": "图片",
+      "video": "视频",
+      "audio": "音频",
+      "text": "文本"
+    },
+    "buttons": {
+      "view": "查看任务",
+      "refresh": "刷新任务",
+      "refresh_page": "刷新列表",
+      "download": "下载",
+      "copy_prompt": "复制提示词",
+      "downloading": "正在准备下载..."
+    },
+    "messages": {
+      "prompt_copied": "提示词已复制"
+    },
+    "empty_message": "无任务"
+  },
+  "messages": {
+    "auth_required": "请先登录",
+    "task_not_found": "任务不存在",
+    "failed": "失败",
+    "failure_reasons": {
+      "auth_required": "失败原因：你尚未登录。",
+      "insufficient_credits": "失败原因：积分不足。",
+      "task_limit": "失败原因：当前进行中的任务过多。",
+      "model_unavailable": "失败原因：当前所选模型不可用。",
+      "safety_blocked": "失败原因：该请求可能触发安全规则，请调整提示词后重试。",
+      "service_busy": "失败原因：当前生成服务较忙，请稍后再试。",
+      "timeout": "失败原因：生成超时，请重试。",
+      "no_result": "失败原因：本次未返回可用结果。",
+      "invalid_input": "失败原因：当前输入暂时无法处理，请调整后重试。",
+      "generic": "生成失败，请重试。"
+    }
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "header": {
+    "brand": {
+      "title": "Nano Banana",
+      "logo": {
+        "src": "/logo.png",
+        "alt": "Nano Banana"
+      },
+      "url": "/admin"
+    },
+    "show_trigger": false
+  },
+  "main_navs": [
+    {
+      "title": "System",
+      "items": [
+        {
+          "title": "Users & Permissions",
+          "icon": "User",
+          "is_expand": true,
+          "children": [
+            {
+              "title": "Users",
+              "url": "/admin/users",
+              "icon": "User"
+            },
+            {
+              "title": "Roles",
+              "url": "/admin/roles",
+              "icon": "Users"
+            },
+            {
+              "title": "Permissions",
+              "url": "/admin/permissions",
+              "icon": "ShieldCheck"
+            }
+          ]
+        },
+        {
+          "title": "Pages & Content",
+          "icon": "FileText",
+          "children": [
+            {
+              "title": "Categories",
+              "icon": "Folder",
+              "url": "/admin/categories"
+            },
+            {
+              "title": "Posts",
+              "icon": "FileText",
+              "url": "/admin/posts"
+            },
+            {
+              "title": "Prompts",
+              "icon": "Wand",
+              "url": "/admin/prompts"
+            },
+            {
+              "title": "Showcases",
+              "icon": "Image",
+              "url": "/admin/showcases"
+            }
+          ]
+        },
+        {
+          "title": "Payments & Credits",
+          "icon": "DollarSign",
+          "children": [
+            {
+              "title": "Payments",
+              "url": "/admin/payments",
+              "icon": "DollarSign"
+            },
+            {
+              "title": "Subscriptions",
+              "url": "/admin/subscriptions",
+              "icon": "CreditCard"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Business",
+      "items": [
+        {
+          "title": "AI Tasks",
+          "url": "/admin/ai-tasks?type=image",
+          "icon": "Brain"
+        },
+        {
+          "title": "AI Image",
+          "icon": "BarChart3",
+          "is_expand": true,
+          "children": [
+            {
+              "title": "Image Dashboard",
+              "url": "/admin/ai-image-dashboard"
+            },
+            {
+              "title": "Image Tasks",
+              "url": "/admin/ai-image-dashboard/tasks"
+            },
+            {
+              "title": "Image Failed Tasks",
+              "url": "/admin/ai-image-dashboard/failed-tasks"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "bottom_nav": {
+    "items": [
+      {
+        "title": "Settings",
+        "url": "/admin/settings/general",
+        "icon": "Settings"
+      },
+      {
+        "title": "API Keys",
+        "url": "/admin/apikeys",
+        "icon": "Key"
+      }
+    ]
+  },
+  "user": {
+    "nav": {
+      "items": [
+        {
+          "title": "Profile",
+          "url": "/settings/profile",
+          "icon": "User",
+          "target": "_blank"
+        }
+      ]
+    },
+    "show_email": false,
+    "show_signout": true,
+    "signout_callback": "/"
+  },
+  "footer": {
+    "nav": {
+      "items": [
+        {
+          "title": "Home",
+          "url": "/",
+          "icon": "Home",
+          "target": "_blank"
+        },
+        {
+          "title": "GitHub",
+          "url": "https://github.com/your-app-name",
+          "icon": "Github",
+          "target": "_blank"
+        },
+        {
+          "title": "Twitter",
+          "url": "https://twitter.com/your-app-name",
+          "icon": "RiTwitterXFill",
+          "target": "_blank"
+        },
+        {
+          "title": "Discord",
+          "url": "https://discord.gg/your-app-name",
+          "icon": "RiDiscordFill",
+          "target": "_blank"
+        },
+        {
+          "title": "Email",
+          "url": "mailto:support@your-domain.com",
+          "icon": "Mail",
+          "target": "_blank"
+        }
+      ]
+    },
+    "show_theme": true,
+    "show_locale": false
+  },
+  "variant": "sidebar"
+}

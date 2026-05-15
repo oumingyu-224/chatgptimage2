@@ -1,0 +1,72 @@
+{
+  "metadata": {
+    "title": "AI 视频生成器",
+    "description": "使用 AI 模型生成视频，支持文本到视频、图片到视频和视频到视频。"
+  },
+  "page": {
+    "title": "AI 视频生成器",
+    "description": "使用 AI 模型生成视频，支持文本到视频、图片到视频和视频到视频。"
+  },
+  "generator": {
+    "title": "视频生成器",
+    "description": "使用 AI 模型生成视频，支持文本到视频、图片到视频和视频到视频。",
+    "tabs": {
+      "text-to-video": "文生视频",
+      "image-to-video": "图生视频",
+      "video-to-video": "视频转视频"
+    },
+    "form": {
+      "provider": "服务商",
+      "model": "模型",
+      "select_provider": "选择服务商",
+      "select_model": "选择模型",
+      "prompt": "提示词",
+      "prompt_placeholder": "描述视频内容，如场景、动作、风格等",
+      "reference_image": "参考图片",
+      "reference_image_placeholder": "上传参考图片用于视频生成",
+      "reference_video": "参考视频链接",
+      "reference_video_placeholder": "输入参考视频的链接",
+      "some_images_failed_to_upload": "图片上传失败，请删除并重新上传",
+      "prompt_too_long": "提示词太长，请删除一些内容"
+    },
+    "generate": "生成视频",
+    "checking_account": "检查账户...",
+    "loading": "加载中...",
+    "generating": "生成中...",
+    "sign_in_to_generate": "登录生成视频",
+    "credits_cost": "消耗 {credits} 积分",
+    "credits_remaining": "剩余 {credits} 积分",
+    "buy_credits": "购买积分",
+    "progress": "进度",
+    "generated_videos": "视频预览",
+    "ready_to_generate": "准备生成",
+    "ready_for_generating": "准备生成",
+    "no_videos_generated": "没有生成视频",
+    "errors": {
+      "insufficient_credits": "积分不足，请充值后继续生成。",
+      "prompt_required": "请输入提示词后再生成。",
+      "invalid_model_config": "服务商或模型配置不正确。",
+      "reference_image_required": "请先上传参考图片再生成。",
+      "reference_video_required": "请输入参考视频链接后再生成。",
+      "create_task_failed": "创建视频任务失败",
+      "task_id_missing": "响应中缺少任务 ID",
+      "download_failed": "下载视频失败",
+      "user_facing": {
+        "auth_required": "请先登录。",
+        "insufficient_credits": "积分不足，请充值后继续生成。",
+        "task_limit": "当前进行中的任务过多，请等待已有任务完成后再试。",
+        "model_unavailable": "当前所选模型暂不可用，请更换模型或稍后再试。",
+        "safety_blocked": "该请求因可能触发安全规则而未能完成，请调整提示词后重试。",
+        "service_busy": "当前生成服务较忙，请稍后再试。",
+        "timeout": "视频生成超时，请重试。",
+        "no_result": "本次生成未返回可用视频，请重试。",
+        "invalid_input": "该请求暂时无法处理，请调整提示词或输入内容后重试。",
+        "generic": "视频生成失败，请重试。"
+      }
+    },
+    "messages": {
+      "generated_success": "视频生成成功",
+      "downloaded": "视频下载成功"
+    }
+  }
+}

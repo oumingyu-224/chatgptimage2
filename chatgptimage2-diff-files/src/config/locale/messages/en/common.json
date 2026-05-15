@@ -1,0 +1,102 @@
+{
+  "metadata": {
+    "title": "Nano Banana Pro | AI Image Editing and Generation",
+    "description": "Create and edit images with Nano Banana Pro. Fast image generation, conversational editing, and production-ready visual workflows in one place.",
+    "keywords": "Nano Banana Pro, Nano Banana, AI image editing, AI image generation, image to image, text to image"
+  },
+  "sign": {
+    "sign_in_title": "Sign In",
+    "sign_in_description": "Sign in to your account",
+    "sign_up_title": "Sign Up",
+    "sign_up_description": "Create an account",
+    "email_title": "Email",
+    "email_placeholder": "Input your email here",
+    "password_title": "Password",
+    "password_placeholder": "Input your password here",
+    "forgot_password": "Forgot password?",
+    "or": "Or",
+    "continue": "Continue",
+    "no_account": "Don't have an account?",
+    "already_have_account": "Already have an account?",
+    "email_sign_in": "Sign in with Email",
+    "google_sign_in_title": "Sign in with Google",
+    "github_sign_in_title": "Sign in with GitHub",
+    "close_title": "Close",
+    "cancel_title": "Cancel",
+    "sign_out_title": "Sign Out",
+    "billing_title": "Subscription",
+    "name_title": "Name",
+    "name_placeholder": "Input your name here",
+    "email_verification_hint": "Use an email address you can access. You must verify your email after signing up.",
+    "admin_title": "Admin System",
+    "credits_title": "Credits: {credits}",
+    "credits_loading_title": "Credits: loading",
+    "verify_email_sent": "Verification email sent. Please check your inbox.",
+    "verify_email_required": "Please verify your email address before signing in.",
+    "resend_verification": "Resend verification email",
+    "resend_verification_sent": "Verification email resent. Please check your inbox.",
+    "verify_email_page_title": "Check your email",
+    "verify_email_page_description": "To continue, click the link sent to",
+    "verify_email_continue": "Continue",
+    "verify_email_tip": "After verifying, click “Continue”.",
+    "verify_email_not_verified_yet": "Not verified yet. Please click the link in your email first.",
+    "verify_email_account_mismatch": "Signed in as {current}. This page is waiting for {expected}.",
+    "resend_verification_countdown": "Resend verification email ({seconds}s)",
+    "resend_verification_wait": "Please wait {seconds}s before resending.",
+    "back_to_sign_in": "Back to Sign In",
+    "signing_in": "Signing in...",
+    "email_password_required": "Email and password are required.",
+    "email_password_name_required": "Email, password, and name are required.",
+    "sign_in_failed": "Sign in failed.",
+    "sign_up_failed": "Sign up failed."
+  },
+  "payment": {
+    "choose_payment_method": "Choose Payment Method",
+    "choose_payment_method_description": "",
+    "cancel_title": "Cancel",
+    "domestic_card": {
+      "title": "Domestic Card-Code Payment",
+      "description": "Complete payment first, then come back here and redeem with your code.",
+      "steps_title": "How It Works",
+      "step_1": "Open the payment link below, pay successfully, and get your code on that page",
+      "step_2": "Come back to this dialog, enter the code, and submit the redeem request",
+      "go_to_pay": "Go to Payment Link",
+      "code_label": "Code",
+      "code_tip": "Paste the code you received after payment to redeem your credits or plan",
+      "code_placeholder": "Enter code",
+      "redeem_submit": "Redeem Now",
+      "redeem_success": "Redeem succeeded",
+      "failed": "Redeem failed, please try again later",
+      "errors": {
+        "no_auth": "Please sign in first",
+        "product_id_required": "Product ID is required",
+        "product_not_found": "Pricing item not found",
+        "not_enabled": "Domestic card-code payment is not enabled",
+        "payment_link_missing": "Payment link is not configured for this product",
+        "payment_currency_missing": "CNY price is not configured for this product",
+        "code_required": "Please enter a code",
+        "code_invalid": "Code not found. Please check and try again",
+        "code_used": "This code has already been used",
+        "code_disabled": "This code is disabled",
+        "code_unavailable": "This code is currently unavailable",
+        "redeem_failed": "Redeem failed, please try again later"
+      }
+    }
+  },
+  "locale_detector": {
+    "title": "We detected your browser language is {locale}. Switch to it?",
+    "switch_to": "Switch to {locale}"
+  },
+  "actions": {
+    "search": "Search",
+    "reset": "Reset",
+    "open_menu": "Open menu"
+  },
+  "messages": {
+    "download_failed": "Download failed"
+  },
+  "not_found": {
+    "title": "Page not found",
+    "back_home": "Back to Home"
+  }
+}

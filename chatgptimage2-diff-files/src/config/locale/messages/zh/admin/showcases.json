@@ -1,0 +1,33 @@
+{
+  "title": "案例展示",
+  "description": "在这里管理您的案例展示。",
+  "add": "添加",
+  "edit": "编辑",
+  "delete": "删除",
+  "search": {
+    "keyword": {
+      "title": "关键词搜索",
+      "placeholder": "标题 / 提示词 / 标签"
+    }
+  },
+  "form": {
+    "title": "标题",
+    "description": "描述",
+    "prompt": "提示词",
+    "image": "图片",
+    "tags": "标签",
+    "visibility": "可见性",
+    "public": "公开",
+    "private": "私密",
+    "createdAt": "创建时间"
+  },
+  "confirm_delete": {
+    "title": "删除案例展示",
+    "description": "确定要删除案例“{title}”吗？此操作无法撤销。",
+    "confirm": "删除",
+    "cancel": "取消",
+    "crumbs": {
+      "delete": "删除案例展示"
+    }
+  }
+}

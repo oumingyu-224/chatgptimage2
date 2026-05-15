@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "title": "Nano Banana Pro Prompts",
+    "description": "Curated Nano Banana Pro prompts and examples"
+  },
+  "ui": {
+    "create_similar": "Create Similar",
+    "loading": "Loading...",
+    "error_loading": "Error loading",
+    "no_showcases": "No prompts yet",
+    "load_more": "Load More"
+  },
+  "showcases-flow": {
+    "id": "prompts",
+    "sr_only_title": "Prompts",
+    "title": "Nano Banana Pro Prompts",
+    "description": "Representative prompts powered by Nano Banana Pro",
+    "items": []
+  }
+}
