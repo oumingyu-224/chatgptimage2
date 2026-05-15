@@ -13,7 +13,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 
-import { signOut, useSession } from '@/core/auth/client';
+import { authClient, signOut, useSession } from '@/core/auth/client';
 import { Link, useRouter } from '@/core/i18n/navigation';
 import {
   Avatar,
@@ -47,6 +47,11 @@ function formatCredits(value: number) {
 function estimateTextWidth(text: string, fontSize: number, weight = 500) {
   const perChar = fontSize * (weight >= 600 ? 0.62 : 0.56);
   return Math.round(text.length * perChar);
+}
+
+function extractSessionUser(data: any): UserType | null {
+  const u = data?.user ?? data?.data?.user ?? null;
+  return u && typeof u === 'object' ? (u as UserType) : null;
 }
 
 export function SignUser({
@@ -99,8 +104,12 @@ export function SignUser({
 
   // get session
   const { data: session, isPending } = useSession();
-  const sessionUserId = session?.user?.id ?? '';
+  const sessionUser = extractSessionUser(session);
+  const sessionUserId = sessionUser?.id ?? '';
   const currentUserId = user?.id ?? '';
+
+  // In dev (React StrictMode) effects can run twice; ensure we don't spam getSession().
+  const didFallbackSyncRef = useRef(false);
 
   // one tap initialized
   const oneTapInitialized = useRef(false);
@@ -127,15 +136,38 @@ export function SignUser({
 
   // set user
   useEffect(() => {
-    const sessionUser = session?.user;
-
     if (sessionUser && sessionUserId !== currentUserId) {
       setUser(sessionUser as UserType);
       fetchUserInfo();
-    } else if (!sessionUser && currentUserId) {
+    } else if (!sessionUser && currentUserId && !isPending) {
+      // Only clear user when session is definitively resolved (not pending).
+      // This prevents a race where fetchUserInfo() sets user but useSession
+      // hasn't re-fetched yet, which would incorrectly clear the user.
       setUser(null);
     }
-  }, [session, sessionUserId, currentUserId]);
+  }, [sessionUser?.id, sessionUserId, currentUserId, isPending, setUser, fetchUserInfo]);
+
+  // Fallback: if the session cookie is present but useSession lags, do a single refresh.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (didFallbackSyncRef.current) return;
+    if (isPending) return;
+    if (sessionUser || user) return;
+
+    didFallbackSyncRef.current = true;
+    void (async () => {
+      try {
+        const res: any = await authClient.getSession();
+        const fresh = extractSessionUser(res?.data ?? res);
+        if (fresh?.id) {
+          setUser(fresh);
+          fetchUserInfo();
+        }
+      } catch {
+        // ignore
+      }
+    })();
+  }, [isPending, sessionUser, user?.id, setUser, fetchUserInfo]);
 
   const userDisplayName =
     user?.name?.trim() || user?.email?.split('@')[0] || 'User';

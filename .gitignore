@@ -67,3 +67,5 @@ src/config/db/migrations
 
 # local skills folder (do not push)
 google-seo-skills 优化版/
+# Local diff reference files
+chatgptimage2-diff-files/

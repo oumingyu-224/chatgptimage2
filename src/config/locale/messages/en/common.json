@@ -54,7 +54,9 @@
     "email_password_required": "Email and password are required",
     "sign_in_failed": "Sign in failed",
     "login_attempts_exceeded_detail": "Login limit exceeded. Please try again in {hours} hours",
-    "refresh_page": "Refresh page"
+    "refresh_page": "Refresh page",
+    "email_password_name_required": "Email, password and name are required",
+    "sign_up_failed": "Sign up failed"
   },
   "payment": {
     "choose_payment_method": "Choose Payment Method",

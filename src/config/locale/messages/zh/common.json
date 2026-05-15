@@ -54,7 +54,9 @@
     "email_password_required": "邮箱和密码不能为空",
     "sign_in_failed": "登录失败",
     "login_attempts_exceeded_detail": "登录次数已达上限，请 {hours} 小时后再试",
-    "refresh_page": "刷新页面"
+    "refresh_page": "刷新页面",
+    "email_password_name_required": "请输入邮箱、密码和姓名",
+    "sign_up_failed": "注册失败"
   },
   "payment": {
     "choose_payment_method": "选择支付方式",

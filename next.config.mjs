@@ -45,6 +45,16 @@ const nextConfig = {
           },
         ],
       },
+      {
+        // Allow OAuth popups to retain window.opener after cross-origin navigation
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin-allow-popups',
+          },
+        ],
+      },
     ];
   },
   turbopack: {
