@@ -122,7 +122,7 @@ export async function getAuthOptions(configs: Record<string, string>) {
               // 新用户注册后授予角色；同 IP 前 5 个账号才授予初始积分
               const ipRegisteredCount = await getUsersCountByIp(user.ip || '');
               if (ipRegisteredCount <= 5) {
-                await grantCreditsForNewUser(user.id);
+                await grantCreditsForNewUser(user);
               }
               await grantRoleForNewUser(user.id);
             } catch (error) {
